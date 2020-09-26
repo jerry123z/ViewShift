@@ -6,45 +6,52 @@ using UnityEngine;
 
 public class PlayerMover : MonoBehaviour
 {
-    public CharacterController controller;
-    public camera cam;
-    private Vector3 orientation;
-    private Rigidbody rb;
-    private SphereCollider sc;
+
+    public float Speed = 1f;
+    public float JumpHeight = 2f;
+    public float GroundDistance = 0.2f;
+    public LayerMask Ground;
     private float distToGround;
 
-    public float speed = 6f;
 
-    private float grav = -9.8f;
+    private SphereCollider sc;
+    private Rigidbody _body;
+    private Vector3 _inputs = Vector3.zero;
+    private bool _isGrounded = true;
+    private Transform _groundChecker;
 
-    private void Start()
+    void Start()
     {
-        rb = transform.GetComponent<Rigidbody>();
+        _body = GetComponent<Rigidbody>();
+        _groundChecker = GetComponent<Transform>();
         sc = transform.GetComponent<SphereCollider>();
         distToGround = sc.bounds.extents.y;
     }
 
-    // Update is called once per frame
     void Update()
     {
-        bool temp = checkBottom();
-        print(temp);
-        float horizontal = Input.GetAxis("Horizontal");
-        float vertical = Input.GetAxis("Vertical");
-        
-        Vector3 direction = new Vector3(-horizontal, 0f, vertical);
+        _isGrounded = checkBottom();
 
-        if (direction.magnitude >= 0.1f)
+
+        _inputs = Vector3.zero;
+        _inputs.x = Input.GetAxis("Horizontal");
+        _inputs.z = Input.GetAxis("Vertical");
+        if (_inputs != Vector3.zero)
+            transform.forward = _inputs;
+
+        if (Input.GetButtonDown("Jump") && _isGrounded)
         {
-            controller.Move(direction * speed * Time.deltaTime);
+            _body.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
         }
-        Vector3 vert = new Vector3(0f, grav, 0f);
-        controller.Move(vert * Time.deltaTime);
-
     }
 
     bool checkBottom()
     {
         return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround+0.1));
+    }
+
+    void FixedUpdate()
+    {
+        _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
     }
 }
