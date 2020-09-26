@@ -29,7 +29,12 @@ public class Camera_Controller : MonoBehaviour
 
     void rotate(Vector3 direction)
     {
-        orientation = direction;
+        if (direction == Vector3.left){
+            orientation = Quaternion.Euler(0, -90, 0) * orientation;
+        } else if (direction == Vector3.right){
+            orientation = Quaternion.Euler(0, 90, 0) * orientation;
+        }
+        //orientation = direction;
         //transform.position = center + orientation;
         //transform.LookAt(center);
     }
@@ -51,7 +56,7 @@ public class Camera_Controller : MonoBehaviour
                 scale_down_faces();
                 isRotating = true;
             }
-            rotate(Vector3.right);
+            rotate(Vector3.left);
         }
 
         if (Input.inputString == "d")
@@ -61,7 +66,7 @@ public class Camera_Controller : MonoBehaviour
                 scale_down_faces();
                 isRotating = true;
             }
-            rotate(Vector3.forward);
+            rotate(Vector3.right);
             
         }
 
