@@ -17,6 +17,9 @@ public class camera : MonoBehaviour
         speed = 1f;
         orientation = scale * Vector3.forward;
         transform.position = center + orientation;
+        print(orientation.x);
+        print(orientation.y);
+        print(orientation.z);
         transform.LookAt(center);
         c = GetComponent<Camera>();
     }
@@ -40,11 +43,19 @@ public class camera : MonoBehaviour
         if (Input.inputString == "a")
         {
             rotate(Vector3.right);
+
+            print(orientation.x);
+            print(orientation.y);
+            print(orientation.z);
         }
 
         if (Input.inputString == "d")
         {
             rotate(Vector3.forward);
+
+            print(orientation.x);
+            print(orientation.y);
+            print(orientation.z);
         }
 
         //if (transform.position != center + orientation)
