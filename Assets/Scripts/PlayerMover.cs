@@ -14,7 +14,7 @@ public class PlayerMover : MonoBehaviour
     private float distToGround;
 
     public Camera cam;
-    private SphereCollider sc;
+    private BoxCollider bc;
     private Rigidbody _body;
     private Vector3 _inputs = Vector3.zero;
     private bool _isGrounded = true;
@@ -24,14 +24,13 @@ public class PlayerMover : MonoBehaviour
     {
         _body = GetComponent<Rigidbody>();
         _groundChecker = GetComponent<Transform>();
-        sc = transform.GetComponent<SphereCollider>();
-        distToGround = sc.bounds.extents.y;
+        bc = transform.GetComponent<BoxCollider>();
+        distToGround = bc.bounds.extents.y;
     }
 
     void Update()
     {
         _isGrounded = checkBottom();
-
 
         _inputs = Vector3.zero;
         _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(Vector3.down, cam.GetComponent<Camera_Controller>().orientation);
