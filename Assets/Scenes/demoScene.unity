@@ -307,7 +307,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337837841}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -380,6 +380,7 @@ MonoBehaviour:
   Ground:
     serializedVersion: 2
     m_Bits: 4294967295
+  cam: {fileID: 88831370}
 --- !u!54 &337837848
 Rigidbody:
   m_ObjectHideFlags: 0

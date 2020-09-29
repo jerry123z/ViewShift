@@ -13,7 +13,7 @@ public class PlayerMover : MonoBehaviour
     public LayerMask Ground;
     private float distToGround;
 
-
+    public Camera cam;
     private SphereCollider sc;
     private Rigidbody _body;
     private Vector3 _inputs = Vector3.zero;
@@ -34,14 +34,20 @@ public class PlayerMover : MonoBehaviour
 
 
         _inputs = Vector3.zero;
-        _inputs.x = Input.GetAxis("Horizontal");
-        _inputs.z = Input.GetAxis("Vertical");
+        _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(Vector3.down, cam.GetComponent<Camera_Controller>().orientation);
+        //_inputs.x = Input.GetAxis("Horizontal");
+        //_inputs.z = Input.GetAxis("Vertical");
         if (_inputs != Vector3.zero)
             transform.forward = _inputs;
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             _body.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+        }
+
+        if (transform.position.y < -5)
+        {
+            transform.position = new Vector3(3, 1, -1);
         }
     }
 
