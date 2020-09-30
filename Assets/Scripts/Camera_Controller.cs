@@ -12,7 +12,10 @@ public class Camera_Controller : MonoBehaviour
     public float speed;
     public Camera c;
     public bool isRotating;
-    
+    public GameObject cubes;
+    public GameObject player;
+
+    public GameObject touching;
     void Start()
     {
         center = new Vector3(1, 3, -5) ;
@@ -39,7 +42,6 @@ public class Camera_Controller : MonoBehaviour
         //transform.LookAt(center);
     }
 
-
     // Update is called once per frame
     void Update()
     {
@@ -57,6 +59,8 @@ public class Camera_Controller : MonoBehaviour
                 isRotating = true;
             }
             rotate(Vector3.left);
+            player.GetComponent<PlayerMover>().snap();
+            
         }
 
         if (Input.inputString == "d")
@@ -93,7 +97,7 @@ public class Camera_Controller : MonoBehaviour
     
     void scale_down_faces(){
         print("scale down");
-        GameObject cubes = GameObject.Find("Cubes");
+        //GameObject cubes = GameObject.Find("Cubes");
         BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider boxCollider in boxColliders){
             var s = boxCollider.size;

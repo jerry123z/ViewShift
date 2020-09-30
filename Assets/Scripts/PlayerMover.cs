@@ -20,6 +20,8 @@ public class PlayerMover : MonoBehaviour
     private bool _isGrounded = true;
     private Transform _groundChecker;
 
+    public GameObject touching; 
+
     void Start()
     {
         _body = GetComponent<Rigidbody>();
@@ -43,11 +45,27 @@ public class PlayerMover : MonoBehaviour
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             _body.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            touching = null;
         }
 
         if (transform.position.y < -5)
         {
             transform.position = new Vector3(3, 1, -1);
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        print(collision.gameObject);
+
+        touching = collision.gameObject;
+    }
+
+    public void snap()
+    {
+        if (touching)
+        {
+            transform.position = touching.transform.position + Vector3.up;
         }
     }
 

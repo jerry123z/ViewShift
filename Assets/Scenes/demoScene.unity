@@ -235,7 +235,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 88831368}
   m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
-  m_LocalPosition: {x: -0.22, y: 1.94, z: 0.42}
+  m_LocalPosition: {x: 1, y: 3, z: 5}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -260,6 +260,9 @@ MonoBehaviour:
   speed: 0
   c: {fileID: 0}
   isRotating: 0
+  cubes: {fileID: 38275253}
+  player: {fileID: 337837841}
+  touching: {fileID: 0}
 --- !u!4 &164023992 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 75a9106847aa67e4ba0b0ef11ac6a132,
@@ -381,6 +384,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 4294967295
   cam: {fileID: 88831370}
+  touching: {fileID: 0}
 --- !u!54 &337837848
 Rigidbody:
   m_ObjectHideFlags: 0
