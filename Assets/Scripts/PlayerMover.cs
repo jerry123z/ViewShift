@@ -14,7 +14,7 @@ public class PlayerMover : MonoBehaviour
     private float distToGround;
 
     public Camera cam;
-    private SphereCollider sc;
+    private BoxCollider bc;
     private Rigidbody _body;
     private Vector3 _inputs = Vector3.zero;
     private bool _isGrounded = true;
@@ -26,14 +26,13 @@ public class PlayerMover : MonoBehaviour
     {
         _body = GetComponent<Rigidbody>();
         _groundChecker = GetComponent<Transform>();
-        sc = transform.GetComponent<SphereCollider>();
-        distToGround = sc.bounds.extents.y;
+        bc = transform.GetComponent<BoxCollider>();
+        distToGround = bc.bounds.extents.y;
     }
 
     void Update()
     {
         _isGrounded = checkBottom();
-
 
         _inputs = Vector3.zero;
         _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(Vector3.down, cam.GetComponent<Camera_Controller>().orientation);
@@ -71,7 +70,12 @@ public class PlayerMover : MonoBehaviour
 
     bool checkBottom()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround+0.1));
+        return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround+0.1))||
+        Physics.Raycast(transform.position + new Vector3(0,0,0.5f), -Vector3.up, (float)(distToGround+0.1))||
+        Physics.Raycast(transform.position + new Vector3(0,0,-0.5f), -Vector3.up, (float)(distToGround+0.1))||
+        Physics.Raycast(transform.position + new Vector3(0.5f,0,0), -Vector3.up, (float)(distToGround+0.1))||
+        Physics.Raycast(transform.position + new Vector3(-0.5f,0,0), -Vector3.up, (float)(distToGround+0.1));
+        // This checks from your centre, and 0.5 in both x and z directions away from the centre.
     }
 
     void FixedUpdate()
