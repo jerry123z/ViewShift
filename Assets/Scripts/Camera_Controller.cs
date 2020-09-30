@@ -71,7 +71,7 @@ public class Camera_Controller : MonoBehaviour
                 isRotating = true;
             }
             rotate(Vector3.right);
-            
+            player.GetComponent<PlayerMover>().snap();
         }
 
         if (transform.position == center + scale * orientation && isRotating == true)
