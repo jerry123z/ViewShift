@@ -52,7 +52,12 @@ public class PlayerMover : MonoBehaviour
 
     bool checkBottom()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround+0.1));
+        return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround+0.1))||
+        Physics.Raycast(transform.position + new Vector3(0,0,0.5f), -Vector3.up, (float)(distToGround+0.1))||
+        Physics.Raycast(transform.position + new Vector3(0,0,-0.5f), -Vector3.up, (float)(distToGround+0.1))||
+        Physics.Raycast(transform.position + new Vector3(0.5f,0,0), -Vector3.up, (float)(distToGround+0.1))||
+        Physics.Raycast(transform.position + new Vector3(-0.5f,0,0), -Vector3.up, (float)(distToGround+0.1));
+        // This checks from your centre, and 0.5 in both x and z directions away from the centre.
     }
 
     void FixedUpdate()
