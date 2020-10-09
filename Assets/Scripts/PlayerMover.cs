@@ -32,6 +32,7 @@ public class PlayerMover : MonoBehaviour
     void Update()
     {
         _isGrounded = checkBottom();
+        bc.size = new Vector3(0.5f,1f,0.5f);
 
         _inputs = Vector3.zero;
         _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(Vector3.down, cam.GetComponent<Camera_Controller>().orientation);
@@ -79,6 +80,13 @@ public class PlayerMover : MonoBehaviour
 
     void FixedUpdate()
     {
-        _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
+        if (_groundChecker.parent == null)
+        {
+            _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
+        }
+        else
+        {
+            _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
+        }
     }
 }
