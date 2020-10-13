@@ -19,10 +19,13 @@ public class PlayerMover : MonoBehaviour
     private bool _isGrounded = true;
     private Transform _groundChecker;
 
-    public GameObject touching; 
+    public GameObject touching;
+
+    public GameObject starting;
 
     void Start()
     {
+        transform.position = starting.transform.position + Vector3.up * 2;
         _body = GetComponent<Rigidbody>();
         _groundChecker = GetComponent<Transform>();
         bc = transform.GetComponent<BoxCollider>();
@@ -48,7 +51,7 @@ public class PlayerMover : MonoBehaviour
 
         if (transform.position.y < -5)
         {
-            transform.position = new Vector3(3, 1, -1);
+            transform.position = starting.transform.position + Vector3.up * 2;
         }
     }
 

@@ -90,7 +90,14 @@ public class Camera_Controller : MonoBehaviour
             Vector3 factor = orientation;
             factor *= 63;
             factor += new Vector3(1, 1, 1);
-            s = new Vector3 ((factor.x)*s[0], (factor.y)*s[1], factor.z * s[2]);
+            if (boxCollider.material.name == "testmaterial (Instance)")
+            {
+                s = new Vector3((factor.x) * s[0], (factor.y) * s[1], 1);
+            }
+            else
+            {
+                s = new Vector3((factor.x) * s[0], (factor.y) * s[1], factor.z * s[2]);
+            }
             boxCollider.size = s;
         }
     }
@@ -104,7 +111,16 @@ public class Camera_Controller : MonoBehaviour
             Vector3 factor = orientation;
             factor *= 63;
             factor += new Vector3(1, 1, 1);
-            s = new Vector3((factor.x)/s.x, (factor.y)/s.y, (factor.z)/s.z);
+            print(boxCollider.material.name);
+            if (boxCollider.material.name == "testmaterial (Instance)")
+            {
+                print("checked");
+                s = new Vector3((factor.x) / s.x, (factor.y) / s.y, 1);
+            }
+            else
+            {
+                s = new Vector3((factor.x) / s.x, (factor.y) / s.y, (factor.z) / s.z);
+            }
             boxCollider.size = s;
         }
     }
