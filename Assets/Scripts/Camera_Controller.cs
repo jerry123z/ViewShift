@@ -15,7 +15,12 @@ public class Camera_Controller : MonoBehaviour
     public GameObject cubes;
     public GameObject player;
 
+    public Vector3 up;
+    public Vector3 current_up;
+
     public GameObject touching;
+
+    //public GameObject test;
     void Start()
     {
         center = new Vector3(1, 3, -5) ;
@@ -28,6 +33,11 @@ public class Camera_Controller : MonoBehaviour
         isRotating = false;
         scale_up_faces();
         c = GetComponent<Camera>();
+
+        up = Vector3.up;
+        current_up = up;
+
+        //test.transform.LookAt(up);
     }
 
     void rotate(Vector3 direction)
@@ -48,7 +58,15 @@ public class Camera_Controller : MonoBehaviour
 
         float step = speed * Time.deltaTime; // calculate distance to move
         transform.position = Vector3.MoveTowards(transform.position, center + scale * orientation, step);
-        transform.LookAt(center);
+        transform.LookAt(center, current_up);
+
+
+
+        //transform.rotation = Quaternion.LookRotation(center - transform.position, current_up);
+
+        current_up = Vector3.MoveTowards(current_up, up, 1 * Time.deltaTime);
+         
+
 
 
         if (Input.inputString == "a")
@@ -65,6 +83,7 @@ public class Camera_Controller : MonoBehaviour
 
         if (Input.inputString == "d")
         {
+
             if (transform.position == center + scale * orientation && isRotating == false)
             {
                 scale_down_faces();
@@ -79,6 +98,40 @@ public class Camera_Controller : MonoBehaviour
            scale_up_faces();
            isRotating = false;
         }
+
+        if (Input.inputString == "j")
+        {
+            print("center is " + center);
+            print("up is " + up);
+            GameObject parent = player.GetComponent<PlayerMover>().touching;
+            
+            print("forward is " + parent.transform.forward);
+            player.transform.SetParent(parent.transform, true);
+            up = Quaternion.Euler(0, 0, 90) * up;
+            //print(up);
+        }
+        if (Input.inputString == "k")
+        {
+
+            print("up is " + up);
+            GameObject parent = player.GetComponent<PlayerMover>().touching;
+            player.transform.SetParent(parent.transform, true);
+            up = Quaternion.Euler(0, 0, -90) * up;
+        }
+
+        if (current_up != up)
+        {
+            //print(current_up);
+            
+            player.GetComponent<Rigidbody>().useGravity = false;
+            GameObject parent = player.GetComponent<PlayerMover>().touching;
+            //player.transform.parent = parent.transform;
+            //player.transform.localPosition = current_up;
+
+            parent.transform.LookAt(parent.transform.position + current_up);
+        }
+        //GameObject test = player.GetComponent<PlayerMover>().touching;
+        //test.transform.position += test.transform.forward * Time.deltaTime;
     }
 
     void scale_up_faces(){

@@ -34,6 +34,7 @@ public class PlayerMover : MonoBehaviour
 
     void Update()
     {
+        //transform.position = Vector3.zero;
         _isGrounded = checkBottom();
 
         _inputs = Vector3.zero;
@@ -45,14 +46,14 @@ public class PlayerMover : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
-            _body.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            //_body.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
             touching = null;
         }
 
-        if (transform.position.y < -5)
-        {
-            transform.position = starting.transform.position + Vector3.up * 2;
-        }
+        //if (transform.position.y < -5)
+        //{
+        //    transform.position = starting.transform.position + Vector3.up * 2;
+        //}
     }
 
     void OnCollisionEnter(Collision collision)
@@ -64,6 +65,7 @@ public class PlayerMover : MonoBehaviour
 
     public void snap()
     {
+        print("snapping");
         if (touching)
         {
             transform.position = touching.transform.position + Vector3.up;
