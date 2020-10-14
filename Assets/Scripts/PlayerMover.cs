@@ -26,6 +26,7 @@ public class PlayerMover : MonoBehaviour
     void Start()
     {
         transform.position = starting.transform.position + Vector3.up * 2;
+        //print("starting at " + transform.positiosn);
         _body = GetComponent<Rigidbody>();
         _groundChecker = GetComponent<Transform>();
         bc = transform.GetComponent<BoxCollider>();
@@ -38,7 +39,7 @@ public class PlayerMover : MonoBehaviour
         _isGrounded = checkBottom();
 
         _inputs = Vector3.zero;
-        _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(Vector3.down, cam.GetComponent<Camera_Controller>().orientation);
+        _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(-1 * cam.GetComponent<Camera_Controller>().up, cam.GetComponent<Camera_Controller>().orientation);
         //_inputs.x = Input.GetAxis("Horizontal");
         //_inputs.z = Input.GetAxis("Vertical");
         if (_inputs != Vector3.zero)
@@ -46,26 +47,32 @@ public class PlayerMover : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
+
+            //print("checking up is " + cam.GetComponent<Camera_Controller>().up);
             //_body.AddForce(Vector3.up * Mathf.Sqrt(JumpHeight * -2f * Physics.gravity.y), ForceMode.VelocityChange);
+            _body.AddForce(5f * cam.GetComponent<Camera_Controller>().up * Mathf.Sqrt(JumpHeight), ForceMode.VelocityChange);
             touching = null;
         }
 
-        //if (transform.position.y < -5)
-        //{
-        //    transform.position = starting.transform.position + Vector3.up * 2;
-        //}
+        if ((transform.position - starting.transform.position).sqrMagnitude > 1000)
+        {
+            transform.position = starting.transform.position + Vector3.up * 2;
+            cam.GetComponent<Camera_Controller>().up = Vector3.up;
+            Physics.gravity = -1 * Vector3.up * 9.8f;
+            _body.velocity = Vector3.zero;
+        }
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        print(collision.gameObject);
+        //print(collision.gameObject);
 
         touching = collision.gameObject;
     }
 
     public void snap()
     {
-        print("snapping");
+        //print("snapping");
         if (touching)
         {
             transform.position = touching.transform.position + Vector3.up;
@@ -74,11 +81,16 @@ public class PlayerMover : MonoBehaviour
 
     bool checkBottom()
     {
-        return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround+0.1))||
-        Physics.Raycast(transform.position + new Vector3(0,0,0.5f), -Vector3.up, (float)(distToGround+0.1))||
-        Physics.Raycast(transform.position + new Vector3(0,0,-0.5f), -Vector3.up, (float)(distToGround+0.1))||
-        Physics.Raycast(transform.position + new Vector3(0.5f,0,0), -Vector3.up, (float)(distToGround+0.1))||
-        Physics.Raycast(transform.position + new Vector3(-0.5f,0,0), -Vector3.up, (float)(distToGround+0.1));
+        return Physics.Raycast(transform.position, -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
+Physics.Raycast(transform.position + new Vector3(0, 0, 0.5f), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
+Physics.Raycast(transform.position + new Vector3(0, 0, -0.5f), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
+Physics.Raycast(transform.position + new Vector3(0.5f, 0, 0), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
+Physics.Raycast(transform.position + new Vector3(-0.5f, 0, 0), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1));
+        //return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround+0.1))||
+        //Physics.Raycast(transform.position + new Vector3(0,0,0.5f), -Vector3.up, (float)(distToGround+0.1))||
+        //Physics.Raycast(transform.position + new Vector3(0,0,-0.5f), -Vector3.up, (float)(distToGround+0.1))||
+        //Physics.Raycast(transform.position + new Vector3(0.5f,0,0), -Vector3.up, (float)(distToGround+0.1))||
+        //Physics.Raycast(transform.position + new Vector3(-0.5f,0,0), -Vector3.up, (float)(distToGround+0.1));
         // This checks from your centre, and 0.5 in both x and z directions away from the centre.
     }
 

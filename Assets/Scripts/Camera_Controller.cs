@@ -23,6 +23,7 @@ public class Camera_Controller : MonoBehaviour
     //public GameObject test;
     void Start()
     {
+        print("level is " + Application.loadedLevelName);
         center = new Vector3(1, 3, -5) ;
         top_face = new Vector3(0, 1, 0);
         scale = 10f;
@@ -65,77 +66,101 @@ public class Camera_Controller : MonoBehaviour
         //transform.rotation = Quaternion.LookRotation(center - transform.position, current_up);
 
         current_up = Vector3.MoveTowards(current_up, up, 1 * Time.deltaTime);
-         
 
 
 
-        if (Input.inputString == "a")
+
+        if (Application.loadedLevelName != "level3")
         {
-            if (transform.position == center + scale * orientation && isRotating == false)
+            if (Input.inputString == "a")
             {
-                scale_down_faces();
-                isRotating = true;
+                if (transform.position == center + scale * orientation && isRotating == false)
+                {
+                    scale_down_faces();
+                    isRotating = true;
+                }
+                rotate(Vector3.left);
+                player.GetComponent<PlayerMover>().snap();
+
             }
-            rotate(Vector3.left);
-            player.GetComponent<PlayerMover>().snap();
-            
-        }
 
-        if (Input.inputString == "d")
-        {
-
-            if (transform.position == center + scale * orientation && isRotating == false)
+            if (Input.inputString == "d")
             {
-                scale_down_faces();
-                isRotating = true;
+
+                if (transform.position == center + scale * orientation && isRotating == false)
+                {
+                    scale_down_faces();
+                    isRotating = true;
+                }
+                rotate(Vector3.right);
+                player.GetComponent<PlayerMover>().snap();
             }
-            rotate(Vector3.right);
-            player.GetComponent<PlayerMover>().snap();
+
+            if (transform.position == center + scale * orientation && isRotating == true)
+            {
+                scale_up_faces();
+                isRotating = false;
+            }
         }
-
-        if (transform.position == center + scale * orientation && isRotating == true)
+        else
         {
-           scale_up_faces();
-           isRotating = false;
-        }
+            if (Input.inputString == "j")
+            {
+                //print("center is " + center);
+                //print("up is " + up);
 
-        if (Input.inputString == "j")
-        {
-            print("center is " + center);
-            print("up is " + up);
-            GameObject parent = player.GetComponent<PlayerMover>().touching;
-            
-            print("forward is " + parent.transform.forward);
-            player.transform.SetParent(parent.transform, true);
-            up = Quaternion.Euler(0, 0, 90) * up;
-            //print(up);
-        }
-        if (Input.inputString == "k")
-        {
+                GameObject parent = player.GetComponent<PlayerMover>().touching;
+                //print("parent tag" + parent.tag);
+                if (parent.tag != "column")
+                {
+                    //print("forward is " + parent.transform.forward);
+                    //print("current position is" + player.transform.position);
+                    //print("calculating using parent pos" + parent.transform.position);
+                    //print("calculating using parent forward" + parent.transform.forward);
+                    //print("now it is " + player.transform.position);
+                    player.transform.position = parent.transform.position + parent.transform.forward;
+                    player.transform.SetParent(parent.transform, true);
+                    up = Quaternion.Euler(0, 0, -90) * up;
+                }
+                //print(up);
+            }
+            if (Input.inputString == "l")
+            {
+                GameObject parent = player.GetComponent<PlayerMover>().touching;
+                if (parent.tag != "column")
+                {
+                    player.transform.position = parent.transform.position + parent.transform.forward;
+                    player.transform.SetParent(parent.transform, true);
+                    Physics.gravity = -parent.transform.forward * 9.8f;
+                    up = Quaternion.Euler(0, 0, 90) * up;
+                }
+            }
 
-            print("up is " + up);
-            GameObject parent = player.GetComponent<PlayerMover>().touching;
-            player.transform.SetParent(parent.transform, true);
-            up = Quaternion.Euler(0, 0, -90) * up;
-        }
+            if (current_up != up)
+            {
+                //print(current_up);
 
-        if (current_up != up)
-        {
-            //print(current_up);
-            
-            player.GetComponent<Rigidbody>().useGravity = false;
-            GameObject parent = player.GetComponent<PlayerMover>().touching;
-            //player.transform.parent = parent.transform;
-            //player.transform.localPosition = current_up;
-
-            parent.transform.LookAt(parent.transform.position + current_up);
+                player.GetComponent<Rigidbody>().useGravity = false;
+                GameObject parent = player.GetComponent<PlayerMover>().touching;
+                if (parent)
+                {
+                    //player.transform.parent = parent.transform;
+                    //player.transform.localPosition = current_up;
+                    Physics.gravity = -parent.transform.forward * 9.8f;
+                    parent.transform.LookAt(parent.transform.position + current_up);
+                }
+            }
+            else
+            {
+                player.GetComponent<Rigidbody>().useGravity = true;
+            }
         }
         //GameObject test = player.GetComponent<PlayerMover>().touching;
         //test.transform.position += test.transform.forward * Time.deltaTime;
     }
 
     void scale_up_faces(){
-        print("scale up");
+        //print("scale up");
         GameObject cubes = GameObject.Find("Cubes");
         BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider boxCollider in boxColliders){
@@ -156,7 +181,7 @@ public class Camera_Controller : MonoBehaviour
     }
     
     void scale_down_faces(){
-        print("scale down");
+        //print("scale down");
         //GameObject cubes = GameObject.Find("Cubes");
         BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider boxCollider in boxColliders){

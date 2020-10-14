@@ -263,6 +263,8 @@ MonoBehaviour:
   isRotating: 0
   cubes: {fileID: 38275253}
   player: {fileID: 337837841}
+  up: {x: 0, y: 0, z: 0}
+  current_up: {x: 0, y: 0, z: 0}
   touching: {fileID: 0}
 --- !u!4 &164023992 stripped
 Transform:
@@ -312,7 +314,7 @@ MeshRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 337837841}
-  m_Enabled: 0
+  m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
   m_DynamicOccludee: 1
@@ -387,6 +389,7 @@ MonoBehaviour:
     m_Bits: 4294967295
   cam: {fileID: 88831370}
   touching: {fileID: 0}
+  starting: {fileID: 887924771}
 --- !u!65 &337837847
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -1049,19 +1052,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 47c1d40e405eca746abace55bf1c25a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  points:
-  - {x: -5.81, y: -0.44, z: -9.19}
-  - {x: -5.81, y: 3, z: -9.19}
-  - {x: -3.94, y: 5, z: -6.51}
-  - {x: -5.81, y: 3, z: -9.19}
-  - {x: -5.81, y: -0.44, z: -9.19}
-  - {x: -3.5, y: -0.44, z: -8}
-  point_index: 0
-  tolerance: 0
-  speed: 2
-  delay: 0.2
-  automatic: 1
-  cam: {fileID: 88831370}
 --- !u!65 &1134957659
 BoxCollider:
   m_ObjectHideFlags: 0
