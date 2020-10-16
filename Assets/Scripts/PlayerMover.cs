@@ -16,7 +16,7 @@ public class PlayerMover : MonoBehaviour
     private BoxCollider bc;
     private Rigidbody _body;
     private Vector3 _inputs = Vector3.zero;
-    private bool _isGrounded = true;
+    public bool _isGrounded = true;
     private Transform _groundChecker;
 
     public GameObject touching;
