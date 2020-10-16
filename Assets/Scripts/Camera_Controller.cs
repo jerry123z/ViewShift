@@ -30,7 +30,7 @@ public class Camera_Controller : MonoBehaviour
         orientation =  new Vector3(1, 0, 0);
         height = new Vector3 (0,5,0);
         center = player.GetComponent<Transform>();
-        isometricOffset = Quaternion.AngleAxis(-45, Vector3.up);
+        isometricOffset = Quaternion.Euler(0, -45, 0);
         transform.position = height + center.position +  scale * (isometricOffset * orientation);
         transform.LookAt(center.position);
         isRotating = false;
@@ -54,10 +54,12 @@ public class Camera_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        print(transform.position);
+        print(height + center.position +  scale * (isometricOffset * orientation));
         if (isRotating){
             float step = speed * Time.deltaTime; // calculate distance to move
-            //transform.position = Vector3.MoveTowards(transform.position, center + scale * orientation, step);
             transform.RotateAround(center.position, Vector3.up, speed*direction);
+            //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         } else{
             float step = speed * 20 * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
@@ -75,7 +77,7 @@ public class Camera_Controller : MonoBehaviour
 
         if (Input.inputString == "a")
         {
-            if (transform.position == height + center.position +  scale * (isometricOffset * orientation) && isRotating == false)
+            if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
                 scale_down_faces();
                 isRotating = true;
@@ -87,7 +89,7 @@ public class Camera_Controller : MonoBehaviour
 
         if (Input.inputString == "d")
         {
-            if (transform.position == height + center.position +  scale * (isometricOffset * orientation) && isRotating == false)
+            if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
                 scale_down_faces();
                 isRotating = true;
@@ -97,7 +99,7 @@ public class Camera_Controller : MonoBehaviour
             }
         }
 
-        if (transform.position == height + center.position +  scale * (isometricOffset * orientation) && isRotating == true)
+        if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == true)
         {
            scale_up_faces();
            isRotating = false;
