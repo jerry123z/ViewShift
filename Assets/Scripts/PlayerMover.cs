@@ -40,6 +40,7 @@ public class PlayerMover : MonoBehaviour
 
         _inputs = Vector3.zero;
         _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(-1 * cam.GetComponent<Camera_Controller>().up, cam.GetComponent<Camera_Controller>().orientation);
+        _inputs += Input.GetAxis("Vertical") * -1 * cam.GetComponent<Camera_Controller>().orientation;
         //_inputs.x = Input.GetAxis("Horizontal");
         //_inputs.z = Input.GetAxis("Vertical");
         if (_inputs != Vector3.zero)
