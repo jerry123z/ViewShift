@@ -54,13 +54,17 @@ public class Camera_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        print(transform.position);
-        print(height + center.position +  scale * (isometricOffset * orientation));
+        //print(transform.position);
+        //print(height + center.position +  scale * (isometricOffset * orientation));
         if (isRotating){
+            //print("isRotating = true");
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
             transform.RotateAround(center.position, Vector3.up, speed*direction);
             //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         } else{
+            //print("isRotating = false");
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
             float step = speed * 20 * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         }
@@ -77,14 +81,17 @@ public class Camera_Controller : MonoBehaviour
 
         if (Input.inputString == "a")
         {
+            print(center.position);
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
                 scale_down_faces();
                 isRotating = true;
+                //player.GetComponent<PlayerMover>().snap();
+                transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.left);
-                player.GetComponent<PlayerMover>().snap();
                 direction = 1f;
             }
+            print(center.position);
         }
 
         if (Input.inputString == "d")
@@ -93,17 +100,24 @@ public class Camera_Controller : MonoBehaviour
             {
                 scale_down_faces();
                 isRotating = true;
+                //player.GetComponent<PlayerMover>().snap();
+                transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.right);
-                player.GetComponent<PlayerMover>().snap();
                 direction = -1f;
             }
         }
 
-        if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == true)
+        //if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == true)
+        Vector3 target = height + center.position + scale * (isometricOffset * orientation);
+        //print(target);
+
+        //print(transform.position);
+        //print(transform.position - target);
+        if (Mathf.Sqrt(Mathf.Pow((transform.position - target).x, 2) + Mathf.Pow((transform.position - target).z, 2)) < 0.1f && isRotating == true)
         {
            scale_up_faces();
            isRotating = false;
-           player.GetComponent<PlayerMover>().snap();
+           //player.GetComponent<PlayerMover>().snap();
         }
     }
 
