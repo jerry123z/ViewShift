@@ -59,6 +59,7 @@ public class Camera_Controller : MonoBehaviour
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
             transform.RotateAround(center.position, Vector3.up, speed*direction);
+            RelativeRotatorSystem.RotateAll();
             //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         } else{
             //print("isRotating = false");
@@ -77,7 +78,7 @@ public class Camera_Controller : MonoBehaviour
             }
         }
 
-        if (Input.inputString == "a")
+        if (Input.GetButtonDown("Fire1"))
         {
             print(center.position);
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
@@ -92,7 +93,7 @@ public class Camera_Controller : MonoBehaviour
             print(center.position);
         }
 
-        if (Input.inputString == "d")
+        if (Input.GetButtonDown("Fire2"))
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {

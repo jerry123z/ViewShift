@@ -5,26 +5,26 @@ using Unity.Entities;
 using Unity.Transforms;
 using Unity.Mathematics;
 
-public class RelativeRotatorSystem : ComponentSystem
+public class RelativeRotatorSystem : MonoBehaviour
 {
-    Camera_Controller cameraController;
-
-    protected override void OnUpdate()
+    public static void RotateAll()
     {
         var camera = GameObject.Find("Main Camera");
-        cameraController = camera.GetComponent<Camera_Controller>();
-        if (cameraController.isRotating) {
-            Entities.ForEach((ref Translation translation) => {
-                translation.Value = RotateAroundPoint(translation.Value, cameraController.center.position, new Vector3(0, 3f * cameraController.direction, 0));
-            });
+        Camera_Controller cameraController = camera.GetComponent<Camera_Controller>();
+        GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        Transform transform = relativeRotators.GetComponent<Transform>();
+        Transform[] childsT  = new Transform[transform.childCount];
+        GameObject[] childsG = new GameObject[transform.childCount];
+        int i  = 0;
+        foreach(Transform child in transform)
+        {
+            childsT[i] = child;
+            childsG[i] = child.gameObject;
+            i++;
         }
-    }
-  
-    private Vector3 RotateAroundPoint(Vector3 point, Vector3 pivot, Vector3 angles)
-    {
-        Vector3 dir = point - pivot; 
-        dir = Quaternion.Euler(angles) * dir; 
-        point = dir + pivot; 
-        return point;
+        foreach(var child in childsT)
+        {
+            child.RotateAround(cameraController.center.position, Vector3.up, cameraController.speed*cameraController.direction);
+        }
     }
 }
