@@ -18,8 +18,6 @@ public class Camera_Controller : MonoBehaviour
     public GameObject cubes;
     public GameObject player;
 
-    public GameObject touching;
-
     public Vector3 up;
     void Start()
     {
