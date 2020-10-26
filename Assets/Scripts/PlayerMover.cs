@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class PlayerMover : MonoBehaviour
 {
@@ -18,6 +19,7 @@ public class PlayerMover : MonoBehaviour
     private Vector3 _inputs = Vector3.zero;
     public bool _isGrounded = true;
     private Transform _groundChecker;
+    private GameObject anchors;
 
     private GameObject touching;
 
@@ -31,10 +33,12 @@ public class PlayerMover : MonoBehaviour
         _groundChecker = GetComponent<Transform>();
         bc = transform.GetComponent<BoxCollider>();
         distToGround = bc.bounds.extents.y;
+        anchors = GameObject.Find("Anchors");
     }
 
     void Update()
     {
+        FinishGame();
         //transform.position = Vector3.zero;
         _isGrounded = checkBottom();
         Quaternion offset = Quaternion.Euler(0, -45, 0);
@@ -98,5 +102,21 @@ public class PlayerMover : MonoBehaviour
     void FixedUpdate()
     {
         _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
+    }
+
+    void FinishGame()
+    {
+        GameObject finish_line = GameObject.Find("/Anchors/finish line");
+        float zsize = finish_line.GetComponent<BoxCollider>().bounds.size[2];
+        if (_isGrounded && transform.position.x <= finish_line.transform.position.x && transform.position.z <= (finish_line.transform.position.z + zsize/2) && transform.position.z >= (finish_line.transform.position.z - zsize/2))
+        {
+            Invoke("transition", 2);
+        }
+    }
+
+    void transition()
+    {
+        print("success!");
+        SceneManager.LoadScene("demoScene2");
     }
 }
