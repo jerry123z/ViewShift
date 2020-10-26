@@ -40,8 +40,6 @@ public class Button : MonoBehaviour
         }
         if (toggled)
         {
-            print("asdf");
-            print("toggled = " + toggled);
             //if ((affected_object.transform.position - target_position).sqrMagnitude > 0.01f)
             //{
                 //print("triggered");

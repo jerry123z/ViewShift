@@ -68,19 +68,23 @@ public class Camera_Controller : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         }
 
-        if (Input.GetMouseButtonDown(0)){
-            Ray ray = c.ScreenPointToRay(Input.mousePosition);
+        if (Input.GetButtonDown("Fire3")){
+            var transform = player.GetComponent<Transform>();
+            Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)){
-                print("hit");
                 center = hit.transform;
-                print(center.position);
+                //print(center.position);
             }
+        }
+        if (Input.GetButtonDown("Submit")){
+            print("Submit");
+            center = player.GetComponent<Transform>();;
+            print(center.position);
         }
 
         if (Input.GetButtonDown("Fire1"))
         {
-            print(center.position);
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
                 scale_down_faces();
@@ -90,7 +94,6 @@ public class Camera_Controller : MonoBehaviour
                 rotate(Vector3.left);
                 direction = 1f;
             }
-            print(center.position);
         }
 
         if (Input.GetButtonDown("Fire2"))
@@ -121,7 +124,6 @@ public class Camera_Controller : MonoBehaviour
     }
 
     void scale_up_faces(){
-        print("scale up");
         GameObject cubes = GameObject.Find("Cubes");
         BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider boxCollider in boxColliders){
@@ -135,7 +137,6 @@ public class Camera_Controller : MonoBehaviour
     }
     
     void scale_down_faces(){
-        print("scale down");
         //GameObject cubes = GameObject.Find("Cubes");
         BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider boxCollider in boxColliders){
