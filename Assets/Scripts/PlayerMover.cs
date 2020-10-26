@@ -19,11 +19,12 @@ public class PlayerMover : MonoBehaviour
     private Vector3 _inputs = Vector3.zero;
     public bool _isGrounded = true;
     private Transform _groundChecker;
-    private GameObject anchors;
 
     private GameObject touching;
 
     public GameObject starting;
+
+    private GameObject finish_line;
 
     void Start()
     {
@@ -33,7 +34,7 @@ public class PlayerMover : MonoBehaviour
         _groundChecker = GetComponent<Transform>();
         bc = transform.GetComponent<BoxCollider>();
         distToGround = bc.bounds.extents.y;
-        anchors = GameObject.Find("Anchors");
+        finish_line = GameObject.Find("/Anchors/finish line");
     }
 
     void Update()
@@ -106,17 +107,16 @@ public class PlayerMover : MonoBehaviour
 
     void FinishGame()
     {
-        GameObject finish_line = GameObject.Find("/Anchors/finish line");
         float zsize = finish_line.GetComponent<BoxCollider>().bounds.size[2];
         if (_isGrounded && transform.position.x <= finish_line.transform.position.x && transform.position.z <= (finish_line.transform.position.z + zsize/2) && transform.position.z >= (finish_line.transform.position.z - zsize/2))
         {
+            print("success!");
             Invoke("transition", 2);
         }
     }
 
     void transition()
     {
-        print("success!");
         SceneManager.LoadScene("demoScene2");
     }
 }
