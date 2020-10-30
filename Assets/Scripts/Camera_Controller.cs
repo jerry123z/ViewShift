@@ -5,37 +5,44 @@ using UnityEngine;
 public class Camera_Controller : MonoBehaviour
 {
     // Start is called before the first frame update
-    public Vector3 center;
+    public Transform center;
     public Vector3 orientation;
     public Vector3 top_face;
+    private Vector3 height;
+    private Quaternion isometricOffset;   
     public float scale;
     public float speed;
+    public float direction;
     public Camera c;
     public bool isRotating;
     public GameObject cubes;
     public GameObject player;
 
-    public GameObject touching;
+    public Vector3 up;
     void Start()
     {
-        center = new Vector3(1, 3, -5) ;
         top_face = new Vector3(0, 1, 0);
         scale = 10f;
-        speed = 30f;
-        orientation =  Vector3.forward;
-        transform.position = center + scale * orientation;
-        transform.LookAt(center);
+        speed = 3f;
+        direction = -1f;
+        orientation =  new Vector3(1, 0, 0);
+        height = new Vector3 (0,5,0);
+        center = player.GetComponent<Transform>();
+        isometricOffset = Quaternion.Euler(0, -45, 0);
+        transform.position = height + center.position +  scale * (isometricOffset * orientation);
+        transform.LookAt(center.position);
         isRotating = false;
         scale_up_faces();
         c = GetComponent<Camera>();
+        up = Vector3.up;
     }
 
     void rotate(Vector3 direction)
     {
         if (direction == Vector3.left){
-            orientation = Quaternion.Euler(0, -90, 0) * orientation;
-        } else if (direction == Vector3.right){
             orientation = Quaternion.Euler(0, 90, 0) * orientation;
+        } else if (direction == Vector3.right){
+            orientation = Quaternion.Euler(0, -90, 0) * orientation;
         }
         //orientation = direction;
         //transform.position = center + orientation;
@@ -45,50 +52,84 @@ public class Camera_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //print(transform.position);
+        //print(height + center.position +  scale * (isometricOffset * orientation));
+        if (isRotating){
+            //print("isRotating = true");
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+            float step = speed * Time.deltaTime; // calculate distance to move
+            transform.RotateAround(center.position, Vector3.up, speed*direction);
+            RelativeRotatorSystem.RotateAll();
+            //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
+        } else{
+            //print("isRotating = false");
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            float step = speed * 20 * Time.deltaTime; // calculate distance to move
+            transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
+        }
 
-        float step = speed * Time.deltaTime; // calculate distance to move
-        transform.position = Vector3.MoveTowards(transform.position, center + scale * orientation, step);
-        transform.LookAt(center);
+        if (Input.GetButtonDown("Fire3")){
+            var transform = player.GetComponent<Transform>();
+            Ray ray = new Ray(transform.position, transform.forward);
+            RaycastHit hit;
+            if (Physics.Raycast(ray, out hit)){
+                center = hit.transform;
+                //print(center.position);
+            }
+        }
+        if (Input.GetButtonDown("Submit")){
+            print("Submit");
+            center = player.GetComponent<Transform>();;
+            print(center.position);
+        }
 
-
-        if (Input.inputString == "a")
+        if (Input.GetButtonDown("Fire1"))
         {
-            if (transform.position == center + scale * orientation && isRotating == false)
+            if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
                 scale_down_faces();
                 isRotating = true;
+                //player.GetComponent<PlayerMover>().snap();
+                transform.position = height + center.position + scale * (isometricOffset * orientation);
+                rotate(Vector3.left);
+                direction = 1f;
             }
-            rotate(Vector3.left);
-            player.GetComponent<PlayerMover>().snap();
-            
         }
 
-        if (Input.inputString == "d")
+        if (Input.GetButtonDown("Fire2"))
         {
-            if (transform.position == center + scale * orientation && isRotating == false)
+            if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
                 scale_down_faces();
                 isRotating = true;
+                //player.GetComponent<PlayerMover>().snap();
+                transform.position = height + center.position + scale * (isometricOffset * orientation);
+                rotate(Vector3.right);
+                direction = -1f;
             }
-            rotate(Vector3.right);
-            player.GetComponent<PlayerMover>().snap();
         }
 
-        if (transform.position == center + scale * orientation && isRotating == true)
+        //if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == true)
+        Vector3 target = height + center.position + scale * (isometricOffset * orientation);
+        //print(target);
+
+        //print(transform.position);
+        //print(transform.position - target);
+        if (Mathf.Sqrt(Mathf.Pow((transform.position - target).x, 2) + Mathf.Pow((transform.position - target).z, 2)) < 0.1f && isRotating == true)
         {
            scale_up_faces();
            isRotating = false;
+           //player.GetComponent<PlayerMover>().snap();
         }
     }
 
     void scale_up_faces(){
-        print("scale up");
         GameObject cubes = GameObject.Find("Cubes");
         BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider boxCollider in boxColliders){
             var s = boxCollider.size;
             Vector3 factor = orientation;
-            factor *= 63;
+            factor *= 15;
             factor += new Vector3(1, 1, 1);
             s = new Vector3 ((factor.x)*s[0], (factor.y)*s[1], factor.z * s[2]);
             boxCollider.size = s;
@@ -96,13 +137,12 @@ public class Camera_Controller : MonoBehaviour
     }
     
     void scale_down_faces(){
-        print("scale down");
         //GameObject cubes = GameObject.Find("Cubes");
         BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
         foreach (BoxCollider boxCollider in boxColliders){
             var s = boxCollider.size;
             Vector3 factor = orientation;
-            factor *= 63;
+            factor *= 15;
             factor += new Vector3(1, 1, 1);
             s = new Vector3((factor.x)/s.x, (factor.y)/s.y, (factor.z)/s.z);
             boxCollider.size = s;
