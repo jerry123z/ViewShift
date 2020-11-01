@@ -17,6 +17,7 @@ public class Camera_Controller : MonoBehaviour
     public bool isRotating;
     public GameObject cubes;
     public GameObject player;
+    public GameObject newCenter;
 
     public Vector3 up;
     void Start()
@@ -35,6 +36,7 @@ public class Camera_Controller : MonoBehaviour
         scale_up_faces();
         c = GetComponent<Camera>();
         up = Vector3.up;
+        disableAllAnimator();
     }
 
     void rotate(Vector3 direction)
@@ -52,6 +54,11 @@ public class Camera_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if(center == player.GetComponent<Transform>())
+        {
+            disableAllAnimator();
+        }
+
         //print(transform.position);
         //print(height + center.position +  scale * (isometricOffset * orientation));
         if (isRotating){
@@ -73,6 +80,11 @@ public class Camera_Controller : MonoBehaviour
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)){
+                if(hit.collider != null)
+                {
+                    newCenter = hit.collider.gameObject;
+                    newCenterEmission(newCenter);
+                }
                 center = hit.transform;
                 //print(center.position);
             }
@@ -146,6 +158,27 @@ public class Camera_Controller : MonoBehaviour
             factor += new Vector3(1, 1, 1);
             s = new Vector3((factor.x)/s.x, (factor.y)/s.y, (factor.z)/s.z);
             boxCollider.size = s;
+        }
+    }
+
+    void newCenterEmission(GameObject newCenter)
+    {
+        newCenter.GetComponent<Animator>().enabled = true;
+    }
+
+    void disableAllAnimator()
+    {
+        Transform[] anchors = GameObject.Find("Anchors").GetComponentsInChildren<Transform>();
+        foreach (Transform anchor in anchors)
+        {
+            GameObject obj = anchor.gameObject;
+            if (obj.name != "Anchors" && obj.name != "GameObject" && obj.name != "stairs")
+            {
+                if (obj.GetComponent<Animator>().enabled)
+                {
+                    obj.GetComponent<Animator>().enabled = false;
+                }
+            }
         }
     }
 }
