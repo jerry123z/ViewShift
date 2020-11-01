@@ -108,7 +108,7 @@ public class PlayerMover : MonoBehaviour
     void FinishGame()
     {
         float zsize = finish_line.GetComponent<BoxCollider>().bounds.size[2];
-        if (_isGrounded && transform.position.x <= finish_line.transform.position.x && transform.position.z <= (finish_line.transform.position.z + zsize/2) && transform.position.z >= (finish_line.transform.position.z - zsize/2))
+        if (_isGrounded && transform.position.x <= finish_line.transform.position.x && transform.position.z <= (finish_line.transform.position.z + zsize/2) && transform.position.z >= (finish_line.transform.position.z - zsize/2) && transform.position.y <= 1.1)
         {
             print("success!");
             Invoke("transition", 2);
