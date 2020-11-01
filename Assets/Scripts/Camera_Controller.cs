@@ -63,7 +63,7 @@ public class Camera_Controller : MonoBehaviour
             //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         } else{
             //print("isRotating = false");
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             float step = speed * 20 * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         }
