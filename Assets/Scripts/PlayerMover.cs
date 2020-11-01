@@ -39,7 +39,7 @@ public class PlayerMover : MonoBehaviour
 
     void Update()
     {
-        FinishGame();
+        //FinishGame();
         //transform.position = Vector3.zero;
         _isGrounded = checkBottom();
         Quaternion offset = Quaternion.Euler(0, -45, 0);
@@ -60,7 +60,7 @@ public class PlayerMover : MonoBehaviour
             touching = null;
         }
 
-        if ((transform.position - starting.transform.position).sqrMagnitude > 1000)
+        if ((transform.position - starting.transform.position).sqrMagnitude > 10000)
         {
             transform.position = starting.transform.position + Vector3.up * 2;
             cam.GetComponent<Camera_Controller>().up = Vector3.up;
