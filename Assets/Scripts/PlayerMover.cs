@@ -42,6 +42,7 @@ public class PlayerMover : MonoBehaviour
         FinishGame();
         //transform.position = Vector3.zero;
         _isGrounded = checkBottom();
+        print(_isGrounded);
         Quaternion offset = Quaternion.Euler(0, -45, 0);
         _inputs = Vector3.zero;
         _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(-1 * cam.GetComponent<Camera_Controller>().up, offset * cam.GetComponent<Camera_Controller>().orientation);
