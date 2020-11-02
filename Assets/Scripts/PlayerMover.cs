@@ -6,7 +6,6 @@ using UnityEngine.SceneManagement;
 
 public class PlayerMover : MonoBehaviour
 {
-
     public float Speed = 1f;
     public float JumpHeight = 2f;
     public float GroundDistance = 0.2f;
@@ -24,8 +23,6 @@ public class PlayerMover : MonoBehaviour
 
     public GameObject starting;
 
-    private GameObject finish_line;
-
     void Start()
     {
         transform.position = starting.transform.position + Vector3.up * 2;
@@ -34,13 +31,10 @@ public class PlayerMover : MonoBehaviour
         _groundChecker = GetComponent<Transform>();
         bc = transform.GetComponent<BoxCollider>();
         distToGround = bc.bounds.extents.y;
-        finish_line = GameObject.Find("/Anchors/finish line");
     }
 
     void Update()
     {
-        FinishGame();
-        //transform.position = Vector3.zero;
         _isGrounded = checkBottom();
         Quaternion offset = Quaternion.Euler(0, -45, 0);
         _inputs = Vector3.zero;
@@ -105,18 +99,18 @@ public class PlayerMover : MonoBehaviour
         _body.MovePosition(_body.position + _inputs * Speed * Time.fixedDeltaTime);
     }
 
-    void FinishGame()
-    {
-        float zsize = finish_line.GetComponent<BoxCollider>().bounds.size[2];
-        if (_isGrounded && transform.position.x <= finish_line.transform.position.x && transform.position.z <= (finish_line.transform.position.z + zsize/2) && transform.position.z >= (finish_line.transform.position.z - zsize/2) && transform.position.y <= 1.1)
-        {
-            print("success!");
-            Invoke("transition", 2);
-        }
-    }
+    //void FinishGame()
+    //{
+    //    float zsize = finish_line.GetComponent<BoxCollider>().bounds.size[2];
+    //    if (_isGrounded && transform.position.x <= finish_line.transform.position.x && transform.position.z <= (finish_line.transform.position.z + zsize/2) && transform.position.z >= (finish_line.transform.position.z - zsize/2))
+    //    {
+    //        print("success!");
+    //        Invoke("transition", 2);
+    //    }
+    //}
 
-    void transition()
-    {
-        SceneManager.LoadScene("demoScene2");
-    }
+    //void transition()
+    //{
+    //    SceneManager.LoadScene("demoScene2");
+    //}
 }
