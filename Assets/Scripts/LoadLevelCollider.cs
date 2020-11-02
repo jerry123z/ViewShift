@@ -8,7 +8,7 @@ public class LoadLevelCollider:MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.CompareTag("Player"))
         {
             SceneManager.LoadScene(level);
         }

@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Camera_Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Transform center;
     public Vector3 orientation;
     public Vector3 top_face;
@@ -34,7 +33,6 @@ public class Camera_Controller : MonoBehaviour
         transform.LookAt(center.position);
         isRotating = false;
         rotateTimer = 0;
-        scale_up_faces();
         c = GetComponent<Camera>();
         up = Vector3.up;
     }
@@ -46,18 +44,12 @@ public class Camera_Controller : MonoBehaviour
         } else if (direction == Vector3.right){
             orientation = Quaternion.Euler(0, -90, 0) * orientation;
         }
-        //orientation = direction;
-        //transform.position = center + orientation;
-        //transform.LookAt(center);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print(transform.position);
-        //print(height + center.position +  scale * (isometricOffset * orientation));
         if (isRotating && rotateTimer > 0){
-            //print("isRotating = true");
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
             transform.RotateAround(center.position, Vector3.up, speed*direction);            
@@ -76,7 +68,7 @@ public class Camera_Controller : MonoBehaviour
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)){
-                if (hit.transform.gameObject.tag == "RelativeRotator")
+                if (hit.transform.gameObject.CompareTag("RelativeRotator"))
                 {
                     var rrd = hit.transform.gameObject.GetComponent<RelativeRotatorData>();
                     rrd.willRotate = !(rrd.willRotate);
@@ -96,9 +88,9 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
-                scale_down_faces();
-                isRotating = true;
+                //scale_down_faces();
                 //player.GetComponent<PlayerMover>().snap();
+                isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.left);
                 direction = 1f;
@@ -110,9 +102,9 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
-                scale_down_faces();
-                isRotating = true;
+                //scale_down_faces();
                 //player.GetComponent<PlayerMover>().snap();
+                isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.right);
                 direction = -1f;
@@ -120,18 +112,14 @@ public class Camera_Controller : MonoBehaviour
             }
         }
 
-        //if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == true)
-        Vector3 target = height + center.position + scale * (isometricOffset * orientation);
-        //print(target);
+        //Vector3 target = height + center.position + scale * (isometricOffset * orientation);
 
-        //print(transform.position);
-        //print(transform.position - target);
-        if (Mathf.Sqrt(Mathf.Pow((transform.position - target).x, 2) + Mathf.Pow((transform.position - target).z, 2)) < 0.1f && isRotating == true)
-        {
-           scale_up_faces();
-           isRotating = false;
-           //player.GetComponent<PlayerMover>().snap();
-        }
+        //if (Mathf.Sqrt(Mathf.Pow((transform.position - target).x, 2) + Mathf.Pow((transform.position - target).z, 2)) < 0.1f && isRotating == true)
+        //{
+        //   scale_up_faces();
+        //   isRotating = false;
+        //   //player.GetComponent<PlayerMover>().snap();
+        //}
     }
 
     void scale_up_faces(){
