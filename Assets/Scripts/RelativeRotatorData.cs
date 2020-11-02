@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class RelativeRotatorData : MonoBehaviour
 {
-    public float speed;
+    public bool willRotate;
 }

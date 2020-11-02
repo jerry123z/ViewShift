@@ -22,9 +22,13 @@ public class RelativeRotatorSystem : MonoBehaviour
             childsG[i] = child.gameObject;
             i++;
         }
-        foreach(var child in childsT)
+        foreach(var child in childsG)
         {
-            child.RotateAround(cameraController.center.position, Vector3.up, cameraController.speed*cameraController.direction);
+            RelativeRotatorData relativeRotatorData = child.GetComponent<RelativeRotatorData>();
+            if (relativeRotatorData.willRotate) {
+                var childTransform = child.GetComponent<Transform>();
+                childTransform.RotateAround(cameraController.center.position, Vector3.up, cameraController.speed * cameraController.direction);
+            }
         }
     }
 }

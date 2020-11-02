@@ -15,6 +15,7 @@ public class Camera_Controller : MonoBehaviour
     public float direction;
     public Camera c;
     public bool isRotating;
+    private float rotateTimer;
     public GameObject cubes;
     public GameObject player;
 
@@ -32,6 +33,7 @@ public class Camera_Controller : MonoBehaviour
         transform.position = height + center.position +  scale * (isometricOffset * orientation);
         transform.LookAt(center.position);
         isRotating = false;
+        rotateTimer = 0;
         scale_up_faces();
         c = GetComponent<Camera>();
         up = Vector3.up;
@@ -54,16 +56,17 @@ public class Camera_Controller : MonoBehaviour
     {
         //print(transform.position);
         //print(height + center.position +  scale * (isometricOffset * orientation));
-        if (isRotating){
+        if (isRotating && rotateTimer > 0){
             //print("isRotating = true");
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
-            transform.RotateAround(center.position, Vector3.up, speed*direction);
+            transform.RotateAround(center.position, Vector3.up, speed*direction);            
             RelativeRotatorSystem.RotateAll();
+            rotateTimer -= speed;
             //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         } else{
             //print("isRotating = false");
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             float step = speed * 20 * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         }
@@ -73,8 +76,14 @@ public class Camera_Controller : MonoBehaviour
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)){
-                center = hit.transform;
-                //print(center.position);
+                if (hit.transform.gameObject.tag == "RelativeRotator")
+                {
+                    var rrd = hit.transform.gameObject.GetComponent<RelativeRotatorData>();
+                    rrd.willRotate = !(rrd.willRotate);
+                }
+                else {
+                    center = hit.transform;
+                }
             }
         }
         if (Input.GetButtonDown("Submit")){
@@ -93,6 +102,7 @@ public class Camera_Controller : MonoBehaviour
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.left);
                 direction = 1f;
+                rotateTimer = 90;
             }
         }
 
@@ -106,6 +116,7 @@ public class Camera_Controller : MonoBehaviour
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.right);
                 direction = -1f;
+                rotateTimer = 90;
             }
         }
 
