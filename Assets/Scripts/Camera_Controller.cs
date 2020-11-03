@@ -7,7 +7,7 @@ public class Camera_Controller : MonoBehaviour
     public Transform center;
     public Vector3 orientation;
     public Vector3 top_face;
-    private Vector3 height;
+    public Vector3 height;
     private Quaternion isometricOffset;   
     public float scale;
     public float speed;

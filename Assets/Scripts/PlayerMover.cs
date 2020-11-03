@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class PlayerMover : MonoBehaviour
 {
     public float Speed = 1f;
-    public float JumpHeight = 2f;
+    public float JumpHeight = 1f;
     public float GroundDistance = 0.2f;
     public LayerMask Ground;
     private float distToGround;
