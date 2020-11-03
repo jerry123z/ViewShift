@@ -16,7 +16,7 @@ public class PlayerMover : MonoBehaviour
     public Camera cam;
     private BoxCollider bc;
     private Rigidbody _body;
-    private Vector3 _inputs = Vector3.zero;
+    public Vector3 _inputs = Vector3.zero;
     public bool _isGrounded = true;
     private Transform _groundChecker;
 

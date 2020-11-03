@@ -29,7 +29,8 @@ public class RobotAnim : MonoBehaviour
         }
 
         // Moving
-        playerSpd = (new Vector3(player.transform.position.x - playerPos.x, 0, player.transform.position.z - playerPos.z)).magnitude/Time.deltaTime;
+        playerSpd = playerScr._inputs.magnitude;
+        //playerSpd = (new Vector3(player.transform.position.x - playerPos.x, 0, player.transform.position.z - playerPos.z)).magnitude/Time.deltaTime;
         anim.SetFloat("groundSpeed", playerSpd);
         playerPos = new Vector3(player.transform.position.x, 0, player.transform.position.z);
     }
