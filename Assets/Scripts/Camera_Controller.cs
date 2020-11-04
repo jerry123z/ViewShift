@@ -15,7 +15,6 @@ public class Camera_Controller : MonoBehaviour
     public Camera c;
     public bool isRotating;
     private float rotateTimer;
-    public GameObject cubes;
     public GameObject player;
 
     public Vector3 up;
@@ -26,7 +25,7 @@ public class Camera_Controller : MonoBehaviour
         speed = 3f;
         direction = -1f;
         orientation =  new Vector3(1, 0, 0);
-        height = new Vector3 (0,5,0);
+        height = new Vector3 (0,6,0);
         center = player.GetComponent<Transform>();
         isometricOffset = Quaternion.Euler(0, -45, 0);
         transform.position = height + center.position +  scale * (isometricOffset * orientation);
@@ -50,14 +49,12 @@ public class Camera_Controller : MonoBehaviour
     void Update()
     {
         if (isRotating && rotateTimer > 0){
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
             transform.RotateAround(center.position, Vector3.up, speed*direction);            
             RelativeRotatorSystem.RotateAll();
             rotateTimer -= speed;
-            //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         } else{
-            //print("isRotating = false");
             isRotating = false;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             float step = speed * 20 * Time.deltaTime; // calculate distance to move
@@ -69,19 +66,23 @@ public class Camera_Controller : MonoBehaviour
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)){
+                DrawLine(transform.position, hit.point, Color.red, 0.1f);
                 if (hit.transform.gameObject.CompareTag("RelativeRotator"))
                 {
                     var rrd = hit.transform.gameObject.GetComponent<RelativeRotatorData>();
                     rrd.willRotate = !(rrd.willRotate);
-                }
-                else {
-                    center = hit.transform;
+                    var glow = !hit.transform.gameObject.GetComponent<Animator>().GetBool("Glow");
+                    hit.transform.gameObject.GetComponent<Animator>().SetBool("Glow", glow);
+                } else {
+                    //center.GetComponent<Animator>().SetBool("Glow", false);
+                    center = hit.transform.parent;
+                    //center.GetComponent<Animator>().SetBool("Glow", true);
                 }
             }
         }
         if (Input.GetButtonDown("Submit")){
-            print("Submit");
-            center = player.GetComponent<Transform>();;
+            //center.GetComponent<Animator>().SetBool("Glow", false);
+            center = player.GetComponent<Transform>();
             print(center.position);
         }
 
@@ -89,8 +90,6 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
-                //scale_down_faces();
-                //player.GetComponent<PlayerMover>().snap();
                 isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.left);
@@ -103,8 +102,6 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
-                //scale_down_faces();
-                //player.GetComponent<PlayerMover>().snap();
                 isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.right);
@@ -112,40 +109,35 @@ public class Camera_Controller : MonoBehaviour
                 rotateTimer = 90;
             }
         }
-
-        //Vector3 target = height + center.position + scale * (isometricOffset * orientation);
-
-        //if (Mathf.Sqrt(Mathf.Pow((transform.position - target).x, 2) + Mathf.Pow((transform.position - target).z, 2)) < 0.1f && isRotating == true)
-        //{
-        //   scale_up_faces();
-        //   isRotating = false;
-        //   //player.GetComponent<PlayerMover>().snap();
-        //}
     }
 
-    void scale_up_faces(){
-        GameObject cubes = GameObject.Find("Cubes");
-        BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
-        foreach (BoxCollider boxCollider in boxColliders){
-            var s = boxCollider.size;
-            Vector3 factor = orientation;
-            factor *= 15;
-            factor += new Vector3(1, 1, 1);
-            s = new Vector3 ((factor.x)*s[0], (factor.y)*s[1], factor.z * s[2]);
-            boxCollider.size = s;
+    void disableAllAnimator()
+    {
+        GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        Transform transform = relativeRotators.GetComponent<Transform>();
+        foreach (Transform rotator in transform)
+        {
+            GameObject obj = rotator.gameObject;
+            if (obj.GetComponent<Animator>().enabled)
+            {
+                obj.GetComponent<Animator>().enabled = false;
+            }
         }
     }
-    
-    void scale_down_faces(){
-        //GameObject cubes = GameObject.Find("Cubes");
-        BoxCollider[] boxColliders = cubes.GetComponentsInChildren<BoxCollider>();
-        foreach (BoxCollider boxCollider in boxColliders){
-            var s = boxCollider.size;
-            Vector3 factor = orientation;
-            factor *= 15;
-            factor += new Vector3(1, 1, 1);
-            s = new Vector3((factor.x)/s.x, (factor.y)/s.y, (factor.z)/s.z);
-            boxCollider.size = s;
-        }
+
+    void DrawLine(Vector3 start, Vector3 end, Color color, float duration = 0.2f)
+    {
+        GameObject myLine = new GameObject();
+        myLine.transform.position = start;
+        myLine.AddComponent<LineRenderer>();
+        LineRenderer lr = myLine.GetComponent<LineRenderer>();
+        lr.material = new Material(Shader.Find("Specular"));
+        lr.startColor = color;
+        lr.endColor = color;
+        lr.startWidth = 0.1f;
+        lr.endWidth = 0.1f;
+        lr.SetPosition(0, start);
+        lr.SetPosition(1, end);
+        GameObject.Destroy(myLine, duration);
     }
 }

@@ -17,11 +17,13 @@ public class DoorTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //EnterAction?.Invoke();
+        print("enter");
         count += 1;
         script.Open();
     }
     void OnTriggerExit(Collider other)
     {
+        print("exit");
         //ExitAction?.Invoke();
         if (count > 0)
         {

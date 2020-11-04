@@ -25,19 +25,19 @@ public class PushableBlock : MonoBehaviour
             double distx = Mathf.Abs(other.transform.position.x - transform.position.x);
             double distz = Mathf.Abs(other.transform.position.z - transform.position.z);
 
-            if (distx <= distz)
-            {
-                rb.constraints = RigidbodyConstraints.FreezeAll & ~RigidbodyConstraints.FreezePositionZ;
-            } else if (distz <= distx)
-            {
-                rb.constraints = RigidbodyConstraints.FreezeAll & ~RigidbodyConstraints.FreezePositionX;
-            }
+            //if (distx <= distz)
+            //{
+            //    rb.constraints = RigidbodyConstraints.FreezeAll & ~RigidbodyConstraints.FreezePositionZ;
+            //} else if (distz <= distx)
+            //{
+            //    rb.constraints = RigidbodyConstraints.FreezeAll & ~RigidbodyConstraints.FreezePositionX;
+            //}
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        rb.constraints = RigidbodyConstraints.None;
+        //rb.constraints = RigidbodyConstraints.None;
     }
 
 
