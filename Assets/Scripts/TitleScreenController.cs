@@ -5,14 +5,12 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreenController : MonoBehaviour
 {
-    private bool state;
     private GameObject keyMap;
 
     private void Start()
     {
-        keyMap = GameObject.Find("/Canvas/KeyMapping");
+        keyMap = GameObject.Find("/Title Screen/KeyMapping");
         keyMap.SetActive(false);
-        state = false;
     }
     public void startGame()
     {
@@ -21,11 +19,19 @@ public class TitleScreenController : MonoBehaviour
 
     public void option()
     {
-        keyMap.SetActive(!state);
+        keyMap.SetActive(true);
     }
 
     public void quitGame()
     {
         Application.Quit();
-    } 
+    }
+
+    private void Update()
+    {
+        if (Input.GetButtonDown("Cancel"))
+        {
+            keyMap.SetActive(false);
+        }
+    }
 }
