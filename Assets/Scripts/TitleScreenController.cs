@@ -7,7 +7,7 @@ public class TitleScreenController : MonoBehaviour
 {
     public void startGame()
     {
-        SceneManager.LoadScene("demoScene2");
+        SceneManager.LoadScene("AlphaLevel");
     }
 
     public void quitGame()
