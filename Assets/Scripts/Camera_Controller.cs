@@ -48,17 +48,19 @@ public class Camera_Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isRotating && rotateTimer > 0){
-        player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+        if (isRotating && rotateTimer > 0) {
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
-            transform.RotateAround(center.position, Vector3.up, speed*direction);            
             RelativeRotatorSystem.RotateAll();
-            rotateTimer -= speed;
-        } else{
+            transform.RotateAround(center.position, Vector3.up, speed * direction);
+            //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
+        } else if(isRotating) {
             isRotating = false;
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
+            RelativeRotatorSystem.Unfreeze();
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        } else {            
             float step = speed * 20 * Time.deltaTime; // calculate distance to move
-            transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
+            transform.position = Vector3.MoveTowards(transform.position, height + center.position + scale * (isometricOffset * orientation), step);
         }
 
         if (Input.GetButtonDown("Fire3")){
@@ -95,6 +97,7 @@ public class Camera_Controller : MonoBehaviour
                 rotate(Vector3.left);
                 direction = 1f;
                 rotateTimer = 90;
+                RelativeRotatorSystem.Freeze();
             }
         }
 
@@ -107,6 +110,7 @@ public class Camera_Controller : MonoBehaviour
                 rotate(Vector3.right);
                 direction = -1f;
                 rotateTimer = 90;
+                RelativeRotatorSystem.Freeze();
             }
         }
     }

@@ -5,16 +5,22 @@ using UnityEngine;
 public class PushableBlock : MonoBehaviour
 {
     Rigidbody rb;
+
+    Vector3 starting;
     // Start is called before the first frame update
     void Start()
     {
         rb = GetComponent<Rigidbody>();
+        starting = transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+        if ((transform.position - starting).sqrMagnitude > 1000)
+        {
+            transform.position = starting + Vector3.up;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -37,7 +43,7 @@ public class PushableBlock : MonoBehaviour
 
     private void OnCollisionExit(Collision collision)
     {
-        //rb.constraints = RigidbodyConstraints.None;
+        rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
     }
 
 
