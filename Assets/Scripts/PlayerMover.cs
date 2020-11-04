@@ -18,8 +18,10 @@ public class PlayerMover : MonoBehaviour
     public bool _isGrounded = true;
 
     private GameObject touching;
-
     public GameObject starting;
+    public AudioClip jump;
+    public AudioClip land;
+    private AudioSource audioSource;
 
     void Start()
     {
@@ -28,6 +30,7 @@ public class PlayerMover : MonoBehaviour
         _body = GetComponent<Rigidbody>();
         bc = transform.GetComponent<BoxCollider>();
         distToGround = bc.bounds.extents.y;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void Update()
@@ -42,6 +45,7 @@ public class PlayerMover : MonoBehaviour
 
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
+            audioSource.PlayOneShot(jump, 0.5f);
             _body.AddForce(5f * cam.GetComponent<Camera_Controller>().up * Mathf.Sqrt(JumpHeight), ForceMode.VelocityChange);
             touching = null;
         }
