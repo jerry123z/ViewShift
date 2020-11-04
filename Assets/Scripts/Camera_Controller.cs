@@ -52,11 +52,22 @@ public class Camera_Controller : MonoBehaviour
         if (isRotating && rotateTimer > 0){
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
-            transform.RotateAround(center.position, Vector3.up, speed*direction);            
+            GameObject relativeRotators = GameObject.Find("RelativeRotators");
+            Transform transforms = relativeRotators.GetComponent<Transform>();
+            foreach (Transform child in transforms)
+            {
+                child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            }
             RelativeRotatorSystem.RotateAll();
-            rotateTimer -= speed;
+            transform.RotateAround(center.position, Vector3.up, speed*direction);
             //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         } else{
+            GameObject relativeRotators = GameObject.Find("RelativeRotators");
+            Transform transforms = relativeRotators.GetComponent<Transform>();
+            foreach (Transform child in transforms)
+            {
+                child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            }
             //print("isRotating = false");
             isRotating = false;
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
