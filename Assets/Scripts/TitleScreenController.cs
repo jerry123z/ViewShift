@@ -5,20 +5,13 @@ using UnityEngine.SceneManagement;
 
 public class TitleScreenController : MonoBehaviour
 {
-    public bool isStart;
-    public bool isQuit;
-
-    private void OnMouseUp()
+    public void startGame()
     {
-        if (isStart)
-        {
-            SceneManager.LoadScene("demoScene2");
-            Renderer rend = GetComponent<Renderer>();
-            rend.material.color = Color.green;
-        }
-        if (isQuit)
-        {
-            Application.Quit();
-        }
+        SceneManager.LoadScene("AlphaLevel");
     }
+
+    public void quitGame()
+    {
+        Application.Quit();
+    } 
 }
