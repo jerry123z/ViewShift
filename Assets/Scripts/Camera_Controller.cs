@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class Camera_Controller : MonoBehaviour
 {
-    // Start is called before the first frame update
     public Transform center;
     public Vector3 orientation;
     public Vector3 top_face;
@@ -15,6 +14,7 @@ public class Camera_Controller : MonoBehaviour
     public float direction;
     public Camera c;
     public bool isRotating;
+    private float rotateTimer;
     public GameObject cubes;
     public GameObject player;
 
@@ -32,7 +32,7 @@ public class Camera_Controller : MonoBehaviour
         transform.position = height + center.position +  scale * (isometricOffset * orientation);
         transform.LookAt(center.position);
         isRotating = false;
-        scale_up_faces();
+        rotateTimer = 0;
         c = GetComponent<Camera>();
         up = Vector3.up;
     }
@@ -44,18 +44,12 @@ public class Camera_Controller : MonoBehaviour
         } else if (direction == Vector3.right){
             orientation = Quaternion.Euler(0, -90, 0) * orientation;
         }
-        //orientation = direction;
-        //transform.position = center + orientation;
-        //transform.LookAt(center);
     }
 
     // Update is called once per frame
     void Update()
     {
-        //print(transform.position);
-        //print(height + center.position +  scale * (isometricOffset * orientation));
-        if (isRotating){
-            //print("isRotating = true");
+        if (isRotating && rotateTimer > 0){
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
             GameObject relativeRotators = GameObject.Find("RelativeRotators");
@@ -75,7 +69,8 @@ public class Camera_Controller : MonoBehaviour
                 child.gameObject.GetComponent<Rigidbody>().useGravity = true;
             }
             //print("isRotating = false");
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            isRotating = false;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
             float step = speed * 20 * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         }
@@ -85,8 +80,14 @@ public class Camera_Controller : MonoBehaviour
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
             if (Physics.Raycast(ray, out hit)){
-                center = hit.transform;
-                //print(center.position);
+                if (hit.transform.gameObject.CompareTag("RelativeRotator"))
+                {
+                    var rrd = hit.transform.gameObject.GetComponent<RelativeRotatorData>();
+                    rrd.willRotate = !(rrd.willRotate);
+                }
+                else {
+                    center = hit.transform;
+                }
             }
         }
         if (Input.GetButtonDown("Submit")){
@@ -99,12 +100,13 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
-                scale_down_faces();
-                isRotating = true;
+                //scale_down_faces();
                 //player.GetComponent<PlayerMover>().snap();
+                isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.left);
                 direction = 1f;
+                rotateTimer = 90;
             }
         }
 
@@ -112,27 +114,24 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
-                scale_down_faces();
-                isRotating = true;
+                //scale_down_faces();
                 //player.GetComponent<PlayerMover>().snap();
+                isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.right);
                 direction = -1f;
+                rotateTimer = 90;
             }
         }
 
-        //if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == true)
-        Vector3 target = height + center.position + scale * (isometricOffset * orientation);
-        //print(target);
+        //Vector3 target = height + center.position + scale * (isometricOffset * orientation);
 
-        //print(transform.position);
-        //print(transform.position - target);
-        if (Mathf.Sqrt(Mathf.Pow((transform.position - target).x, 2) + Mathf.Pow((transform.position - target).z, 2)) < 0.1f && isRotating == true)
-        {
-           scale_up_faces();
-           isRotating = false;
-           //player.GetComponent<PlayerMover>().snap();
-        }
+        //if (Mathf.Sqrt(Mathf.Pow((transform.position - target).x, 2) + Mathf.Pow((transform.position - target).z, 2)) < 0.1f && isRotating == true)
+        //{
+        //   scale_up_faces();
+        //   isRotating = false;
+        //   //player.GetComponent<PlayerMover>().snap();
+        //}
     }
 
     void scale_up_faces(){
