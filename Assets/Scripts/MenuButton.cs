@@ -29,7 +29,7 @@ public class MenuButton : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Submit"))
         {
             if (Time.timeScale > 0)
             {

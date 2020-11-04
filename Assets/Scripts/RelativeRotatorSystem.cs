@@ -30,13 +30,27 @@ public class RelativeRotatorSystem : MonoBehaviour
         }
     }
 
+    public static void ReleaseAll()
+    {
+        GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        Transform transforms = relativeRotators.GetComponent<Transform>();
+        foreach (Transform child in transforms)
+        {
+            var rrd = child.gameObject.GetComponent<RelativeRotatorData>();
+            rrd.willRotate = false;
+            child.gameObject.GetComponent<Animator>().SetBool("Glow", false);
+        }
+    }
+
     public static void Unfreeze()
     {
         GameObject relativeRotators = GameObject.Find("RelativeRotators");
         Transform transforms = relativeRotators.GetComponent<Transform>();
         foreach (Transform child in transforms)
         {
-            child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            if (child.gameObject.GetComponent<Rigidbody>()) {
+                child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            }
         }
     }
 
@@ -46,7 +60,10 @@ public class RelativeRotatorSystem : MonoBehaviour
         Transform transforms = relativeRotators.GetComponent<Transform>();
         foreach (Transform child in transforms)
         {
-            child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            if (child.gameObject.GetComponent<Rigidbody>())
+            {
+                child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            }
         }
     }
 }

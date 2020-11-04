@@ -53,17 +53,18 @@ public class Camera_Controller : MonoBehaviour
             float step = speed * Time.deltaTime; // calculate distance to move
             RelativeRotatorSystem.RotateAll();
             transform.RotateAround(center.position, Vector3.up, speed * direction);
+            rotateTimer -= speed;
             //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
         } else if(isRotating) {
             isRotating = false;
             RelativeRotatorSystem.Unfreeze();
-            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+            player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeRotation;
         } else {            
             float step = speed * 20 * Time.deltaTime; // calculate distance to move
             transform.position = Vector3.MoveTowards(transform.position, height + center.position + scale * (isometricOffset * orientation), step);
         }
 
-        if (Input.GetButtonDown("Fire3")){
+        if (Input.GetButtonDown("Fire Out")){
             var transform = player.GetComponent<Transform>();
             Ray ray = new Ray(transform.position, transform.forward);
             RaycastHit hit;
@@ -82,13 +83,19 @@ public class Camera_Controller : MonoBehaviour
                 }
             }
         }
-        if (Input.GetButtonDown("Submit")){
+        if (Input.GetButtonDown("Fire Self")){
             //center.GetComponent<Animator>().SetBool("Glow", false);
             center = player.GetComponent<Transform>();
             print(center.position);
         }
 
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Reset All"))
+        {
+            print("reset all");
+            RelativeRotatorSystem.ReleaseAll();
+        }
+
+        if (Input.GetButtonDown("Rotate Left"))
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
@@ -101,7 +108,7 @@ public class Camera_Controller : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Rotate Right"))
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {

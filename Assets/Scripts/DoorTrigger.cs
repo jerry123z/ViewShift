@@ -21,6 +21,7 @@ public class DoorTrigger : MonoBehaviour
         count += 1;
         script.Open();
     }
+
     void OnTriggerExit(Collider other)
     {
         print("exit");
