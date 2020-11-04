@@ -9,7 +9,7 @@ public class MenuButton : MonoBehaviour
 
     void Start()
     {
-        pauseScreen = GameObject.Find("/PauseScreenCanvas/PauseScreen");
+        pauseScreen = GameObject.Find("Pause Screen/PauseScreenCanvas/PauseScreen");
         pauseScreen.SetActive(false);
         Time.timeScale = 1;
     }
@@ -29,7 +29,7 @@ public class MenuButton : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetButtonDown("Submit"))
+        if (Input.GetButtonDown("Cancel"))
         {
             if (Time.timeScale > 0)
             {
