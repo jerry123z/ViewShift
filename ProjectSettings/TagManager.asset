@@ -4,6 +4,7 @@
 TagManager:
   serializedVersion: 2
   tags:
+  - RelativeRotator
   - column
   - ShowOnPause
   layers:
@@ -18,9 +19,9 @@ TagManager:
   - PostProcessing
   - Button
   - Player
-  - 
-  - 
-  - 
+  - PushableBlock
+  - Lights
+  - Camera
   - 
   - 
   - 

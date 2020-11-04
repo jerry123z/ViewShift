@@ -9,7 +9,7 @@ public class MenuButton : MonoBehaviour
 
     void Start()
     {
-        pauseScreen = GameObject.Find("/Canvas/PauseScreen");
+        pauseScreen = GameObject.Find("/PauseScreenCanvas/PauseScreen");
         pauseScreen.SetActive(false);
         Time.timeScale = 1;
     }
@@ -29,7 +29,7 @@ public class MenuButton : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Submit"))
         {
             if (Time.timeScale > 0)
             {

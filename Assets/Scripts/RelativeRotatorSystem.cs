@@ -13,18 +13,57 @@ public class RelativeRotatorSystem : MonoBehaviour
         Camera_Controller cameraController = camera.GetComponent<Camera_Controller>();
         GameObject relativeRotators = GameObject.Find("RelativeRotators");
         Transform transform = relativeRotators.GetComponent<Transform>();
-        Transform[] childsT  = new Transform[transform.childCount];
         GameObject[] childsG = new GameObject[transform.childCount];
         int i  = 0;
         foreach(Transform child in transform)
         {
-            childsT[i] = child;
             childsG[i] = child.gameObject;
             i++;
         }
-        foreach(var child in childsT)
+        foreach(var child in childsG)
         {
-            child.RotateAround(cameraController.center.position, Vector3.up, cameraController.speed*cameraController.direction);
+            RelativeRotatorData relativeRotatorData = child.GetComponent<RelativeRotatorData>();
+            if (relativeRotatorData.willRotate) {
+                var childTransform = child.GetComponent<Transform>();
+                childTransform.RotateAround(cameraController.center.position, Vector3.up, cameraController.speed * cameraController.direction);
+            }
+        }
+    }
+
+    public static void ReleaseAll()
+    {
+        GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        Transform transforms = relativeRotators.GetComponent<Transform>();
+        foreach (Transform child in transforms)
+        {
+            var rrd = child.gameObject.GetComponent<RelativeRotatorData>();
+            rrd.willRotate = false;
+            child.gameObject.GetComponent<Animator>().SetBool("Glow", false);
+        }
+    }
+
+    public static void Unfreeze()
+    {
+        GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        Transform transforms = relativeRotators.GetComponent<Transform>();
+        foreach (Transform child in transforms)
+        {
+            if (child.gameObject.GetComponent<Rigidbody>()) {
+                child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+            }
+        }
+    }
+
+    public static void Freeze()
+    {
+        GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        Transform transforms = relativeRotators.GetComponent<Transform>();
+        foreach (Transform child in transforms)
+        {
+            if (child.gameObject.GetComponent<Rigidbody>())
+            {
+                child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+            }
         }
     }
 }
