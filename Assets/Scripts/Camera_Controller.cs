@@ -16,6 +16,9 @@ public class Camera_Controller : MonoBehaviour
     public bool isRotating;
     private float rotateTimer;
     public GameObject player;
+    public AudioClip rotateClip1;
+    public AudioClip rotateClip2;
+    private AudioSource audioSource;
 
     public Vector3 up;
     void Start()
@@ -34,6 +37,7 @@ public class Camera_Controller : MonoBehaviour
         rotateTimer = 0;
         c = GetComponent<Camera>();
         up = Vector3.up;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void rotate(Vector3 direction)
@@ -99,6 +103,7 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
+                audioSource.PlayOneShot(rotateClip1, 0.5f);
                 isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.left);
@@ -112,6 +117,7 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
+                audioSource.PlayOneShot(rotateClip2, 0.5f);
                 isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
                 rotate(Vector3.right);
