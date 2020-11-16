@@ -93,6 +93,17 @@ public class Camera_Controller : MonoBehaviour
             print(center.position);
         }
 
+        if (Input.GetButtonDown("Select In View"))
+        {
+            // need to tweak ViewRadius parameter later to fit into stuff thats within view
+            RelativeRotatorSystem.SelectAllInView(player.transform.position, scale);
+        }
+
+        if (Input.GetButtonDown("Scroll"))
+        {
+            RelativeRotatorSystem.Scroll();
+        }
+
         if (Input.GetButtonDown("Reset All"))
         {
             print("reset all");
