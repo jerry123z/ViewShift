@@ -20,6 +20,7 @@ public class LevelSelectButton : MonoBehaviour
     bool isMoving = false;
 
     public GameObject[,] grid = new GameObject[rows, cols];
+    public int level = 1;
     void Start()
     {
         AddRowToGrid(0, row1);
@@ -59,6 +60,10 @@ public class LevelSelectButton : MonoBehaviour
             moveSelector("down");
         }
 
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+            LoadLevel();
+        }
     }
 
     public void moveSelector(string direction)
@@ -71,6 +76,7 @@ public class LevelSelectButton : MonoBehaviour
                 if(positionIndex.x < cols - 1)
                 {
                     positionIndex.x += 1;
+                    level += 1;
                 }
                 //else
                 //{
@@ -83,6 +89,7 @@ public class LevelSelectButton : MonoBehaviour
                 if (positionIndex.x > 0)
                 {
                     positionIndex.x -= 1;
+                    level -= 1;
                 }
                 //else
                 //{
@@ -95,6 +102,11 @@ public class LevelSelectButton : MonoBehaviour
                 if (positionIndex.y > 0)
                 {
                     positionIndex.y -= 1;
+                    level -= cols;
+                    if (level < 0)
+                    {
+                        level = 0;
+                    }
                 }
                 //else
                 //{
@@ -107,6 +119,7 @@ public class LevelSelectButton : MonoBehaviour
                 if (positionIndex.y < rows - 1)
                 {
                     positionIndex.y += 1;
+                    level += cols;
                 }
                 //else
                 //{
@@ -125,5 +138,10 @@ public class LevelSelectButton : MonoBehaviour
     public void ResetMoving()
     {
         isMoving = false;
+    }
+
+    public void LoadLevel()
+    {
+        SceneManager.LoadScene(level);
     }
 }
