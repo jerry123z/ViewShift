@@ -10,11 +10,14 @@ public class TitleScreenController : MonoBehaviour
     private void Start()
     {
         keyMap = GameObject.Find("/Title Screen/KeyMapping");
-        keyMap.SetActive(false);
+        if (keyMap)
+        {
+            keyMap.SetActive(false);
+        }
     }
     public void startGame()
     {
-        SceneManager.LoadScene("AlphaLevel");
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void option()
