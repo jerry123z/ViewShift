@@ -12,6 +12,7 @@ public class PushableBlock : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
         starting = transform.position;
+        rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
     }
 
     // Update is called once per frame

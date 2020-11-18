@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Camera_Controller : MonoBehaviour
 {
@@ -16,6 +14,7 @@ public class Camera_Controller : MonoBehaviour
     public bool isRotating;
     private float rotateTimer;
     public GameObject player;
+    private PlayerMover playerMover;
     public AudioClip rotateClip1;
     public AudioClip rotateClip2;
     private AudioSource audioSource;
@@ -35,6 +34,7 @@ public class Camera_Controller : MonoBehaviour
         transform.LookAt(center.position);
         isRotating = false;
         rotateTimer = 0;
+        playerMover = player.GetComponent<PlayerMover>();
         c = GetComponent<Camera>();
         up = Vector3.up;
         audioSource = GetComponent<AudioSource>();
@@ -55,7 +55,7 @@ public class Camera_Controller : MonoBehaviour
         if (isRotating && rotateTimer > 0) {
             player.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
             float step = speed * Time.deltaTime; // calculate distance to move
-            RelativeRotatorSystem.RotateAll();
+            RelativeRotatorSystem.RotateAll(playerMover.touching);
             transform.RotateAround(center.position, Vector3.up, speed * direction);
             rotateTimer -= speed;
             //transform.position = Vector3.MoveTowards(transform.position, height + center.position +  scale * (isometricOffset * orientation), step);
@@ -93,13 +93,24 @@ public class Camera_Controller : MonoBehaviour
             print(center.position);
         }
 
+        if (Input.GetAxis("Select In View") > 0.2)
+        {
+            // need to tweak ViewRadius parameter later to fit into stuff thats within view
+            RelativeRotatorSystem.SelectAllInView(player.transform.position, scale*2);
+        }
+
+        if (Input.GetAxis("Scroll") > 0.2)
+        {
+            RelativeRotatorSystem.Scroll();
+        }
+
+
         if (Input.GetButtonDown("Reset All"))
         {
-            print("reset all");
             RelativeRotatorSystem.ReleaseAll();
         }
 
-        if (Input.GetButtonDown("Rotate Left"))
+        if (Input.GetButtonDown("Rotate Right"))
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
@@ -113,7 +124,7 @@ public class Camera_Controller : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Rotate Right"))
+        if (Input.GetButtonDown("Rotate Left"))
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
@@ -149,6 +160,7 @@ public class Camera_Controller : MonoBehaviour
         myLine.AddComponent<LineRenderer>();
         LineRenderer lr = myLine.GetComponent<LineRenderer>();
         lr.material = new Material(Shader.Find("Specular"));
+        print(Shader.Find("Specular").name);
         lr.startColor = color;
         lr.endColor = color;
         lr.startWidth = 0.1f;

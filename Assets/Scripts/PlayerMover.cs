@@ -17,7 +17,7 @@ public class PlayerMover : MonoBehaviour
     public Vector3 _inputs = Vector3.zero;
     public bool _isGrounded = true;
 
-    private GameObject touching;
+    public GameObject touching;
     public GameObject starting;
     public AudioClip jump;
     public AudioClip land;
@@ -47,7 +47,6 @@ public class PlayerMover : MonoBehaviour
         {
             audioSource.PlayOneShot(jump, 0.5f);
             _body.AddForce(5f * cam.GetComponent<Camera_Controller>().up * Mathf.Sqrt(JumpHeight), ForceMode.VelocityChange);
-            touching = null;
         }
 
         if ((transform.position - starting.transform.position).sqrMagnitude > 1000)
@@ -59,26 +58,46 @@ public class PlayerMover : MonoBehaviour
         }
     }
 
-    void OnCollisionEnter(Collision collision)
-    {
-        touching = collision.gameObject;
-    }
-
-    public void snap()
-    {
-        if (touching)
-        {
-            transform.position = touching.transform.position + Vector3.up;
-        }
-    }
-
     bool checkBottom()
     {
+        Ray ray = new Ray(transform.position, -cam.GetComponent<Camera_Controller>().up);
+        RaycastHit hit;
+        
+        if (Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)))
+        {
+            if (hit.transform.parent.gameObject.CompareTag("RotatorZone") && hit.transform.parent.gameObject != touching)
+            {
+                RemoveOutline();
+                var children = hit.transform.parent.GetComponentsInChildren<Transform>();
+                Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
+                touching = hit.transform.parent.gameObject;
+            } else if (hit.transform.parent.gameObject.CompareTag("RotatorZone")){
+                //pass
+            } else
+            {
+                RemoveOutline();
+            }
+        } else {
+            RemoveOutline();
+        }
         return Physics.Raycast(transform.position, -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
         Physics.Raycast(transform.position + new Vector3(0, 0, 0.5f), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
         Physics.Raycast(transform.position + new Vector3(0, 0, -0.5f), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
         Physics.Raycast(transform.position + new Vector3(0.5f, 0, 0), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
         Physics.Raycast(transform.position + new Vector3(-0.5f, 0, 0), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1));
+    }
+
+    void RemoveOutline()
+    {
+        if (touching)
+        {
+            Outline outline = touching.GetComponent<Outline>();
+            if (outline)
+            {
+                Destroy(touching.GetComponent<Outline>());
+            }
+            touching = null;
+        }
     }
 
     void FixedUpdate()
