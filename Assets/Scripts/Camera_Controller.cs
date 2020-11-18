@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 public class Camera_Controller : MonoBehaviour
 {
@@ -95,16 +93,17 @@ public class Camera_Controller : MonoBehaviour
             print(center.position);
         }
 
-        if (Input.GetButtonDown("Select In View"))
+        if (Input.GetAxis("Select In View") > 0.2)
         {
             // need to tweak ViewRadius parameter later to fit into stuff thats within view
-            RelativeRotatorSystem.SelectAllInView(player.transform.position, scale);
+            RelativeRotatorSystem.SelectAllInView(player.transform.position, scale*2);
         }
 
-        if (Input.GetButtonDown("Scroll"))
+        if (Input.GetAxis("Scroll") > 0.2)
         {
             RelativeRotatorSystem.Scroll();
         }
+
 
         if (Input.GetButtonDown("Reset All"))
         {
