@@ -160,6 +160,7 @@ public class Camera_Controller : MonoBehaviour
         myLine.AddComponent<LineRenderer>();
         LineRenderer lr = myLine.GetComponent<LineRenderer>();
         lr.material = new Material(Shader.Find("Specular"));
+        print(Shader.Find("Specular").name);
         lr.startColor = color;
         lr.endColor = color;
         lr.startWidth = 0.1f;

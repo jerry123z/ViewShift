@@ -8035,6 +8035,7 @@ GameObject:
   - component: {fileID: 8431466109721531064}
   - component: {fileID: 4692597871799927687}
   - component: {fileID: 1523230524222956559}
+  - component: {fileID: 4751247740576059871}
   m_Layer: 0
   m_Name: polySurface14
   m_TagString: Untagged
@@ -8042,6 +8043,20 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!64 &4751247740576059871
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4751247740576059870}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -3914798656235243572, guid: db68da2e5553dcb469b3f5c0125f1e43, type: 3}
 --- !u!33 &4942609949493951436
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -8319,6 +8334,7 @@ GameObject:
   - component: {fileID: 1113828855012974289}
   - component: {fileID: 8670955720393898224}
   - component: {fileID: 8670955720393898223}
+  - component: {fileID: 8670955720393898225}
   m_Layer: 0
   m_Name: polySurface15
   m_TagString: Untagged
@@ -8353,3 +8369,22 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -5511996699474248536, guid: db68da2e5553dcb469b3f5c0125f1e43, type: 3}
+--- !u!95 &8670955720393898225
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8670955720393898222}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: f93644e528490fa4f8f8422844e14633, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
