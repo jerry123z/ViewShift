@@ -17,7 +17,7 @@ public class TitleScreenController : MonoBehaviour
     }
     public void startGame()
     {
-        SceneManager.LoadScene("AlphaLevel");
+        SceneManager.LoadScene("LevelSelect");
     }
 
     public void option()

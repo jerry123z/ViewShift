@@ -1282,6 +1282,7 @@ MonoBehaviour:
   - {fileID: 357008771}
   - {fileID: 1284786272}
   - {fileID: 1386385972}
+  level: 1
 --- !u!4 &1702862059
 Transform:
   m_ObjectHideFlags: 0
