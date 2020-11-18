@@ -54,21 +54,14 @@ public class RelativeRotatorSystem : MonoBehaviour
 
         selected = new List<GameObject>();
 
-
         foreach (Transform child in transforms)
         {
             if ((child.position - position).magnitude <= ViewRadius) {
-
                 // should also check that there's no wall between player and object candidate (raycast from position)
                 selected.Add(child.gameObject);
 
-
-                //rrd.willRotate = false;
-
-
                 // need a different glow for selecting
                 child.gameObject.GetComponent<Animator>().SetBool("Glow", true);
-
             }
         }
         print("selected.count: " + selected.Count);
@@ -82,7 +75,6 @@ public class RelativeRotatorSystem : MonoBehaviour
 
     public static void Scroll()
     {
-
         print("currently selecting: " + selection_index);
         print("selected.count: " + selected.Count);
         if (selected.Count > 0)
@@ -95,18 +87,13 @@ public class RelativeRotatorSystem : MonoBehaviour
             rrd.willRotate = false;
             child.GetComponent<Animator>().SetBool("Selected", false);
 
-            //if (selected.Count > 0)
-            //{
             selection_index = (selection_index + 1) % selected.Count;
-
-            //}
 
             child = selected[selection_index];
             rrd = child.GetComponent<RelativeRotatorData>();
             rrd.willRotate = true;
             child.gameObject.GetComponent<Animator>().SetBool("Selected", true);
         }
-
     }
 
     public static void ReleaseAll()
