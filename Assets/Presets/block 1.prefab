@@ -43,7 +43,6 @@ GameObject:
   - component: {fileID: 5263782094822881440}
   - component: {fileID: 3310978207395111612}
   - component: {fileID: 7439318415567427082}
-  - component: {fileID: 7596146208800921660}
   - component: {fileID: 6362055553321930378}
   m_Layer: 0
   m_Name: tree:modular_trees_and_blocks:SmartCombine_0_tree:modular_trees_and_blocks:polySurface1_Sep_1_tree:modular_trees_and_blocks:group1
@@ -113,26 +112,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &7596146208800921660
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6783545313515308383}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 0.07
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
-  outlineMaskMaterial: {fileID: 2100000, guid: 106f3ff43a17d4967a2b64c7a92e49ec, type: 2}
-  outlineFillMaterial: {fileID: 2100000, guid: 311313efa011949e98b6761d652ad13c, type: 2}
 --- !u!64 &6362055553321930378
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -158,7 +137,6 @@ GameObject:
   - component: {fileID: 2348316717521836958}
   - component: {fileID: 2239313465623831674}
   - component: {fileID: 4085503796400936207}
-  - component: {fileID: 1935154072359798661}
   - component: {fileID: 7225242808541532085}
   m_Layer: 0
   m_Name: tree:modular_trees_and_blocks:pCube1_tree:modular_trees_and_blocks:group1_tree:modular_trees_and_blocks:polySurface1_Sep_2
@@ -228,26 +206,6 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
---- !u!114 &1935154072359798661
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8352590725413692446}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  outlineMode: 0
-  outlineColor: {r: 1, g: 1, b: 1, a: 1}
-  outlineWidth: 0.07
-  precomputeOutline: 0
-  bakeKeys: []
-  bakeValues: []
-  outlineMaskMaterial: {fileID: 2100000, guid: 106f3ff43a17d4967a2b64c7a92e49ec, type: 2}
-  outlineFillMaterial: {fileID: 2100000, guid: 311313efa011949e98b6761d652ad13c, type: 2}
 --- !u!64 &7225242808541532085
 MeshCollider:
   m_ObjectHideFlags: 0

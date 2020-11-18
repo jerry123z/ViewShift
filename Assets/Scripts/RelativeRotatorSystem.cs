@@ -20,8 +20,12 @@ public class RelativeRotatorSystem : MonoBehaviour
         selection_index = 0;
     }
 
-    public static void RotateAll()
+    public static void RotateAll(GameObject center)
     {
+        if (!center)
+        {
+            return;
+        }
         var camera = GameObject.Find("Main Camera");
         Camera_Controller cameraController = camera.GetComponent<Camera_Controller>();
         GameObject relativeRotators = GameObject.Find("RelativeRotators");
@@ -38,7 +42,7 @@ public class RelativeRotatorSystem : MonoBehaviour
             RelativeRotatorData relativeRotatorData = child.GetComponent<RelativeRotatorData>();
             if (relativeRotatorData.willRotate) {
                 var childTransform = child.GetComponent<Transform>();
-                childTransform.RotateAround(cameraController.center.position, Vector3.up, cameraController.speed * cameraController.direction);
+                childTransform.RotateAround(center.transform.position, Vector3.up, cameraController.speed * cameraController.direction);
             }
         }
     }
