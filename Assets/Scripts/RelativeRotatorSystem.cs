@@ -15,19 +15,11 @@ public class RelativeRotatorSystem : MonoBehaviour
     static int selection_index;
 
     void Start()
-<<<<<<< HEAD
     {
         selected = new List<GameObject>();
         selection_index = 0;
     }
 
-    public static void RotateAll()
-=======
->>>>>>> c033864f7ecf1907302f80635feec1bce7251de8
-    {
-        selected = new List<GameObject>();
-        selection_index = 0;
-    }
 
     public static void RotateAll(GameObject center)
     {
@@ -56,67 +48,67 @@ public class RelativeRotatorSystem : MonoBehaviour
         }
     }
 
-    public static void SelectAllInView(Vector3 position, double ViewRadius)
-    {
-        GameObject relativeRotators = GameObject.Find("RelativeRotators");
-        Transform transforms = relativeRotators.GetComponent<Transform>();
+    //public static void SelectAllInView(Vector3 position, double ViewRadius)
+    //{
+    //    GameObject relativeRotators = GameObject.Find("RelativeRotators");
+    //    Transform transforms = relativeRotators.GetComponent<Transform>();
 
-        selected = new List<GameObject>();
-
-
-        foreach (Transform child in transforms)
-        {
-            if ((child.position - position).magnitude <= ViewRadius) {
-
-                // should also check that there's no wall between player and object candidate (raycast from position)
-                selected.Add(child.gameObject);
+    //    selected = new List<GameObject>();
 
 
-                //rrd.willRotate = false;
+    //    foreach (Transform child in transforms)
+    //    {
+    //        if ((child.position - position).magnitude <= ViewRadius) {
+
+    //            // should also check that there's no wall between player and object candidate (raycast from position)
+    //            selected.Add(child.gameObject);
 
 
-                // need a different glow for selecting
-                child.gameObject.GetComponent<Animator>().SetBool("Glow", true);
+    //            //rrd.willRotate = false;
 
-            }
-        }
-        print("selected.count: " + selected.Count);
-        if (selected.Count > 0)
-        {
-            RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
-            rrd.willRotate = true;
-            selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
-        }
-    }
 
-    public static void Scroll()
-    {
+    //            // need a different glow for selecting
+    //            child.gameObject.GetComponent<Animator>().SetBool("Glow", true);
 
-        print("currently selecting: " + selection_index);
-        print("selected.count: " + selected.Count);
-        if (selected.Count > 0)
-        {
-            GameObject child;
-            child = selected[selection_index];
+    //        }
+    //    }
+    //    print("selected.count: " + selected.Count);
+    //    if (selected.Count > 0)
+    //    {
+    //        RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
+    //        rrd.willRotate = true;
+    //        selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
+    //    }
+    //}
 
-            RelativeRotatorData rrd;
-            rrd = child.gameObject.GetComponent<RelativeRotatorData>();
-            rrd.willRotate = false;
-            child.GetComponent<Animator>().SetBool("Selected", false);
+    //public static void Scroll()
+    //{
 
-            //if (selected.Count > 0)
-            //{
-            selection_index = (selection_index + 1) % selected.Count;
+    //    print("currently selecting: " + selection_index);
+    //    print("selected.count: " + selected.Count);
+    //    if (selected.Count > 0)
+    //    {
+    //        GameObject child;
+    //        child = selected[selection_index];
 
-            //}
+    //        RelativeRotatorData rrd;
+    //        rrd = child.gameObject.GetComponent<RelativeRotatorData>();
+    //        rrd.willRotate = false;
+    //        child.GetComponent<Animator>().SetBool("Selected", false);
 
-            child = selected[selection_index];
-            rrd = child.GetComponent<RelativeRotatorData>();
-            rrd.willRotate = true;
-            child.gameObject.GetComponent<Animator>().SetBool("Selected", true);
-        }
+    //        //if (selected.Count > 0)
+    //        //{
+    //        selection_index = (selection_index + 1) % selected.Count;
 
-    }
+    //        //}
+
+    //        child = selected[selection_index];
+    //        rrd = child.GetComponent<RelativeRotatorData>();
+    //        rrd.willRotate = true;
+    //        child.gameObject.GetComponent<Animator>().SetBool("Selected", true);
+    //    }
+
+    //}
 
     public static void SelectAllInView(Vector3 position, double ViewRadius)
     {

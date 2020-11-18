@@ -40,6 +40,8 @@ public class PlayerMover : MonoBehaviour
         _inputs = Vector3.zero;
         _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(-1 * cam.GetComponent<Camera_Controller>().up, offset * cam.GetComponent<Camera_Controller>().orientation);
         _inputs += Input.GetAxis("Vertical") * -1 * (offset* cam.GetComponent<Camera_Controller>().orientation);
+
+        print(_inputs);
         if (_inputs != Vector3.zero)
             transform.forward = _inputs;
 
@@ -62,20 +64,29 @@ public class PlayerMover : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, -cam.GetComponent<Camera_Controller>().up);
         RaycastHit hit;
-        
+
+        print(Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)));
         if (Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)))
         {
-            if (hit.transform.parent.gameObject.CompareTag("RotatorZone") && hit.transform.parent.gameObject != touching)
+            if (hit.transform.parent != null)
             {
-                RemoveOutline();
-                var children = hit.transform.parent.GetComponentsInChildren<Transform>();
-                Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
-                touching = hit.transform.parent.gameObject;
-            } else if (hit.transform.parent.gameObject.CompareTag("RotatorZone")){
-                //pass
-            } else
-            {
-                RemoveOutline();
+                //print(hit.transform.parent.gameObject.CompareTag("RotatorZone"));
+                //print(hit.transform.parent.gameObject != touching);
+                if (hit.transform.parent.gameObject.CompareTag("RotatorZone") && hit.transform.parent.gameObject != touching)
+                {
+                    RemoveOutline();
+                    var children = hit.transform.parent.GetComponentsInChildren<Transform>();
+                    Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
+                    touching = hit.transform.parent.gameObject;
+                }
+                else if (hit.transform.parent.gameObject.CompareTag("RotatorZone"))
+                {
+                    //pass
+                }
+                else
+                {
+                    RemoveOutline();
+                }
             }
         } else {
             RemoveOutline();
