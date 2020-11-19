@@ -20,7 +20,7 @@ public class Menu : MonoBehaviour
         pauseScreen = GameObject.Find("Pause Screen/PauseScreenCanvas/PauseScreen");
         pauseScreen.SetActive(false);
         Time.timeScale = 1;
-        index = 0;
+        index = 1;
         restart = GameObject.Find("/Pause Screen/PauseScreenCanvas/PauseScreen/MenuWindow/Restart");
         contBtn = GameObject.Find("/Pause Screen/PauseScreenCanvas/PauseScreen/MenuWindow/Continue");
         main = GameObject.Find("/Pause Screen/PauseScreenCanvas/PauseScreen/MenuWindow/Main Screen");
@@ -75,21 +75,23 @@ public class Menu : MonoBehaviour
                 Time.timeScale = 1;
             }
         }
-        float yAxis = Input.GetAxisRaw("Vertical");
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (pauseScreen.activeSelf)
         {
-            functions(index);
-        }
+            float yAxis = Input.GetAxisRaw("Vertical");
+            if (Input.GetKeyDown(KeyCode.Return))
+            {
+                functions(index);
+            }
 
-        if (yAxis > 0)
-        {
-            Select("up");
+            if (yAxis > 0)
+            {
+                Select("up");
+            }
+            else if (yAxis < 0)
+            {
+                Select("down");
+            }
         }
-        else if (yAxis < 0)
-        {
-            Select("down");
-        }
-        
     }
 
     void Select(string direction)
@@ -97,11 +99,11 @@ public class Menu : MonoBehaviour
         if (isMoving == false)
         {
             isMoving = true;
-            if (direction == "up")
+            if (direction == "up" & index > 1)
             {
-                index -= 1;
+                    index -= 1;
             }
-            else if (direction == "down")
+            else if (direction == "down" & index < 4)
             {
                 index += 1;
             }
@@ -156,7 +158,6 @@ public class Menu : MonoBehaviour
 
     void initialPause()
     {
-        index = 1;
         EventSystem.current.SetSelectedGameObject(null);
         EventSystem.current.SetSelectedGameObject(restart);
     }
