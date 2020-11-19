@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class MenuButton : MonoBehaviour
 {
-    public GameObject pauseScreen;
+    private GameObject pauseScreen;
 
     void Start()
     {
@@ -14,33 +14,8 @@ public class MenuButton : MonoBehaviour
         Time.timeScale = 1;
     }
 
-    public void pausing()
-    {
-        if(Time.timeScale > 0)
-        {
-            pauseScreen.SetActive(true);
-            Time.timeScale = 0;
-        } else
-        {
-            pauseScreen.SetActive(false);
-            Time.timeScale = 1;
-        }
-    }
-
     void Update()
     {
-        if (Input.GetButtonDown("Cancel"))
-        {
-            if (Time.timeScale > 0)
-            {
-                pauseScreen.SetActive(true);
-                Time.timeScale = 0;
-            }
-            else
-            {
-                pauseScreen.SetActive(false);
-                Time.timeScale = 1;
-            }
-        }
+        
     }
 }
