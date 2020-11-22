@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 public class RelativeRotatorSystem : MonoBehaviour
 {
-    static List<GameObject> selected;
+    public static List<GameObject> selected;
     static int selection_index;
 
     void Start()
@@ -110,6 +110,37 @@ public class RelativeRotatorSystem : MonoBehaviour
 
     //}
 
+    public static void SelectAllInDirection(Vector3 position, Vector3 direction)
+    {
+        if (selected != null && selected.Count > 0)
+        {
+            List<GameObject> inDirection = new List<GameObject>();
+            foreach (GameObject possible in selected)
+            {
+                if (Vector3.Dot((possible.transform.position - position), direction) >= 0)
+                {
+                    inDirection.Add(possible);
+                }
+            }
+
+            if (inDirection.Count > 0)
+            {
+                ReleaseAll();
+                selected = inDirection;
+                foreach (GameObject child in selected)
+                {
+                    // need a different glow for selecting
+                    child.GetComponent<Animator>().SetBool("Glow", true);
+                }
+                print("selected.count: " + selected.Count);
+                RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
+                rrd.willRotate = true;
+                selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
+            }
+        }
+    }
+
+
     public static void SelectAllInView(Vector3 position, double ViewRadius)
     {
         GameObject relativeRotators = GameObject.Find("RelativeRotators");
@@ -117,35 +148,28 @@ public class RelativeRotatorSystem : MonoBehaviour
 
         selected = new List<GameObject>();
 
-
         foreach (Transform child in transforms)
         {
-            if ((child.position - position).magnitude <= ViewRadius) {
-
+            if ((child.position - position).magnitude <= ViewRadius)
+            {
                 // should also check that there's no wall between player and object candidate (raycast from position)
                 selected.Add(child.gameObject);
 
-
-                //rrd.willRotate = false;
-
-
                 // need a different glow for selecting
                 child.gameObject.GetComponent<Animator>().SetBool("Glow", true);
-
             }
         }
         print("selected.count: " + selected.Count);
-        if (selected.Count > 0)
-        {
-            RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
-            rrd.willRotate = true;
-            selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
-        }
+        //if (selected.Count > 0)
+        //{
+        //    RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
+        //    rrd.willRotate = true;
+        //    selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
+        //}
     }
 
     public static void Scroll()
     {
-
         print("currently selecting: " + selection_index);
         print("selected.count: " + selected.Count);
         if (selected.Count > 0)
@@ -158,18 +182,13 @@ public class RelativeRotatorSystem : MonoBehaviour
             rrd.willRotate = false;
             child.GetComponent<Animator>().SetBool("Selected", false);
 
-            //if (selected.Count > 0)
-            //{
             selection_index = (selection_index + 1) % selected.Count;
-
-            //}
 
             child = selected[selection_index];
             rrd = child.GetComponent<RelativeRotatorData>();
             rrd.willRotate = true;
             child.gameObject.GetComponent<Animator>().SetBool("Selected", true);
         }
-
     }
 
     public static void ReleaseAll()
@@ -183,6 +202,7 @@ public class RelativeRotatorSystem : MonoBehaviour
             child.gameObject.GetComponent<Animator>().SetBool("Glow", false);
             child.gameObject.GetComponent<Animator>().SetBool("Selected", false);
         }
+        selected = null;
     }
 
     public static void Unfreeze()
