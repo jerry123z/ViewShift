@@ -110,6 +110,7 @@ public class PlayerMover : MonoBehaviour
                     mat.SetColor("_EmissionColor", new Color(0, 0, 0, 0));
                 }
             }
+            touching = null;
         }
     }
 
