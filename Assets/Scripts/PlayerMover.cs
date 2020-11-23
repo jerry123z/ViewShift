@@ -40,6 +40,8 @@ public class PlayerMover : MonoBehaviour
         _inputs = Vector3.zero;
         _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(-1 * cam.GetComponent<Camera_Controller>().up, offset * cam.GetComponent<Camera_Controller>().orientation);
         _inputs += Input.GetAxis("Vertical") * -1 * (offset* cam.GetComponent<Camera_Controller>().orientation);
+
+        //print(_inputs);
         if (_inputs != Vector3.zero)
             transform.forward = _inputs;
 
@@ -62,7 +64,8 @@ public class PlayerMover : MonoBehaviour
     {
         Ray ray = new Ray(transform.position, -cam.GetComponent<Camera_Controller>().up);
         RaycastHit hit;
-        
+
+        //print(Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)));
         if (Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)))
         {
             if (hit.transform.parent.gameObject.CompareTag("RotatorZone") && hit.transform.parent.gameObject != touching)
@@ -80,14 +83,15 @@ public class PlayerMover : MonoBehaviour
                 }
                 //outline.OutlineMode = Outline.Mode.OutlineAll;
                 touching = hit.transform.parent.gameObject;
-            } else if (hit.transform.parent.gameObject.CompareTag("RotatorZone")){
+            }
+            else if (hit.transform.parent.gameObject.CompareTag("RotatorZone"))
+            {
                 //pass
-            } else
+            }
+            else
             {
                 RemoveOutline();
             }
-        } else {
-            RemoveOutline();
         }
         return Physics.Raycast(transform.position, -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
         Physics.Raycast(transform.position + new Vector3(0, 0, 0.5f), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
