@@ -46,11 +46,11 @@ public class TitleScreenController : MonoBehaviour
     private void Update()
     {
         float yAxis = Input.GetAxisRaw("Vertical");
-        if (Input.GetButtonDown("Cancel"))
+        if (Input.GetButtonDown("Select In View"))
         {
             keyMap.SetActive(false);
         }
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetButtonDown("Jump"))
         {
             functions(index);
         }

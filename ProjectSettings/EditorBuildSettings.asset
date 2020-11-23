@@ -9,8 +9,8 @@ EditorBuildSettings:
     path: Assets/Scenes/Title Scene.unity
     guid: a846dd0fcd18fd3448316009aa38757a
   - enabled: 1
-    path: Assets/Scenes/Title Scene.unity
-    guid: a846dd0fcd18fd3448316009aa38757a
+    path: Assets/Scenes/Dummy Level.unity
+    guid: 7cff3fcb3ea29ba49b5c00685d3b1343
   - enabled: 1
     path: Assets/Scenes/AlphaLevel.unity
     guid: ea895edcaaa48954792cd4a878db2ee0
@@ -23,5 +23,4 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: c160c7d5f47be2246ba66c7caae8b569
-
   m_configObjects: {}

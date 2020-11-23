@@ -26,6 +26,7 @@ public class LevelSelectButton : MonoBehaviour
         AddRowToGrid(0, row1);
         positionIndex = new Vector2(0, 0);
         currentSlot = grid[0, 0];
+        isMoving = false;
     }
 
     public void AddRowToGrid(int index, GameObject[] row)
@@ -60,9 +61,13 @@ public class LevelSelectButton : MonoBehaviour
             moveSelector("down");
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetButtonDown("Jump"))
         {
             LoadLevel();
+        }
+        if (Input.GetButtonDown("Select In View"))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
