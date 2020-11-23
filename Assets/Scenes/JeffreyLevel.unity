@@ -9610,7 +9610,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: lineBreaks.Array.size
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -9620,7 +9620,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.size
-      value: 10
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -9709,7 +9709,27 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: lineBreaks.Array.data[2]
-      value: 9
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: lineBreaks.Array.data[3]
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: sentences.Array.data[10]
+      value: Now you see the finish line!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: sentences.Array.data[11]
+      value: Move to the finish line to finish the tutorial level!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: lineBreaks.Array.data[4]
+      value: 12
       objectReference: {fileID: 0}
     - target: {fileID: 6140621572551869735, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}

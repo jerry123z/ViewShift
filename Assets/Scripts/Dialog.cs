@@ -17,21 +17,33 @@ public class Dialog : MonoBehaviour
     private int lineIndex;
     public float cubeSize;
     public float typingSpeed;
+    public Camera mainCam;
+    public GameObject finishLine;
+    bool finished;
+    Vector3 playerPos;
+    Vector3 cameraDirection;
     Coroutine typeCoroutine = null;
+    Coroutine wait = null;
+    Coroutine freezing = null;
 
     private void Start()
     {
         dialog = GameObject.Find("/Dialog/Dialogues");
         player = GameObject.Find("/Player"); 
+        finishLine = GameObject.Find("/Anchors/finish line");
         cubes = GameObject.Find("/Level Objects/Standing Places").GetComponentsInChildren<Transform>();
+        mainCam = GameObject.Find("/Main Camera").GetComponent<Camera>();
         for(int a = 0; a < cubes.Length-1; a++)
         {
             cubes[a] = cubes[a + 1];
         }
         Array.Resize(ref cubes, cubes.Length - 1);
+        finished = false;
+        cameraDirection = mainCam.transform.forward;
         dialog.SetActive(true);
         continueBtn.SetActive(false);
         removeAllPlaces();
+        Invoke("freeze", 0.7f);
         if (typeCoroutine != null)
         {
             StopCoroutine(typeCoroutine);
@@ -42,19 +54,33 @@ public class Dialog : MonoBehaviour
 
     private void Update()
     {
+        playerPos = player.transform.position;
         if (textDisplay.text == sentences[index])
         {
             continueBtn.SetActive(true);
         }
-        if (!dialog.activeSelf)
+        if (!dialog.activeSelf && wait == null && finished == false)
         {
-            StartCoroutine(WaitForPosition());
+            print(lineIndex);
+            if(lineIndex != 4)
+            {
+                wait = StartCoroutine(WaitForPosition());
+            } else
+            {
+                wait = StartCoroutine(WaitForRotation());
+            }
+            
+            freezing = null;
+            Time.timeScale = 1;
+        } else if (!dialog.activeSelf && wait == null && finished)
+        {
             Time.timeScale = 1;
         }
         if (Input.GetKeyDown(KeyCode.Return) && continueBtn.activeSelf)
         {
             NextSentence();
         }
+        
     }
 
     IEnumerator Type()
@@ -90,31 +116,63 @@ public class Dialog : MonoBehaviour
             typeCoroutine = StartCoroutine(Type());
         } else
         {
-            textDisplay.text = "";
-            continueBtn.SetActive(false);
+            dialog.SetActive(false);
+            finished = true;
         }
     }
 
     IEnumerator WaitForPosition()
     {
+        print("waiting");
         Transform cube = cubes[lineIndex-1];
         cube.gameObject.SetActive(true);
         Vector3 designatedPos = cube.position;
-        Vector3 playerPos = player.transform.position;
-        yield return new WaitUntil(() => ((designatedPos.x - cubeSize) < playerPos.x) && (playerPos.x < (designatedPos.x + cubeSize)) 
-            && (designatedPos.y < playerPos.y) && (playerPos.y < (designatedPos.y + 2*cubeSize)) 
-            && ((designatedPos.z - cubeSize) < playerPos.z) && (playerPos.z < (designatedPos.z + cubeSize)) );
-        Invoke("freezeAndActive", 0.3f);
+        yield return new WaitUntil(() => checkPosition(designatedPos, playerPos));
+        if(freezing == null)
+        {
+            freezing = StartCoroutine(freezeAndActive());
+        }
     }
 
-    public void freezeAndActive()
+    IEnumerator WaitForRotation()
     {
+        print("waitingRotate");
+        yield return new WaitUntil(() => rotate());
+        if (freezing == null)
+        {
+            freezing = StartCoroutine(freezeAndActive());
+        }
+    }
+
+    public bool rotate()
+    {
+        Vector3 facing = mainCam.transform.forward;
+        float curDirZ = -1 * Mathf.Round(cameraDirection.z * 10.0f) * 0.1f;
+        float facingZ = Mathf.Round(facing.z * 10.0f) * 0.1f;
+        bool result = facingZ == curDirZ;
+        return result;
+    }
+
+    public bool checkPosition(Vector3 designatedPos, Vector3 playerPos)
+    {
+        bool x = ((designatedPos.x - cubeSize) < playerPos.x) && (playerPos.x < (designatedPos.x + cubeSize))
+            && (designatedPos.y < playerPos.y) && (playerPos.y < (designatedPos.y + 2 * cubeSize))
+            && ((designatedPos.z - cubeSize) < playerPos.z) && (playerPos.z < (designatedPos.z + cubeSize));
+        
+        return x;
+    }
+
+    IEnumerator freezeAndActive()
+    {
+        yield return new WaitForSeconds(0.3f);
+        wait = null;
         if (Time.timeScale > 0)
         {
             Time.timeScale = 0;
         }
         textDisplay.text = "";
         dialog.SetActive(true);
+        continueBtn.SetActive(false);
         if (typeCoroutine != null)
         {
             StopCoroutine(typeCoroutine);
@@ -127,6 +185,14 @@ public class Dialog : MonoBehaviour
         foreach (Transform cube in cubes)
         {
             cube.gameObject.SetActive(false);
+        }
+    }
+
+    public void freeze()
+    {
+        if (Time.timeScale > 0)
+        {
+            Time.timeScale = 0;
         }
     }
 }
