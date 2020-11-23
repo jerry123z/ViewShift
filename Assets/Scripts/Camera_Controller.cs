@@ -38,6 +38,7 @@ public class Camera_Controller : MonoBehaviour
         c = GetComponent<Camera>();
         up = Vector3.up;
         audioSource = GetComponent<AudioSource>();
+        c.depthTextureMode = DepthTextureMode.DepthNormals;
     }
 
     void rotate(Vector3 direction)
@@ -68,38 +69,38 @@ public class Camera_Controller : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, height + center.position + scale * (isometricOffset * orientation), step);
         }
 
-        if (Input.GetButtonDown("Fire Out")){
-            var transform = player.GetComponent<Transform>();
-            Ray ray = new Ray(transform.position, transform.forward);
-            RaycastHit hit;
-            if (Physics.Raycast(ray, out hit)){
-                DrawLine(transform.position, hit.point, Color.red, 0.1f);
-                if (hit.transform.gameObject.CompareTag("RelativeRotator"))
-                {
-                    var rrd = hit.transform.gameObject.GetComponent<RelativeRotatorData>();
-                    rrd.willRotate = !(rrd.willRotate);
-                    var glow = !hit.transform.gameObject.GetComponent<Animator>().GetBool("Glow");
-                    hit.transform.gameObject.GetComponent<Animator>().SetBool("Glow", glow);
-                } else {
-                    //center.GetComponent<Animator>().SetBool("Glow", false);
-                    center = hit.transform.parent;
-                    //center.GetComponent<Animator>().SetBool("Glow", true);
-                }
-            }
-        }
-        if (Input.GetButtonDown("Fire Self")){
-            //center.GetComponent<Animator>().SetBool("Glow", false);
-            center = player.GetComponent<Transform>();
-            print(center.position);
-        }
+        //if (Input.GetButtonDown("Fire Out")){
+        //    var transform = player.GetComponent<Transform>();
+        //    Ray ray = new Ray(transform.position, transform.forward);
+        //    RaycastHit hit;
+        //    if (Physics.Raycast(ray, out hit)){
+        //        DrawLine(transform.position, hit.point, Color.red, 0.1f);
+        //        if (hit.transform.gameObject.CompareTag("RelativeRotator"))
+        //        {
+        //            var rrd = hit.transform.gameObject.GetComponent<RelativeRotatorData>();
+        //            rrd.willRotate = !(rrd.willRotate);
+        //            var glow = !hit.transform.gameObject.GetComponent<Animator>().GetBool("Glow");
+        //            hit.transform.gameObject.GetComponent<Animator>().SetBool("Glow", glow);
+        //        } else {
+        //            //center.GetComponent<Animator>().SetBool("Glow", false);
+        //            center = hit.transform.parent;
+        //            //center.GetComponent<Animator>().SetBool("Glow", true);
+        //        }
+        //    }
+        //}
+        //if (Input.GetButtonDown("Fire Self")){
+        //    //center.GetComponent<Animator>().SetBool("Glow", false);
+        //    center = player.GetComponent<Transform>();
+        //    print(center.position);
+        //}
 
-        if (Input.GetAxis("Select In View") > 0.2)
+        if (Input.GetButtonDown("Fire Self"))
         {
             // need to tweak ViewRadius parameter later to fit into stuff thats within view
-            RelativeRotatorSystem.SelectAllInView(player.transform.position, scale*2);
+            RelativeRotatorSystem.SelectAllInView(player.transform.position, scale * 1.4);
         }
 
-        if (Input.GetAxis("Scroll") > 0.2)
+        if (Input.GetButtonDown("Fire Out"))
         {
             RelativeRotatorSystem.Scroll();
         }

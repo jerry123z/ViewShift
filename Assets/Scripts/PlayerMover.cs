@@ -68,8 +68,17 @@ public class PlayerMover : MonoBehaviour
             if (hit.transform.parent.gameObject.CompareTag("RotatorZone") && hit.transform.parent.gameObject != touching)
             {
                 RemoveOutline();
-                var children = hit.transform.parent.GetComponentsInChildren<Transform>();
-                Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
+                Renderer[] renderers = hit.transform.parent.GetComponentsInChildren<Renderer>();
+                //Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
+                foreach (Renderer child in renderers)
+                {
+                    Material[] materials = child.materials;
+                    foreach (Material mat in materials)
+                    {
+                        mat.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f, 0.6f));
+                    }
+                }
+                //outline.OutlineMode = Outline.Mode.OutlineAll;
                 touching = hit.transform.parent.gameObject;
             } else if (hit.transform.parent.gameObject.CompareTag("RotatorZone")){
                 //pass
@@ -91,10 +100,15 @@ public class PlayerMover : MonoBehaviour
     {
         if (touching)
         {
-            Outline outline = touching.GetComponent<Outline>();
-            if (outline)
+            Renderer[] renderers = touching.GetComponentsInChildren<Renderer>();
+            //Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
+            foreach (Renderer child in renderers)
             {
-                Destroy(touching.GetComponent<Outline>());
+                Material[] materials = child.materials;
+                foreach (Material mat in materials)
+                {
+                    mat.SetColor("_EmissionColor", new Color(0, 0, 0, 0));
+                }
             }
             touching = null;
         }
