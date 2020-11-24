@@ -4,11 +4,11 @@ using System.Collections;
 
 public class DoorTrigger : MonoBehaviour
 {
-    private int count;
+    public int count;
     public GameObject item;
-    private DoorActions script;
+    public DoorActions script;
 
-    private void Start()
+    public virtual void Start()
     {
         script = item.GetComponent<DoorActions>();
         count = 0;
@@ -17,14 +17,14 @@ public class DoorTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //EnterAction?.Invoke();
-        print("enter");
+        // print("enter");
         count += 1;
         script.Open();
     }
 
     void OnTriggerExit(Collider other)
     {
-        print("exit");
+        // print("exit");
         //ExitAction?.Invoke();
         if (count > 0)
         {

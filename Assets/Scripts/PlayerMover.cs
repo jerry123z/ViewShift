@@ -102,10 +102,15 @@ public class PlayerMover : MonoBehaviour
     {
         if (touching)
         {
-            Outline outline = touching.GetComponent<Outline>();
-            if (outline)
+            Renderer[] renderers = touching.GetComponentsInChildren<Renderer>();
+            //Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
+            foreach (Renderer child in renderers)
             {
-                Destroy(touching.GetComponent<Outline>());
+                Material[] materials = child.materials;
+                foreach (Material mat in materials)
+                {
+                    mat.SetColor("_EmissionColor", new Color(0, 0, 0, 0));
+                }
             }
             touching = null;
         }

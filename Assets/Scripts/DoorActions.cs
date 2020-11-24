@@ -6,31 +6,31 @@ using UnityEngine.Events;
 public class DoorActions : MonoBehaviour
 {
     public bool is_closed;
-    private Renderer doorRenderer;
-    private Collider doorCollider;
+    public Renderer doorRenderer;
+    public Collider doorCollider;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         doorRenderer = GetComponent<MeshRenderer>();
         doorCollider = GetComponent<BoxCollider>();
     }
 
-    public void Open()
+    public virtual void Open()
     {
         is_closed = false;
         doorRenderer.enabled = false;
         doorCollider.enabled = false;
     }
 
-    public void Close()
+    public virtual void Close()
     {
         is_closed = true;
         doorRenderer.enabled = true;
         doorCollider.enabled = true;
     }
 
-    public void Toggle()
+    public virtual void Toggle()
     {
         is_closed = !is_closed;
         doorRenderer.enabled = is_closed;

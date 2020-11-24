@@ -38,6 +38,7 @@ public class Camera_Controller : MonoBehaviour
         c = GetComponent<Camera>();
         up = Vector3.up;
         audioSource = GetComponent<AudioSource>();
+        c.depthTextureMode = DepthTextureMode.DepthNormals;
     }
 
     void rotate(Vector3 direction)
@@ -112,7 +113,7 @@ public class Camera_Controller : MonoBehaviour
             }
         }
 
-        if (Input.GetAxis("Scroll") > 0.2)
+        if (Input.GetButtonDown("Fire Out"))
         {
             RelativeRotatorSystem.Scroll();
         }
@@ -127,6 +128,7 @@ public class Camera_Controller : MonoBehaviour
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
+                print(rotateClip1);
                 audioSource.PlayOneShot(rotateClip1, 0.5f);
                 isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
@@ -139,6 +141,7 @@ public class Camera_Controller : MonoBehaviour
 
         if (Input.GetButtonDown("Rotate Left"))
         {
+            Debug.LogError("pressing left button");
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
                 audioSource.PlayOneShot(rotateClip2, 0.5f);
