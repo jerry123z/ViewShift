@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 2567834793119005289}
   - component: {fileID: 1444832731814966732}
   - component: {fileID: 3740772749403013382}
+  - component: {fileID: 2051432201487628093}
   m_Layer: 0
   m_Name: cliffBrown_block
   m_TagString: Untagged
@@ -138,7 +139,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: -2551240767032753910, guid: b1a16a61af1d40645b96688aaa1a5602, type: 3}
-  - {fileID: -2959283651340661505, guid: b1a16a61af1d40645b96688aaa1a5602, type: 3}
+  - {fileID: 2100000, guid: ded87a8fd8ee74a42892c761523063f7, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -159,6 +160,20 @@ MeshRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
+--- !u!64 &2051432201487628093
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2947914434473844947}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -1426569507720159183, guid: b1a16a61af1d40645b96688aaa1a5602, type: 3}
 --- !u!1 &3137205904651507110
 GameObject:
   m_ObjectHideFlags: 0
@@ -185,7 +200,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3137205904651507110}
   m_LocalRotation: {x: -0.5, y: 0.5, z: 0.5, w: 0.5}
-  m_LocalPosition: {x: 1.5000958, y: 2.5198112, z: 3.006917}
+  m_LocalPosition: {x: 1.4993, y: 2.5198, z: 3.0013}
   m_LocalScale: {x: 1, y: 0.9008017, z: 0.56130064}
   m_Children: []
   m_Father: {fileID: 3428473973955312876}
