@@ -45,7 +45,7 @@ public class TitleScreenController : MonoBehaviour
 
     private void Update()
     {
-        float yAxis = Input.GetAxisRaw("Vertical");
+        float xAxis = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Select In View"))
         {
             keyMap.SetActive(false);
@@ -55,13 +55,13 @@ public class TitleScreenController : MonoBehaviour
             functions(index);
         }
 
-        if (yAxis > 0)
+        if (xAxis > 0)
         {
-            Select("up");
+            Select("right");
         }
-        else if (yAxis < 0)
+        else if (xAxis < 0)
         {
-            Select("down");
+            Select("left");
         }
     }
 
@@ -70,13 +70,13 @@ public class TitleScreenController : MonoBehaviour
         if (isMoving == false)
         {
             isMoving = true;
-            if (direction == "up")
-            {
-                index -= 1;
-            }
-            else if (direction == "down")
+            if (direction == "right")
             {
                 index += 1;
+            }
+            else if (direction == "left")
+            {
+                index -= 1;
             }
             MoveSelector(index);
 
