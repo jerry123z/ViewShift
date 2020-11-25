@@ -39,7 +39,7 @@ public class PushableBlock : MonoBehaviour
             coll2.enabled = true;
             rb.useGravity = true;
             held = false;
-            transform.parent = GameObject.Find("RelativeRotators").transform;
+            //transform.parent = GameObject.Find("RelativeRotators").transform;
             transform.localScale = normalScale;
             transform.position = transform.position + player.transform.rotation*(new Vector3(0f, 0f, 0.5f));
         }
@@ -74,7 +74,7 @@ public class PushableBlock : MonoBehaviour
             coll2.enabled = false;
             rb.useGravity = false;
             held = true;
-            transform.parent = player.transform;
+            //transform.parent = player.transform;
             transform.localScale = normalScale * 0.75f;
         }
     }

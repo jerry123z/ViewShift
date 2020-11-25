@@ -5,20 +5,25 @@ using UnityEngine.Rendering.PostProcessing;
 
 public class TiltShift : MonoBehaviour
 {
-    private GameObject camera;
+    //GameObject camera;
     private MotionBlur motionBlurLayer;
+    public PostProcessResources postProcessResources;
 
     void Start()
     {
-        camera = GameObject.Find("Main Camera");
+        PostProcessLayer postProcessLayer = Camera.main.gameObject.GetComponent<PostProcessLayer>();
+        postProcessLayer.Init(postProcessResources);
+        //postProcessLayer.volumeTrigger = Camera.main.transform;
+        //postProcessLayer.volumeLayer = LayerMask.GetMask("RotationEffects");
+
+        //camera = transform.parent.gameObject;
         PostProcessVolume vol = transform.GetComponent<PostProcessVolume>();
         vol.profile.TryGetSettings(out motionBlurLayer);
     }
 
     void Update()
     {
-        Camera_Controller cameraController = camera.GetComponent<Camera_Controller>();
-        if (cameraController.isRotating)
+        if (transform.parent.gameObject.GetComponent<Camera_Controller>().isRotating)
         {
             motionBlurLayer.enabled.value = true;
         }
