@@ -60,7 +60,7 @@ public class LevelSelectButton : MonoBehaviour
             moveSelector("down");
         }
 
-        if (Input.GetKeyDown(KeyCode.Return))
+        if (Input.GetButtonDown("Jump"))
         {
             LoadLevel();
         }

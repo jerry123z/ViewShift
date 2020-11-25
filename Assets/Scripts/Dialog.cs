@@ -76,7 +76,7 @@ public class Dialog : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-        if (Input.GetKeyDown(KeyCode.Return) && continueBtn.activeSelf)
+        if (Input.GetButtonDown("Submit") && continueBtn.activeSelf)
         {
             NextSentence();
         }

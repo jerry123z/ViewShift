@@ -61,7 +61,7 @@ public class Menu : MonoBehaviour
 
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
+        if (Input.GetButtonDown("Cancel"))
         {
             if (Time.timeScale > 0)
             {
@@ -78,7 +78,7 @@ public class Menu : MonoBehaviour
         if (pauseScreen.activeSelf)
         {
             float yAxis = Input.GetAxisRaw("Vertical");
-            if (Input.GetKeyDown(KeyCode.Return))
+            if (Input.GetButtonDown("Submit"))
             {
                 functions(index);
             }
