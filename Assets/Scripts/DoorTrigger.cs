@@ -4,14 +4,14 @@ using System.Collections;
 
 public class DoorTrigger : MonoBehaviour
 {
-    protected int count;
+    public int count;
     public GameObject item;
-    private DoorActions script;
+    public DoorActions script;
 
     public AudioClip push;
     private AudioSource audioSource;
 
-    private void Start()
+    public virtual void Start()
     {
         script = item.GetComponent<DoorActions>();
         count = 0;
@@ -21,7 +21,8 @@ public class DoorTrigger : MonoBehaviour
     void OnTriggerEnter(Collider other)
     {
         //EnterAction?.Invoke();
-        audioSource.PlayOneShot(push, 0.7f);
+        // print("enter");
+        // audioSource.PlayOneShot(push, 0.7f);
         print("enter");
         count += 1;
         script.Open();
@@ -29,7 +30,7 @@ public class DoorTrigger : MonoBehaviour
 
     void OnTriggerExit(Collider other)
     {
-        print("exit");
+        // print("exit");
         //ExitAction?.Invoke();
         if (count > 0)
         {

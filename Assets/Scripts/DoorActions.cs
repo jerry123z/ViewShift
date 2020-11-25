@@ -14,14 +14,14 @@ public class DoorActions : MonoBehaviour
     private float volume = 0.4f;
 
     // Start is called before the first frame update
-    void Start()
+    public virtual void Start()
     {
         doorRenderer = GetComponent<MeshRenderer>();
         doorCollider = GetComponent<BoxCollider>();
         audioSource = GetComponent<AudioSource>();
     }
 
-    public void Open()
+    public virtual void Open()
     {
         is_closed = false;
         doorRenderer.enabled = false;
@@ -29,7 +29,7 @@ public class DoorActions : MonoBehaviour
         audioSource.PlayOneShot(open, volume);
     }
 
-    public void Close()
+    public virtual void Close()
     {
         is_closed = true;
         doorRenderer.enabled = true;
@@ -37,7 +37,7 @@ public class DoorActions : MonoBehaviour
         audioSource.PlayOneShot(close, volume);
     }
 
-    public void Toggle()
+    public virtual void Toggle()
     {
         is_closed = !is_closed;
         if (is_closed)
