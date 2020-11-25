@@ -85,7 +85,6 @@ public class Camera_Controller : MonoBehaviour
         C = Vector3.zero;
         C += Input.GetAxis("FireHorizontal") * Vector3.Cross(-1 * up, offset * orientation);
         C += Input.GetAxis("FireVertical") * (offset * orientation);
-        print(C.magnitude);
         if (C.magnitude >= 0.2)
         {
             C = (scale * 1.5f) * C.normalized;
