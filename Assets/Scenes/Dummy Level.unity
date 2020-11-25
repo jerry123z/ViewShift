@@ -8678,6 +8678,21 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    - target: {fileID: 3351643927880782951, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -124.21512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643927880782953, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -229
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643927880782953, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 58
+      objectReference: {fileID: 0}
     - target: {fileID: 3351643928954148084, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -8743,6 +8758,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_text
       value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643928954148086, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929499425129, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
