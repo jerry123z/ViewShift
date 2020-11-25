@@ -29,6 +29,7 @@ public class Dialog : MonoBehaviour
     public AudioClip typing;
     private AudioSource audioSource;
     public float volume = 0.2f;
+    public GameObject rock;
 
     private void Start()
     {
@@ -72,8 +73,9 @@ public class Dialog : MonoBehaviour
             print(lineIndex);
             if(lineIndex == 4)
             {
-           // } else if (lineIndex == 4)
-           // {
+                wait = StartCoroutine(WaitForSelection());
+            } else if (lineIndex == 5)
+            {
                 wait = StartCoroutine(WaitForRotation());
             } else
             {
@@ -169,12 +171,18 @@ public class Dialog : MonoBehaviour
     IEnumerator WaitForSelection()
     {
         print("Waiting Select");
-        yield return new WaitUntil(() => rotate());
+        yield return new WaitUntil(() => selection());
         if (freezing == null)
         {
             audioSource.PlayOneShot(typing, volume);
             freezing = StartCoroutine(freezeAndActive());
         }
+    }
+
+    public bool selection()
+    {
+        RelativeRotatorData rrd = rock.GetComponent<RelativeRotatorData>();
+        return rrd.willRotate;
     }
 
     public bool rotate()

@@ -8757,7 +8757,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: lineBreaks.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8767,7 +8767,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8792,13 +8792,12 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[4]
-      value: Great job! Now let's try jumping
+      value: Great! Now let's try jumping
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[5]
-      value: Press the A button on your xbox controller to jump. Get to the designated
-        area.
+      value: Press the A button on your xbox controller to jump. Get to the red block.
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8828,25 +8827,24 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[6]
-      value: 'Nice job! Now introducing the main mechanic of the game. Walk to the
-        designated area first. '
+      value: 'Nice! Now, before we proceed please walk to the designated area. '
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[7]
-      value: 'The goal is to get to the finish position, but you can''t see the position
-        at this point. '
+      value: Press B on the Xbox controller to highlight items. Then flick the right
+        stick in the direction of a highlighted object to select it.
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[8]
-      value: In ViewShift the core mechanic is to shift your views, so you can perceive
-        the world in a new way
+      value: In ViewShift you can interact with the level by shifting the camera
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[9]
-      value: Press LB and RB to shift your perspective by 90 degrees
+      value: 'The goal is to get to the finish position, but you can''t see the position
+        at this point. '
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8861,39 +8859,53 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: lineBreaks.Array.data[3]
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[10]
-      value: Now you see the finish line!
+      value: Press LB and RB to shift your perspective by 90 degrees (Watch the rock)
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[11]
-      value: Move to the finish line to finish the tutorial level!
+      value: Selected objects will rotate around the block you're standing on!
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: lineBreaks.Array.data[4]
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[1]
-      value: This tutorial level will get you started on the main mechanics of the
-        game!
+      value: This tutorial level will get you started!
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[2]
-      value: First let's try moving!
+      value: First let's try moving
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[3]
-      value: Use the left joystick to get to the designated place
+      value: Use the left joystick to get to the red block
       objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: sentences.Array.data[12]
+      value: Move to the finish line to complete the tutorial level!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: lineBreaks.Array.data[5]
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: rock
+      value: 
+      objectReference: {fileID: 1474859204}
     - target: {fileID: 6140621572551869735, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_AnchoredPosition.x
