@@ -76,7 +76,7 @@ public class Dialog : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-        if (Input.GetKeyDown(KeyCode.Return) && continueBtn.activeSelf)
+        if (Input.GetButtonDown("Jump") && continueBtn.activeSelf)
         {
             NextSentence();
         }
@@ -168,6 +168,7 @@ public class Dialog : MonoBehaviour
         wait = null;
         if (Time.timeScale > 0)
         {
+            player.GetComponent<PlayerMover>().gameObject.SetActive(false);
             Time.timeScale = 0;
         }
         textDisplay.text = "";
@@ -194,5 +195,6 @@ public class Dialog : MonoBehaviour
         {
             Time.timeScale = 0;
         }
+        player.GetComponent<PlayerMover>().gameObject.SetActive(false);
     }
 }
