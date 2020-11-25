@@ -68,7 +68,7 @@ public class PushableBlock : MonoBehaviour
             //    rb.constraints = RigidbodyConstraints.FreezeAll & ~RigidbodyConstraints.FreezePositionX;
             //}
         }
-        if (Input.GetAxis("Hold") > 0f)
+        if (Input.GetAxis("Hold") > 0f && other == GameObject.Find("Player"))
         {
             coll1.enabled = false;
             coll2.enabled = false;
