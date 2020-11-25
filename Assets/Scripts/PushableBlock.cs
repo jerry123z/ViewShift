@@ -41,7 +41,7 @@ public class PushableBlock : MonoBehaviour
             held = false;
             //transform.parent = GameObject.Find("RelativeRotators").transform;
             transform.localScale = normalScale;
-            transform.position = transform.position + player.transform.rotation*(new Vector3(0f, 0f, 0.5f));
+            transform.position = transform.position + player.transform.rotation*(new Vector3(0f, 0.2f, 0.5f));
         }
         else if (held)
         {
@@ -82,6 +82,21 @@ public class PushableBlock : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+    }
+
+    private void OnCollisionStay(Collision collision)
+    {
+        GameObject other = collision.gameObject;
+
+        if (Input.GetAxis("Hold") > 0f && other == GameObject.Find("Player"))
+        {
+            coll1.enabled = false;
+            coll2.enabled = false;
+            rb.useGravity = false;
+            held = true;
+            //transform.parent = player.transform;
+            transform.localScale = normalScale * 0.75f;
+        }
     }
 
 
