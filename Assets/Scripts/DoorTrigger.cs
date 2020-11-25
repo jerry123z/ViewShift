@@ -8,15 +8,20 @@ public class DoorTrigger : MonoBehaviour
     public GameObject item;
     private DoorActions script;
 
+    public AudioClip push;
+    private AudioSource audioSource;
+
     private void Start()
     {
         script = item.GetComponent<DoorActions>();
         count = 0;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnTriggerEnter(Collider other)
     {
         //EnterAction?.Invoke();
+        audioSource.PlayOneShot(push, 0.7f);
         print("enter");
         count += 1;
         script.Open();
