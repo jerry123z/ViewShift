@@ -77,26 +77,28 @@ public class Camera_Controller : MonoBehaviour
         //Vector3 direction = mouse_pos - player.transform.position;
 
 
-
         Vector3 C = Vector3.zero;
         Quaternion offset = Quaternion.Euler(0, -45, 0);
+        //print(Input.GetAxis("FireHorizontal") + " " + Input.GetAxis("FireVertical"));
+        float horizontal = Input.GetAxis("FireHorizontal");
+        float vertical = Input.GetAxis("FireVertical");
+        C = Vector3.zero;
         C += Input.GetAxis("FireHorizontal") * Vector3.Cross(-1 * up, offset * orientation);
-        C += Input.GetAxis("FireVertical") * -1 * (offset * orientation);
-
-        if (C.magnitude >= 0.1)
+        C += Input.GetAxis("FireVertical") * (offset * orientation);
+        if (C.magnitude >= 0.2)
         {
-            C = scale * C;
+            C = (scale * 1.5f) * C.normalized;
             var player_transform = player.GetComponent<Transform>();
             Vector3 B = player_transform.position;
             RelativeRotatorSystem.SelectAllInDirection(B, C);
-            DrawLine(B, B + C, Color.red, 0.1f);
+            //DrawLine(B, B + C, Color.red, 0.1f);
         }
 
-        if (Input.GetButtonDown("Fire Self")){
+        //if (Input.GetButtonDown("Fire Self")){
             //center.GetComponent<Animator>().SetBool("Glow", false);
-            center = player.GetComponent<Transform>();
-            print(center.position);
-        }
+        //    center = player.GetComponent<Transform>();
+        //    print(center.position);
+        //}
 
         if (Input.GetButtonDown("Select In View"))
         {
@@ -113,10 +115,10 @@ public class Camera_Controller : MonoBehaviour
             }
         }
 
-        if (Input.GetButtonDown("Fire Out"))
-        {
-            RelativeRotatorSystem.Scroll();
-        }
+        //if (Input.GetButtonDown("Fire Out"))
+        //{
+        //    RelativeRotatorSystem.Scroll();
+        //}
 
 
         //if (Input.GetButtonDown("Reset All"))

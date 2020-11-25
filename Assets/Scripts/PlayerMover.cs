@@ -21,6 +21,7 @@ public class PlayerMover : MonoBehaviour
     public GameObject starting;
     public AudioClip jump;
     public AudioClip land;
+    public AudioClip fall;
     private AudioSource audioSource;
 
     void Start()
@@ -53,11 +54,13 @@ public class PlayerMover : MonoBehaviour
 
         if ((transform.position - starting.transform.position).sqrMagnitude > 1000)
         {
+            audioSource.PlayOneShot(fall, 0.7f);
             transform.position = starting.transform.position + Vector3.up * 2;
             cam.GetComponent<Camera_Controller>().up = Vector3.up;
             Physics.gravity = -1 * Vector3.up * 9.8f;
             _body.velocity = Vector3.zero;
         }
+
     }
 
     bool checkBottom()
@@ -69,27 +72,30 @@ public class PlayerMover : MonoBehaviour
         if (Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)))
         {
             if (hit.transform.parent != null)
+            if (hit.transform.gameObject.CompareTag("RotatorZone") && hit.transform.gameObject != touching)
             {
-                //print(hit.transform.parent.gameObject.CompareTag("RotatorZone"));
-                //print(hit.transform.parent.gameObject != touching);
-                if (hit.transform.parent.gameObject.CompareTag("RotatorZone") && hit.transform.parent.gameObject != touching)
+                RemoveOutline();
+                Renderer[] renderers = hit.transform.GetComponentsInChildren<Renderer>();
+                //Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
+                foreach (Renderer child in renderers)
                 {
-                    RemoveOutline();
-                    var children = hit.transform.parent.GetComponentsInChildren<Transform>();
-                    Outline outline = hit.transform.parent.gameObject.AddComponent<Outline>();
-                    touching = hit.transform.parent.gameObject;
+                    Material[] materials = child.materials;
+                    foreach (Material mat in materials)
+                    {
+                        mat.SetColor("_EmissionColor", new Color(0.6f, 0.6f, 0.6f, 0.6f));
+                    }
                 }
-                else if (hit.transform.parent.gameObject.CompareTag("RotatorZone"))
-                {
-                    //pass
-                }
-                else
-                {
-                    RemoveOutline();
-                }
+                //outline.OutlineMode = Outline.Mode.OutlineAll;
+                touching = hit.transform.gameObject;
             }
-        } else {
-            RemoveOutline();
+            else if (hit.transform.gameObject.CompareTag("RotatorZone"))
+            {
+                //pass
+            }
+            else
+            {
+                RemoveOutline();
+            }
         }
         return Physics.Raycast(transform.position, -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
         Physics.Raycast(transform.position + new Vector3(0, 0, 0.5f), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
