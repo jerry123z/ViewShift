@@ -61,6 +61,7 @@ public class Dialog : MonoBehaviour
         }
         if (!dialog.activeSelf && wait == null && finished == false)
         {
+            player.GetComponent<PlayerMover>().enabled = true;
             print(lineIndex);
             if(lineIndex != 4)
             {
@@ -76,7 +77,7 @@ public class Dialog : MonoBehaviour
         {
             Time.timeScale = 1;
         }
-        if (Input.GetButtonDown("Jump") && continueBtn.activeSelf)
+        if (Input.GetButtonDown("Jump") && continueBtn.activeSelf && dialog.activeSelf)
         {
             NextSentence();
         }
@@ -85,6 +86,10 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Type()
     {
+        if(index != 0)
+        {
+            player.GetComponent<PlayerMover>().enabled = false;
+        }
         if (Time.timeScale > 0)
         {
             Time.timeScale = 0;
