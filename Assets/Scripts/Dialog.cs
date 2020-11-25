@@ -26,6 +26,10 @@ public class Dialog : MonoBehaviour
     Coroutine wait = null;
     Coroutine freezing = null;
 
+    public AudioClip typing;
+    private AudioSource audioSource;
+    public float volume = 0.2f;
+
     private void Start()
     {
         dialog = GameObject.Find("/Dialog/Dialogues");
@@ -33,6 +37,8 @@ public class Dialog : MonoBehaviour
         finishLine = GameObject.Find("/Anchors/finish line");
         cubes = GameObject.Find("/Level Objects/Standing Places").GetComponentsInChildren<Transform>();
         mainCam = GameObject.Find("/Main Camera").GetComponent<Camera>();
+        audioSource = GetComponent<AudioSource>();
+
         for(int a = 0; a < cubes.Length-1; a++)
         {
             cubes[a] = cubes[a + 1];
@@ -48,8 +54,9 @@ public class Dialog : MonoBehaviour
         {
             StopCoroutine(typeCoroutine);
         }
+        audioSource.PlayOneShot(typing, volume); 
         typeCoroutine = StartCoroutine(Type());
-        
+
     }
 
     private void Update()
@@ -104,6 +111,7 @@ public class Dialog : MonoBehaviour
     public void NextSentence()
     {
         continueBtn.SetActive(false);
+
         if (index < sentences.Length-1)
         {
             index += 1;
@@ -113,12 +121,16 @@ public class Dialog : MonoBehaviour
                 removeAllPlaces();
                 dialog.SetActive(false);
             }
+            else {
+                audioSource.PlayOneShot(typing, volume);
+            }
             textDisplay.text = "";
             if (typeCoroutine != null)
             {
                 StopCoroutine(typeCoroutine);
             }
             typeCoroutine = StartCoroutine(Type());
+            
         } else
         {
             dialog.SetActive(false);
@@ -135,6 +147,7 @@ public class Dialog : MonoBehaviour
         yield return new WaitUntil(() => checkPosition(designatedPos, playerPos));
         if(freezing == null)
         {
+            audioSource.PlayOneShot(typing, volume);
             freezing = StartCoroutine(freezeAndActive());
         }
     }
@@ -145,6 +158,7 @@ public class Dialog : MonoBehaviour
         yield return new WaitUntil(() => rotate());
         if (freezing == null)
         {
+            audioSource.PlayOneShot(typing, volume);
             freezing = StartCoroutine(freezeAndActive());
         }
     }

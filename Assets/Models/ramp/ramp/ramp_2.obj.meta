@@ -8,8 +8,7 @@ ModelImporter:
       type: UnityEngine:Material
       assembly: UnityEngine.CoreModule
       name: ramp_2_SmartCombine_2Mat
-    second: {fileID: -2551240767032753910, guid: 362ead6a5cc8b1c4491db2075ab7be1f,
-      type: 3}
+    second: {fileID: 2100000, guid: 1faf2f81e5fa96b48a48ff30e638c298, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
