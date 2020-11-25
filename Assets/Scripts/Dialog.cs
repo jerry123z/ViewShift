@@ -70,12 +70,14 @@ public class Dialog : MonoBehaviour
         {
             player.GetComponent<PlayerMover>().enabled = true;
             print(lineIndex);
-            if(lineIndex != 4)
+            if(lineIndex == 4)
             {
-                wait = StartCoroutine(WaitForPosition());
+           // } else if (lineIndex == 4)
+           // {
+                wait = StartCoroutine(WaitForRotation());
             } else
             {
-                wait = StartCoroutine(WaitForRotation());
+                wait = StartCoroutine(WaitForPosition());
             }
             
             freezing = null;
@@ -156,6 +158,17 @@ public class Dialog : MonoBehaviour
     IEnumerator WaitForRotation()
     {
         print("waitingRotate");
+        yield return new WaitUntil(() => rotate());
+        if (freezing == null)
+        {
+            audioSource.PlayOneShot(typing, volume);
+            freezing = StartCoroutine(freezeAndActive());
+        }
+    }
+
+    IEnumerator WaitForSelection()
+    {
+        print("Waiting Select");
         yield return new WaitUntil(() => rotate());
         if (freezing == null)
         {

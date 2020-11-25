@@ -7,11 +7,14 @@ public class DoorPressurePlate : MonoBehaviour
     protected int count;
     public GameObject item;
     private DoorActions script;
+    public AudioClip pressSFX;
+    private AudioSource audioSource;
 
     private void Start()
     {
         script = item.GetComponent<DoorActions>();
         count = 0;
+        audioSource = GetComponent<AudioSource>();
     }
 
     void OnCollisionEnter(Collision collision)
@@ -21,6 +24,7 @@ public class DoorPressurePlate : MonoBehaviour
         count += 1;
         script.Open();
         GetComponent<Animator>().SetBool("Pressed", true);
+        audioSource.PlayOneShot(pressSFX, 0.7f);
     }
 
     void OnCollisionExit(Collision collision)
@@ -34,6 +38,7 @@ public class DoorPressurePlate : MonoBehaviour
             {
                 script.Close();
                 GetComponent<Animator>().SetBool("Pressed", false);
+                audioSource.PlayOneShot(pressSFX, 0.7f);
             }
         }
     }
