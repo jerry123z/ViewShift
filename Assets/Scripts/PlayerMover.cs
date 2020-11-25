@@ -21,6 +21,7 @@ public class PlayerMover : MonoBehaviour
     public GameObject starting;
     public AudioClip jump;
     public AudioClip land;
+    public AudioClip fall;
     private AudioSource audioSource;
 
     void Start()
@@ -53,11 +54,13 @@ public class PlayerMover : MonoBehaviour
 
         if ((transform.position - starting.transform.position).sqrMagnitude > 1000)
         {
+            audioSource.PlayOneShot(fall, 0.7f);
             transform.position = starting.transform.position + Vector3.up * 2;
             cam.GetComponent<Camera_Controller>().up = Vector3.up;
             Physics.gravity = -1 * Vector3.up * 9.8f;
             _body.velocity = Vector3.zero;
         }
+
     }
 
     bool checkBottom()
