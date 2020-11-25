@@ -2693,6 +2693,11 @@ PrefabInstance:
       propertyPath: m_TagString
       value: RelativeRotator
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: a170b159b6663b645824f475c2334820,
+        type: 3}
+      propertyPath: m_Layer
+      value: 11
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a170b159b6663b645824f475c2334820, type: 3}
 --- !u!1 &241966955
@@ -19609,8 +19614,9 @@ GameObject:
   - component: {fileID: 4540508023222023178}
   - component: {fileID: 1113828855012974289}
   - component: {fileID: 8670955720393898224}
-  - component: {fileID: 8670955720393898223}
   - component: {fileID: 8670955720393898225}
+  - component: {fileID: 8670955720393898223}
+  - component: {fileID: 8670955720393898226}
   m_Layer: 0
   m_Name: polySurface15
   m_TagString: Untagged
@@ -19627,7 +19633,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8670955720393898222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a15f7f30090e9fb4a85560ec7d69f47c, type: 3}
+  m_Script: {fileID: 11500000, guid: 90df63b19c882084ca2835ddea69d364, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 483950023}
@@ -19639,10 +19645,10 @@ MeshCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8670955720393898222}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 4
-  m_Convex: 1
+  m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: -5511996699474248536, guid: db68da2e5553dcb469b3f5c0125f1e43, type: 3}
 --- !u!95 &8670955720393898225
@@ -19653,7 +19659,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8670955720393898222}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: f93644e528490fa4f8f8422844e14633, type: 2}
   m_CullingMode: 0
@@ -19664,6 +19670,19 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!114 &8670955720393898226
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8670955720393898222}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78ed968453daa654e8dfebe009aa4b5f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  is_closed: 0
 --- !u!1001 &9180524574533179897
 PrefabInstance:
   m_ObjectHideFlags: 0

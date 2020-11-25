@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using System.Collections;
 
-public class DoorTrigger : MonoBehaviour
+public class DoorPressurePlate : MonoBehaviour
 {
     protected int count;
     public GameObject item;
@@ -14,23 +14,26 @@ public class DoorTrigger : MonoBehaviour
         count = 0;
     }
 
-    void OnTriggerEnter(Collider other)
+    void OnCollisionEnter(Collision collision)
     {
         //EnterAction?.Invoke();
         print("enter");
         count += 1;
         script.Open();
+        GetComponent<Animator>().SetBool("Pressed", true);
     }
 
-    void OnTriggerExit(Collider other)
+    void OnCollisionExit(Collision collision)
     {
         print("exit");
         //ExitAction?.Invoke();
         if (count > 0)
         {
             count -= 1;
-            if (count == 0){
+            if (count == 0)
+            {
                 script.Close();
+                GetComponent<Animator>().SetBool("Pressed", false);
             }
         }
     }

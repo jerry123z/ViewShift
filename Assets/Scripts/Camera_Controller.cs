@@ -88,11 +88,11 @@ public class Camera_Controller : MonoBehaviour
         print(C.magnitude);
         if (C.magnitude >= 0.2)
         {
-            C = scale * C.normalized;
+            C = (scale * 1.5f) * C.normalized;
             var player_transform = player.GetComponent<Transform>();
             Vector3 B = player_transform.position;
             RelativeRotatorSystem.SelectAllInDirection(B, C);
-            DrawLine(B, B + C, Color.red, 0.1f);
+            //DrawLine(B, B + C, Color.red, 0.1f);
         }
 
         //if (Input.GetButtonDown("Fire Self")){

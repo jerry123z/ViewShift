@@ -53,12 +53,18 @@ public class RelativeRotatorSystem : MonoBehaviour
         if (selected != null && selected.Count > 0)
         {
             List<GameObject> inDirection = new List<GameObject>();
-            foreach (GameObject possible in selected)
+            //foreach (GameObject possible in selected)
+            //{
+            //    if (Vector3.Dot((possible.transform.position - position), direction) >= 0)
+            //    {
+            //        inDirection.Add(possible);
+            //    }
+            //}
+            RaycastHit hit;
+            int mask = LayerMask.GetMask("PushableBlock");
+            if (Physics.SphereCast(position, 0.5f, direction, out hit, direction.magnitude, mask))
             {
-                if (Vector3.Dot((possible.transform.position - position), direction) >= 0)
-                {
-                    inDirection.Add(possible);
-                }
+                inDirection.Add(hit.transform.gameObject);
             }
 
             if (inDirection.Count > 0)
