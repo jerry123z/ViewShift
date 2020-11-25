@@ -12,7 +12,7 @@ public class LevelSelectButton : MonoBehaviour
     GameObject[] row1;
 
     const int rows = 1;
-    const int cols = 5;
+    const int cols = 6;
 
     Vector2 positionIndex;
     GameObject currentSlot;
