@@ -58,6 +58,7 @@ public class PlayerMover : MonoBehaviour
             Physics.gravity = -1 * Vector3.up * 9.8f;
             _body.velocity = Vector3.zero;
         }
+
     }
 
     bool checkBottom()
