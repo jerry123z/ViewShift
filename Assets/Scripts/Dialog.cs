@@ -89,6 +89,7 @@ public class Dialog : MonoBehaviour
             player.GetComponent<PlayerMover>().enabled = true;
             Time.timeScale = 1;
         }
+
         if (Input.GetButtonDown("Jump") && continueBtn.activeSelf && dialog.activeSelf)
         {
             NextSentence();
