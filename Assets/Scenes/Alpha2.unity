@@ -19619,9 +19619,8 @@ GameObject:
   - component: {fileID: 1113828855012974289}
   - component: {fileID: 8670955720393898224}
   - component: {fileID: 8670955720393898225}
-  - component: {fileID: 8670955720393898223}
-  - component: {fileID: 8670955720393898226}
   - component: {fileID: 8670955720393898227}
+  - component: {fileID: 8670955720393898223}
   m_Layer: 0
   m_Name: polySurface15
   m_TagString: Untagged
@@ -19638,7 +19637,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 8670955720393898222}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 90df63b19c882084ca2835ddea69d364, type: 3}
+  m_Script: {fileID: 11500000, guid: a15f7f30090e9fb4a85560ec7d69f47c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 483950023}
@@ -19676,21 +19675,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &8670955720393898226
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8670955720393898222}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 78ed968453daa654e8dfebe009aa4b5f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  is_closed: 0
-  open: {fileID: 0}
-  close: {fileID: 0}
 --- !u!82 &8670955720393898227
 AudioSource:
   m_ObjectHideFlags: 0

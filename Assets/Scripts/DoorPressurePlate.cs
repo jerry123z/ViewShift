@@ -17,7 +17,7 @@ public class DoorPressurePlate : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void OnCollisionEnter(Collision collision)
+    protected void OnCollisionEnter(Collision collision)
     {
         //EnterAction?.Invoke();
         print("enter");
@@ -29,7 +29,7 @@ public class DoorPressurePlate : MonoBehaviour
         }
     }
 
-    void OnCollisionExit(Collision collision)
+    protected void OnCollisionExit(Collision collision)
     {
         print("exit");
         //ExitAction?.Invoke();

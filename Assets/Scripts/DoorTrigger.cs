@@ -17,22 +17,23 @@ public class DoorTrigger : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void OnTriggerEnter(Collider other)
+    protected void OnCollisionEnter(Collision collision)
     {
         //EnterAction?.Invoke();
-        // print("enter");
         print("enter");
         count += 1;
-        if (count == 1) { 
+        if (count == 1)
+        {
             script.Open();
             GetComponent<Animator>().SetBool("Pressed", true);
             audioSource.PlayOneShot(pressSFX, 0.7f);
         }
     }
 
-    void OnTriggerExit(Collider other)
+    protected void OnCollisionExit(Collision collision)
     {
         print("exit");
+        //ExitAction?.Invoke();
         if (count > 0)
         {
             count -= 1;
