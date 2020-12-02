@@ -20,6 +20,12 @@ public class RelativeRotatorSystem : MonoBehaviour
         selection_index = 0;
     }
 
+    void Update() {
+        if (selected != null && selected.Count > 0){
+            selected[0].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+    }
+
 
     public static void RotateAll(GameObject center)
     {
@@ -76,11 +82,14 @@ public class RelativeRotatorSystem : MonoBehaviour
                     // need a different glow for selecting
                     child.GetComponent<Animator>().SetBool("Glow", true);
                 }
-                print("selected.count: " + selected.Count);
+                // print("selected.count: " + selected.Count);
+                print("selection_index is: " + selection_index);
                 RelativeRotatorData rrd = selected[selection_index].GetComponent<RelativeRotatorData>();
                 rrd.willRotate = true;
                 if (selected[selection_index].GetComponent<Rigidbody>()) {
                     selected[selection_index].GetComponent<Rigidbody>().useGravity = false;
+                    // selected[selection_index].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    selected[selection_index].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
                 }
                 selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
             }
@@ -161,9 +170,11 @@ public class RelativeRotatorSystem : MonoBehaviour
         // foreach (Transform child in transforms)
         // {
         //     if (child.gameObject.GetComponent<Rigidbody>()) {
-        //         var rrd = child.gameObject.GetComponent<RelativeRotatorData>();
+        //         // child.gameObject.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+        //         // child.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        //         // var rrd = child.gameObject.GetComponent<RelativeRotatorData>();
         //         // child.gameObject.GetComponent<Rigidbody>().useGravity = true;
-        //         child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        //         // child.gameObject.GetComponent<Rigidbody>().useGravity = true;
         //     }
         // }
     }
@@ -176,7 +187,10 @@ public class RelativeRotatorSystem : MonoBehaviour
         // {
         //     if (child.gameObject.GetComponent<Rigidbody>())
         //     {
-        //         child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        //         // child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        //         // child.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //         // child.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //         child.gameObject.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeAll;
         //     }
         // }
     }
