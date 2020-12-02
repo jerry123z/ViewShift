@@ -29,6 +29,7 @@ public class Dialog : MonoBehaviour
     public AudioClip typing;
     private AudioSource audioSource;
     public float volume = 0.2f;
+    public GameObject rock;
 
     private void Start()
     {
@@ -70,12 +71,15 @@ public class Dialog : MonoBehaviour
         {
             player.GetComponent<PlayerMover>().enabled = true;
             print(lineIndex);
-            if(lineIndex != 4)
+            if(lineIndex == 4)
             {
-                wait = StartCoroutine(WaitForPosition());
-            } else
+                wait = StartCoroutine(WaitForSelection());
+            } else if (lineIndex == 5)
             {
                 wait = StartCoroutine(WaitForRotation());
+            } else
+            {
+                wait = StartCoroutine(WaitForPosition());
             }
             
             freezing = null;
@@ -85,6 +89,7 @@ public class Dialog : MonoBehaviour
             player.GetComponent<PlayerMover>().enabled = true;
             Time.timeScale = 1;
         }
+
         if (Input.GetButtonDown("Jump") && continueBtn.activeSelf && dialog.activeSelf)
         {
             NextSentence();
@@ -162,6 +167,23 @@ public class Dialog : MonoBehaviour
             audioSource.PlayOneShot(typing, volume);
             freezing = StartCoroutine(freezeAndActive());
         }
+    }
+
+    IEnumerator WaitForSelection()
+    {
+        print("Waiting Select");
+        yield return new WaitUntil(() => selection());
+        if (freezing == null)
+        {
+            audioSource.PlayOneShot(typing, volume);
+            freezing = StartCoroutine(freezeAndActive());
+        }
+    }
+
+    public bool selection()
+    {
+        RelativeRotatorData rrd = rock.GetComponent<RelativeRotatorData>();
+        return rrd.willRotate;
     }
 
     public bool rotate()

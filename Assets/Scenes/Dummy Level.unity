@@ -1621,7 +1621,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.7
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -6332,6 +6332,134 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 8548a3fe4f9779047bc0775a1c8d7553, type: 3}
+--- !u!1 &1474859204
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1474859210}
+  - component: {fileID: 1474859209}
+  - component: {fileID: 1474859208}
+  - component: {fileID: 1474859207}
+  - component: {fileID: 1474859206}
+  - component: {fileID: 1474859205}
+  m_Layer: 11
+  m_Name: flat_rock_4
+  m_TagString: RelativeRotator
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1474859205
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474859204}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c747a4ec348c83641a69ae3ce700e75a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  willRotate: 0
+--- !u!95 &1474859206
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474859204}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: dd393355cf1439c43aab6060855611a2, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
+--- !u!64 &1474859207
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474859204}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 4
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: -180759769107077329, guid: 2ea0b2db54399394db27ef51c9e164cc, type: 3}
+--- !u!23 &1474859208
+MeshRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474859204}
+  m_Enabled: 1
+  m_CastShadows: 1
+  m_ReceiveShadows: 1
+  m_DynamicOccludee: 1
+  m_MotionVectors: 1
+  m_LightProbeUsage: 1
+  m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 2
+  m_RenderingLayerMask: 1
+  m_RendererPriority: 0
+  m_Materials:
+  - {fileID: 2100000, guid: f038af7b03f71c04e87bff07fb29b297, type: 2}
+  m_StaticBatchInfo:
+    firstSubMesh: 0
+    subMeshCount: 0
+  m_StaticBatchRoot: {fileID: 0}
+  m_ProbeAnchor: {fileID: 0}
+  m_LightProbeVolumeOverride: {fileID: 0}
+  m_ScaleInLightmap: 1
+  m_ReceiveGI: 1
+  m_PreserveUVs: 0
+  m_IgnoreNormalsForChartDetection: 0
+  m_ImportantGI: 0
+  m_StitchLightmapSeams: 1
+  m_SelectedEditorRenderState: 3
+  m_MinimumChartSize: 4
+  m_AutoUVMaxDistance: 0.5
+  m_AutoUVMaxAngle: 89
+  m_LightmapParameters: {fileID: 0}
+  m_SortingLayerID: 0
+  m_SortingLayer: 0
+  m_SortingOrder: 0
+--- !u!33 &1474859209
+MeshFilter:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474859204}
+  m_Mesh: {fileID: -180759769107077329, guid: 2ea0b2db54399394db27ef51c9e164cc, type: 3}
+--- !u!4 &1474859210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1474859204}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 0.46068764, y: 34.316143, z: 23.760296}
+  m_LocalScale: {x: 1, y: 1, z: 3}
+  m_Children: []
+  m_Father: {fileID: 1952287160}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1507471382 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2812556921425323758, guid: 8548a3fe4f9779047bc0775a1c8d7553,
@@ -7042,6 +7170,7 @@ MonoBehaviour:
   starting: {fileID: 682448559}
   jump: {fileID: 8300000, guid: 641505ad0a587c949b95caed7925a44c, type: 3}
   land: {fileID: 8300000, guid: 8481ff61b8460e6459cdae0bd86bc7ac, type: 3}
+  fall: {fileID: 0}
 --- !u!23 &1690758264
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -7931,7 +8060,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -4.820688, y: -30.866142, z: -26.870296}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 1474859210}
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8458,6 +8588,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: finish line
       objectReference: {fileID: 0}
+    - target: {fileID: 3202714325181085414, guid: 25db87f8e19b1084cb25de7813645177,
+        type: 3}
+      propertyPath: level
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3202714325181085415, guid: 25db87f8e19b1084cb25de7813645177,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -8543,6 +8678,21 @@ PrefabInstance:
       propertyPath: m_sharedMaterial
       value: 
       objectReference: {fileID: 2140032, guid: dc36b3fdc14f47ebb36fd484a67e268a, type: 2}
+    - target: {fileID: 3351643927880782951, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_margin.z
+      value: -124.21512
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643927880782953, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: -229
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643927880782953, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 58
+      objectReference: {fileID: 0}
     - target: {fileID: 3351643928954148084, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_AnchorMax.y
@@ -8566,7 +8716,7 @@ PrefabInstance:
     - target: {fileID: 3351643928954148084, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0.5
+      value: 0.55
       objectReference: {fileID: 0}
     - target: {fileID: 3351643928954148084, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8581,7 +8731,7 @@ PrefabInstance:
     - target: {fileID: 3351643928954148084, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0.5
+      value: 0.45
       objectReference: {fileID: 0}
     - target: {fileID: 3351643928954148086, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8609,6 +8759,11 @@ PrefabInstance:
       propertyPath: m_text
       value: 
       objectReference: {fileID: 0}
+    - target: {fileID: 3351643928954148086, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_HorizontalAlignment
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3351643929499425129, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_LocalPosition.z
@@ -8622,7 +8777,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: lineBreaks.Array.size
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8632,7 +8787,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.size
-      value: 12
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8657,13 +8812,12 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[4]
-      value: Great job! Now let's try jumping
+      value: Great! Now let's try jumping
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[5]
-      value: Press the A button on your xbox controller to jump. Get to the designated
-        area.
+      value: Press the A button on your xbox controller to jump. Get to the red block.
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8693,25 +8847,24 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[6]
-      value: 'Nice job! Now introducing the main mechanic of the game. Walk to the
-        designated area first. '
+      value: 'Nice! Now, before we proceed please walk to the designated area. '
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[7]
-      value: 'The goal is to get to the finish position, but you can''t see the position
-        at this point. '
+      value: Press B on the Xbox controller to highlight items. Then flick the right
+        stick in the direction of a highlighted object to select it.
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[8]
-      value: In ViewShift the core mechanic is to shift your views, so you can perceive
-        the world in a new way
+      value: In ViewShift you can interact with the level by shifting the camera
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[9]
-      value: Try pressing j and l to shift your perspective by 90 degrees
+      value: 'The goal is to get to the finish position, but you can''t see the position
+        at this point. '
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8726,29 +8879,53 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: lineBreaks.Array.data[3]
-      value: 10
+      value: 8
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[10]
-      value: Now you see the finish line!
+      value: Press LB and RB to shift your perspective by 90 degrees (Watch the rock)
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[11]
-      value: Move to the finish line to finish the tutorial level!
+      value: Selected objects will rotate around the block you're standing on!
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: lineBreaks.Array.data[4]
-      value: 12
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[1]
-      value: This is the first tutorial level that will get you started on the main
-        mechanics of the game!
+      value: This tutorial level will get you started!
       objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: sentences.Array.data[2]
+      value: First let's try moving
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: sentences.Array.data[3]
+      value: Use the left joystick to get to the red block
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: sentences.Array.data[12]
+      value: Move to the finish line to complete the tutorial level!
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: lineBreaks.Array.data[5]
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: rock
+      value: 
+      objectReference: {fileID: 1474859204}
     - target: {fileID: 6140621572551869735, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_AnchoredPosition.x

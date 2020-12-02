@@ -46,7 +46,7 @@ GameObject:
   - component: {fileID: 6362055553321930378}
   m_Layer: 0
   m_Name: tree:modular_trees_and_blocks:SmartCombine_0_tree:modular_trees_and_blocks:polySurface1_Sep_1_tree:modular_trees_and_blocks:group1
-  m_TagString: Untagged
+  m_TagString: RotatorZone
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
