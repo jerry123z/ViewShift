@@ -1396,6 +1396,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c747a4ec348c83641a69ae3ce700e75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usesGravity: 0
   willRotate: 0
 --- !u!95 &859531496
 Animator:
@@ -3906,6 +3907,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c747a4ec348c83641a69ae3ce700e75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usesGravity: 0
   willRotate: 0
 --- !u!1001 &1875783171
 PrefabInstance:
@@ -4491,6 +4493,7 @@ GameObject:
   - component: {fileID: 1852205532}
   - component: {fileID: 1852205533}
   - component: {fileID: 1852205536}
+  - component: {fileID: 919132147816036618}
   m_Layer: 11
   m_Name: flat_rock_1
   m_TagString: RelativeRotator
@@ -4498,6 +4501,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &919132147816036618
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132147816036617}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+  needsUpdate: 1
 --- !u!1 &919132148940035505
 GameObject:
   m_ObjectHideFlags: 0
@@ -4512,6 +4534,7 @@ GameObject:
   - component: {fileID: 859531491}
   - component: {fileID: 859531496}
   - component: {fileID: 859531492}
+  - component: {fileID: 919132148940035506}
   m_Layer: 11
   m_Name: flat_rock_4
   m_TagString: RelativeRotator
@@ -4519,6 +4542,25 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!114 &919132148940035506
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 919132148940035505}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 0
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+  needsUpdate: 1
 --- !u!4 &1297182915686580156
 Transform:
   m_ObjectHideFlags: 0

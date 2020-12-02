@@ -10839,6 +10839,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c747a4ec348c83641a69ae3ce700e75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usesGravity: 0
   willRotate: 0
 --- !u!114 &1572001235
 MonoBehaviour:
@@ -15106,6 +15107,7 @@ GameObject:
   - component: {fileID: 1971407473}
   - component: {fileID: 1971407477}
   - component: {fileID: 1971407478}
+  - component: {fileID: 1971407479}
   m_Layer: 11
   m_Name: Plank
   m_TagString: RelativeRotator
@@ -15139,6 +15141,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c747a4ec348c83641a69ae3ce700e75a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  usesGravity: 0
   willRotate: 0
 --- !u!65 &1971407474
 BoxCollider:
@@ -15235,6 +15238,25 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 122
   m_CollisionDetection: 0
+--- !u!114 &1971407479
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1971407471}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+  needsUpdate: 1
 --- !u!1 &1976128560
 GameObject:
   m_ObjectHideFlags: 0

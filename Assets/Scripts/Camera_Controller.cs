@@ -23,11 +23,11 @@ public class Camera_Controller : MonoBehaviour
     void Start()
     {
         top_face = new Vector3(0, 1, 0);
-        scale = 10f;
+        scale = 30f;
         speed = 3f;
         direction = -1f;
         orientation =  new Vector3(1, 0, 0);
-        height = new Vector3 (0,6,0);
+        height = new Vector3 (0,18,0);
         center = player.GetComponent<Transform>();
         isometricOffset = Quaternion.Euler(0, -45, 0);
         transform.position = height + center.position +  scale * (isometricOffset * orientation);
@@ -87,7 +87,7 @@ public class Camera_Controller : MonoBehaviour
         C += Input.GetAxis("FireVertical") * (offset * orientation);
         if (C.magnitude >= 0.2)
         {
-            C = (scale * 1.5f) * C.normalized;
+            C = (scale * 0.6f) * C.normalized;
             var player_transform = player.GetComponent<Transform>();
             Vector3 B = player_transform.position;
             RelativeRotatorSystem.SelectAllInDirection(B, C);
