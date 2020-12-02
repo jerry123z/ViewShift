@@ -3,7 +3,7 @@
 public class Camera_Controller : MonoBehaviour
 {
     public Transform center;
-    public Vector3 orientation;
+    public Vector3Int orientation;
     public Vector3 top_face;
     public Vector3 height;
     private Quaternion isometricOffset;   
@@ -26,7 +26,7 @@ public class Camera_Controller : MonoBehaviour
         scale = 30f;
         speed = 3f;
         direction = -1f;
-        orientation =  new Vector3(1, 0, 0);
+        orientation =  new Vector3Int(1, 0, 0);
         height = new Vector3 (0,18,0);
         center = player.GetComponent<Transform>();
         isometricOffset = Quaternion.Euler(0, -45, 0);
@@ -44,9 +44,9 @@ public class Camera_Controller : MonoBehaviour
     void rotate(Vector3 direction)
     {
         if (direction == Vector3.left){
-            orientation = Quaternion.Euler(0, 90, 0) * orientation;
+            orientation = Vector3Int.RoundToInt(Quaternion.Euler(0, 90, 0) * orientation);
         } else if (direction == Vector3.right){
-            orientation = Quaternion.Euler(0, -90, 0) * orientation;
+            orientation = Vector3Int.RoundToInt(Quaternion.Euler(0, -90, 0) * orientation);
         }
     }
 

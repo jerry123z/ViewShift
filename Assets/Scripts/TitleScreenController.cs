@@ -11,6 +11,8 @@ public class TitleScreenController : MonoBehaviour
     private GameObject options;
     private GameObject exit;
     private int index;
+    public AudioClip moveSfx;
+    protected AudioSource audioSource;
 
     bool isMoving;
 
@@ -22,6 +24,7 @@ public class TitleScreenController : MonoBehaviour
         exit = GameObject.Find("/Title Screen/Exit/Functionality");
         isMoving = false;
         index = 1;
+        audioSource = GetComponent<AudioSource>();
 
         if (keyMap)
         {
@@ -71,18 +74,21 @@ public class TitleScreenController : MonoBehaviour
     {
         if (isMoving == false)
         {
+            
             isMoving = true;
-            if (direction == "right")
+            if (direction == "right" && index < 3)
             {
+                audioSource.PlayOneShot(moveSfx, 0.7f);
                 index += 1;
             }
-            else if (direction == "left")
+            else if (direction == "left" && index > 1)
             {
+                audioSource.PlayOneShot(moveSfx, 0.7f);
                 index -= 1;
             }
             MoveSelector(index);
 
-            StartCoroutine(ResetMove(0.2f));
+            StartCoroutine(ResetMove(0.3f));
         }
     }
 

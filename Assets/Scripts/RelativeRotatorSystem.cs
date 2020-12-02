@@ -82,8 +82,6 @@ public class RelativeRotatorSystem : MonoBehaviour
                     // need a different glow for selecting
                     child.GetComponent<Animator>().SetBool("Glow", true);
                 }
-                // print("selected.count: " + selected.Count);
-                print("selection_index is: " + selection_index);
                 RelativeRotatorData rrd = selected[selection_index].GetComponent<RelativeRotatorData>();
                 rrd.willRotate = true;
                 if (selected[selection_index].GetComponent<Rigidbody>()) {
@@ -115,7 +113,6 @@ public class RelativeRotatorSystem : MonoBehaviour
                 child.gameObject.GetComponent<Animator>().SetBool("Glow", true);
             }
         }
-        print("selected.count: " + selected.Count);
         //if (selected.Count > 0)
         //{
         //    RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
@@ -126,8 +123,6 @@ public class RelativeRotatorSystem : MonoBehaviour
 
     public static void Scroll()
     {
-        print("currently selecting: " + selection_index);
-        print("selected.count: " + selected.Count);
         if (selected.Count > 0)
         {
             GameObject child;

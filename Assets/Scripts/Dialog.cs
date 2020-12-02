@@ -186,10 +186,8 @@ public class Dialog : MonoBehaviour
 
     public bool rotate()
     {
-        Vector3 facing = mainCam.transform.forward;
-        float curDirZ = -1 * Mathf.Round(cameraDirection.z * 10.0f) * 0.1f;
-        float facingZ = Mathf.Round(facing.z * 10.0f) * 0.1f;
-        bool result = facingZ == curDirZ;
+        Vector3 facing = mainCam.GetComponent<Camera_Controller>().orientation;
+        bool result = facing == new Vector3(-1,0,0) || facing == new Vector3(0, 0, -1);
         return result;
     }
 

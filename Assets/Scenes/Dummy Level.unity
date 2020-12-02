@@ -1307,7 +1307,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 0.5
@@ -8371,7 +8371,7 @@ Light:
   m_InnerSpotAngle: 21.80208
   m_CookieSize: 10
   m_Shadows:
-    m_Type: 2
+    m_Type: 0
     m_Resolution: -1
     m_CustomResolution: -1
     m_Strength: 1
@@ -8786,7 +8786,7 @@ PrefabInstance:
     - target: {fileID: 3351643928954148084, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -1012
+      value: -1021
       objectReference: {fileID: 0}
     - target: {fileID: 3351643928954148084, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8801,12 +8801,12 @@ PrefabInstance:
     - target: {fileID: 3351643928954148086, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_margin.x
-      value: -87.568115
+      value: 118.91433
       objectReference: {fileID: 0}
     - target: {fileID: 3351643928954148086, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_margin.z
-      value: -2111.6196
+      value: -1921.2474
       objectReference: {fileID: 0}
     - target: {fileID: 3351643928954148086, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8828,6 +8828,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_HorizontalAlignment
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3351643928954148086, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_VerticalAlignment
+      value: 256
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929499425129, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8882,7 +8887,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[5]
-      value: Press the A button on your xbox controller to jump. Get to the red block.
+      value: Press the A button on your xbox controller to jump.
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8918,7 +8923,7 @@ PrefabInstance:
         type: 3}
       propertyPath: sentences.Array.data[7]
       value: Press B on the Xbox controller to highlight items. Then flick the right
-        stick in the direction of a highlighted object to select it.
+        stick to select it.
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8928,7 +8933,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[9]
-      value: Press X to pick up or use B & the right stick to select objects
+      value: Pick up items with x or use the shoulder buttons to rotate objects
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8948,7 +8953,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[10]
-      value: Press LB and RB to shift your perspective by 90 degrees (Watch the rock)
+      value: Press LB and RB to shift your view by 90 degrees (watch the block).
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
@@ -8968,7 +8973,7 @@ PrefabInstance:
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: sentences.Array.data[2]
-      value: First let's try moving
+      value: First let's try moving.
       objectReference: {fileID: 0}
     - target: {fileID: 3351643929783753675, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
