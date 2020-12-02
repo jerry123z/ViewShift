@@ -12,7 +12,7 @@ public class TitleScreenController : MonoBehaviour
     private GameObject exit;
     private int index;
 
-    bool isMoving = false;
+    bool isMoving;
 
     private void Start()
     {
@@ -20,6 +20,7 @@ public class TitleScreenController : MonoBehaviour
         newGame = GameObject.Find("/Title Screen/New Game/Functionality");
         options = GameObject.Find("/Title Screen/Options/Functionality");
         exit = GameObject.Find("/Title Screen/Exit/Functionality");
+        isMoving = false;
         index = 1;
 
         if (keyMap)
@@ -50,6 +51,7 @@ public class TitleScreenController : MonoBehaviour
         {
             keyMap.SetActive(false);
         }
+
         if (Input.GetButtonDown("Jump"))
         {
             functions(index);

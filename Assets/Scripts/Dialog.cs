@@ -55,7 +55,9 @@ public class Dialog : MonoBehaviour
         {
             StopCoroutine(typeCoroutine);
         }
-        audioSource.PlayOneShot(typing, volume); 
+        audioSource.clip = typing;
+        audioSource.volume = volume;
+        audioSource.loop = true;
         typeCoroutine = StartCoroutine(Type());
 
     }
@@ -65,6 +67,7 @@ public class Dialog : MonoBehaviour
         playerPos = player.transform.position;
         if (textDisplay.text == sentences[index])
         {
+            audioSource.Stop();
             continueBtn.SetActive(true);
         }
         if (!dialog.activeSelf && wait == null && finished == false)
@@ -89,6 +92,7 @@ public class Dialog : MonoBehaviour
             player.GetComponent<PlayerMover>().enabled = true;
             Time.timeScale = 1;
         }
+
         if (Input.GetButtonDown("Jump") && continueBtn.activeSelf && dialog.activeSelf)
         {
             NextSentence();
@@ -98,7 +102,8 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Type()
     {
-        if(index != 0)
+        audioSource.Play();
+        if (index != 0)
         {
             player.GetComponent<PlayerMover>().enabled = false;
         }
@@ -125,9 +130,8 @@ public class Dialog : MonoBehaviour
                 lineIndex += 1;
                 removeAllPlaces();
                 dialog.SetActive(false);
-            }
-            else {
-                audioSource.PlayOneShot(typing, volume);
+                textDisplay.text = "";
+                return;
             }
             textDisplay.text = "";
             if (typeCoroutine != null)
@@ -150,9 +154,8 @@ public class Dialog : MonoBehaviour
         cube.gameObject.SetActive(true);
         Vector3 designatedPos = cube.position;
         yield return new WaitUntil(() => checkPosition(designatedPos, playerPos));
-        if(freezing == null)
+        if (freezing == null)
         {
-            audioSource.PlayOneShot(typing, volume);
             freezing = StartCoroutine(freezeAndActive());
         }
     }
@@ -163,7 +166,6 @@ public class Dialog : MonoBehaviour
         yield return new WaitUntil(() => rotate());
         if (freezing == null)
         {
-            audioSource.PlayOneShot(typing, volume);
             freezing = StartCoroutine(freezeAndActive());
         }
     }
@@ -174,7 +176,6 @@ public class Dialog : MonoBehaviour
         yield return new WaitUntil(() => selection());
         if (freezing == null)
         {
-            audioSource.PlayOneShot(typing, volume);
             freezing = StartCoroutine(freezeAndActive());
         }
     }
