@@ -2,7 +2,7 @@
 using UnityEngine.Events;
 using System.Collections;
 
-public class SpecialDoorTrigger : DoorTrigger
+public class SpecialDoorTrigger : DoorPressurePlate
 {
     public override void Start()
     {

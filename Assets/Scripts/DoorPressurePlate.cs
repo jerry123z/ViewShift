@@ -6,11 +6,11 @@ public class DoorPressurePlate : MonoBehaviour
 {
     protected int count;
     public GameObject item;
-    private DoorActions script;
+    protected DoorActions script;
     public AudioClip pressSFX;
-    private AudioSource audioSource;
+    protected AudioSource audioSource;
 
-    private void Start()
+    public virtual void Start()
     {
         script = item.GetComponent<DoorActions>();
         count = 0;
@@ -22,9 +22,11 @@ public class DoorPressurePlate : MonoBehaviour
         //EnterAction?.Invoke();
         print("enter");
         count += 1;
-        script.Open();
-        GetComponent<Animator>().SetBool("Pressed", true);
-        audioSource.PlayOneShot(pressSFX, 0.7f);
+        if (count == 1) { 
+            script.Open();
+            GetComponent<Animator>().SetBool("Pressed", true);
+            audioSource.PlayOneShot(pressSFX, 0.7f);
+        }
     }
 
     void OnCollisionExit(Collision collision)
