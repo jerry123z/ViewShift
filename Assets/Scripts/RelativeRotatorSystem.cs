@@ -77,8 +77,9 @@ public class RelativeRotatorSystem : MonoBehaviour
                     child.GetComponent<Animator>().SetBool("Glow", true);
                 }
                 print("selected.count: " + selected.Count);
-                RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
+                RelativeRotatorData rrd = selected[selection_index].GetComponent<RelativeRotatorData>();
                 rrd.willRotate = true;
+                selected[selection_index].GetComponent<Rigidbody>().useGravity = false;
                 selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
             }
         }
@@ -125,12 +126,11 @@ public class RelativeRotatorSystem : MonoBehaviour
             rrd = child.gameObject.GetComponent<RelativeRotatorData>();
             rrd.willRotate = false;
             child.GetComponent<Animator>().SetBool("Selected", false);
-
             selection_index = (selection_index + 1) % selected.Count;
-
             child = selected[selection_index];
             rrd = child.GetComponent<RelativeRotatorData>();
             rrd.willRotate = true;
+            child.GetComponent<Rigidbody>().useGravity = rrd.usesGravity;
             child.gameObject.GetComponent<Animator>().SetBool("Selected", true);
         }
     }
@@ -143,6 +143,9 @@ public class RelativeRotatorSystem : MonoBehaviour
         {
             var rrd = child.gameObject.GetComponent<RelativeRotatorData>();
             rrd.willRotate = false;
+            if (child.gameObject.GetComponent<Rigidbody>()) {
+                child.gameObject.GetComponent<Rigidbody>().useGravity = rrd.usesGravity;
+            }
             child.gameObject.GetComponent<Animator>().SetBool("Glow", false);
             child.gameObject.GetComponent<Animator>().SetBool("Selected", false);
         }
@@ -151,26 +154,28 @@ public class RelativeRotatorSystem : MonoBehaviour
 
     public static void Unfreeze()
     {
-        GameObject relativeRotators = GameObject.Find("RelativeRotators");
-        Transform transforms = relativeRotators.GetComponent<Transform>();
-        foreach (Transform child in transforms)
-        {
-            if (child.gameObject.GetComponent<Rigidbody>()) {
-                child.gameObject.GetComponent<Rigidbody>().useGravity = true;
-            }
-        }
+        // GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        // Transform transforms = relativeRotators.GetComponent<Transform>();
+        // foreach (Transform child in transforms)
+        // {
+        //     if (child.gameObject.GetComponent<Rigidbody>()) {
+        //         var rrd = child.gameObject.GetComponent<RelativeRotatorData>();
+        //         // child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        //         child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        //     }
+        // }
     }
 
     public static void Freeze()
     {
-        GameObject relativeRotators = GameObject.Find("RelativeRotators");
-        Transform transforms = relativeRotators.GetComponent<Transform>();
-        foreach (Transform child in transforms)
-        {
-            if (child.gameObject.GetComponent<Rigidbody>())
-            {
-                child.gameObject.GetComponent<Rigidbody>().useGravity = false;
-            }
-        }
+        // GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        // Transform transforms = relativeRotators.GetComponent<Transform>();
+        // foreach (Transform child in transforms)
+        // {
+        //     if (child.gameObject.GetComponent<Rigidbody>())
+        //     {
+        //         child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        //     }
+        // }
     }
 }
