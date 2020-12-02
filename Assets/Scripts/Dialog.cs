@@ -14,7 +14,7 @@ public class Dialog : MonoBehaviour
     private Transform[] cubes;
     public GameObject player;
     private int index;
-    private int lineIndex;
+    public int lineIndex;
     public float cubeSize;
     public float typingSpeed;
     public Camera mainCam;
@@ -59,7 +59,7 @@ public class Dialog : MonoBehaviour
         audioSource.volume = volume;
         audioSource.loop = true;
         typeCoroutine = StartCoroutine(Type());
-
+        rock.SetActive(false);
     }
 
     private void Update()
@@ -149,7 +149,6 @@ public class Dialog : MonoBehaviour
 
     IEnumerator WaitForPosition()
     {
-        print("waiting");
         Transform cube = cubes[lineIndex-1];
         cube.gameObject.SetActive(true);
         Vector3 designatedPos = cube.position;
@@ -162,7 +161,6 @@ public class Dialog : MonoBehaviour
 
     IEnumerator WaitForRotation()
     {
-        print("waitingRotate");
         yield return new WaitUntil(() => rotate());
         if (freezing == null)
         {
@@ -172,7 +170,7 @@ public class Dialog : MonoBehaviour
 
     IEnumerator WaitForSelection()
     {
-        print("Waiting Select");
+        rock.SetActive(true);
         yield return new WaitUntil(() => selection());
         if (freezing == null)
         {

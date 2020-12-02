@@ -79,7 +79,9 @@ public class RelativeRotatorSystem : MonoBehaviour
                 print("selected.count: " + selected.Count);
                 RelativeRotatorData rrd = selected[selection_index].GetComponent<RelativeRotatorData>();
                 rrd.willRotate = true;
-                selected[selection_index].GetComponent<Rigidbody>().useGravity = false;
+                if (selected[selection_index].GetComponent<Rigidbody>()) {
+                    selected[selection_index].GetComponent<Rigidbody>().useGravity = false;
+                }
                 selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
             }
         }
