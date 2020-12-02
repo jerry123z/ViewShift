@@ -11,5 +11,6 @@ public class SpecialDoorTrigger : DoorTrigger
         script = item.GetComponent<RespawnBlock>();
         print(script);
         count = 0;
+        audioSource = GetComponent<AudioSource>();
     }
 }
