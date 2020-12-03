@@ -12,7 +12,7 @@ public class LevelSelectButton : MonoBehaviour
     GameObject[] row1;
 
     const int rows = 1;
-    const int cols = 5;
+    const int cols = 6;
 
     Vector2 positionIndex;
     GameObject currentSlot;
@@ -26,6 +26,7 @@ public class LevelSelectButton : MonoBehaviour
         AddRowToGrid(0, row1);
         positionIndex = new Vector2(0, 0);
         currentSlot = grid[0, 0];
+        isMoving = false;
     }
 
     public void AddRowToGrid(int index, GameObject[] row)
@@ -63,6 +64,10 @@ public class LevelSelectButton : MonoBehaviour
         if (Input.GetButtonDown("Jump"))
         {
             LoadLevel();
+        }
+        if (Input.GetButtonDown("Select In View"))
+        {
+            SceneManager.LoadScene(0);
         }
     }
 
@@ -131,12 +136,14 @@ public class LevelSelectButton : MonoBehaviour
             currentSlot = grid[(int)positionIndex.y, (int)positionIndex.x];
             Selector.transform.position = currentSlot.transform.position;
 
-            Invoke("ResetMoving", 0.2f);
+            StartCoroutine(ResetMoving());
         }
     }
 
-    public void ResetMoving()
+    IEnumerator ResetMoving()
     {
+        print("resetting");
+        yield return new WaitForSecondsRealtime(0.2f);
         isMoving = false;
     }
 

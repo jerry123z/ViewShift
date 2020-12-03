@@ -11,6 +11,8 @@ public class TitleScreenController : MonoBehaviour
     private GameObject options;
     private GameObject exit;
     private int index;
+    public AudioClip moveSfx;
+    protected AudioSource audioSource;
 
     bool isMoving;
 
@@ -22,6 +24,7 @@ public class TitleScreenController : MonoBehaviour
         exit = GameObject.Find("/Title Screen/Exit/Functionality");
         isMoving = false;
         index = 1;
+        audioSource = GetComponent<AudioSource>();
 
         if (keyMap)
         {
@@ -46,23 +49,24 @@ public class TitleScreenController : MonoBehaviour
 
     private void Update()
     {
-        float yAxis = Input.GetAxisRaw("Vertical");
-        if (Input.GetButtonDown("Cancel"))
+        float xAxis = Input.GetAxisRaw("Horizontal");
+        if (Input.GetButtonDown("Select In View"))
         {
             keyMap.SetActive(false);
         }
-        if (Input.GetButtonDown("Submit"))
+
+        if (Input.GetButtonDown("Jump"))
         {
             functions(index);
         }
 
-        if (yAxis > 0)
+        if (xAxis > 0)
         {
-            Select("up");
+            Select("right");
         }
-        else if (yAxis < 0)
+        else if (xAxis < 0)
         {
-            Select("down");
+            Select("left");
         }
     }
 
@@ -70,18 +74,21 @@ public class TitleScreenController : MonoBehaviour
     {
         if (isMoving == false)
         {
+            
             isMoving = true;
-            if (direction == "up")
+            if (direction == "right" && index < 3)
             {
-                index -= 1;
-            }
-            else if (direction == "down")
-            {
+                audioSource.PlayOneShot(moveSfx, 0.7f);
                 index += 1;
+            }
+            else if (direction == "left" && index > 1)
+            {
+                audioSource.PlayOneShot(moveSfx, 0.7f);
+                index -= 1;
             }
             MoveSelector(index);
 
-            StartCoroutine(ResetMove(0.2f));
+            StartCoroutine(ResetMove(0.3f));
         }
     }
 

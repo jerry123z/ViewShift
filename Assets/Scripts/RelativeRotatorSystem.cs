@@ -11,7 +11,7 @@ using System.Runtime.InteropServices;
 
 public class RelativeRotatorSystem : MonoBehaviour
 {
-    static List<GameObject> selected;
+    public static List<GameObject> selected;
     static int selection_index;
 
     void Start()
@@ -19,6 +19,13 @@ public class RelativeRotatorSystem : MonoBehaviour
         selected = new List<GameObject>();
         selection_index = 0;
     }
+
+    void Update() {
+        if (selected != null && selected.Count > 0){
+            selected[0].GetComponent<Rigidbody>().velocity = Vector3.zero;
+        }
+    }
+
 
     public static void RotateAll(GameObject center)
     {
@@ -47,6 +54,47 @@ public class RelativeRotatorSystem : MonoBehaviour
         }
     }
 
+    public static void SelectAllInDirection(Vector3 position, Vector3 direction)
+    {
+        if (selected != null && selected.Count > 0)
+        {
+            List<GameObject> inDirection = new List<GameObject>();
+            //foreach (GameObject possible in selected)
+            //{
+            //    if (Vector3.Dot((possible.transform.position - position), direction) >= 0)
+            //    {
+            //        inDirection.Add(possible);
+            //    }
+            //}
+            RaycastHit hit;
+            int mask = LayerMask.GetMask("PushableBlock");
+            if (Physics.SphereCast(position, 0.5f, direction, out hit, direction.magnitude, mask))
+            {
+                inDirection.Add(hit.transform.gameObject);
+            }
+
+            if (inDirection.Count > 0)
+            {
+                ReleaseAll();
+                selected = inDirection;
+                foreach (GameObject child in selected)
+                {
+                    // need a different glow for selecting
+                    child.GetComponent<Animator>().SetBool("Glow", true);
+                }
+                RelativeRotatorData rrd = selected[selection_index].GetComponent<RelativeRotatorData>();
+                rrd.willRotate = true;
+                if (selected[selection_index].GetComponent<Rigidbody>()) {
+                    selected[selection_index].GetComponent<Rigidbody>().useGravity = false;
+                    // selected[selection_index].GetComponent<Rigidbody>().velocity = Vector3.zero;
+                    selected[selection_index].GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+                }
+                selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
+            }
+        }
+    }
+
+
     public static void SelectAllInView(Vector3 position, double ViewRadius)
     {
         GameObject relativeRotators = GameObject.Find("RelativeRotators");
@@ -56,7 +104,8 @@ public class RelativeRotatorSystem : MonoBehaviour
 
         foreach (Transform child in transforms)
         {
-            if ((child.position - position).magnitude <= ViewRadius) {
+            if ((child.position - position).magnitude <= ViewRadius)
+            {
                 // should also check that there's no wall between player and object candidate (raycast from position)
                 selected.Add(child.gameObject);
 
@@ -64,19 +113,16 @@ public class RelativeRotatorSystem : MonoBehaviour
                 child.gameObject.GetComponent<Animator>().SetBool("Glow", true);
             }
         }
-        print("selected.count: " + selected.Count);
-        if (selected.Count > 0)
-        {
-            RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
-            rrd.willRotate = true;
-            selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
-        }
+        //if (selected.Count > 0)
+        //{
+        //    RelativeRotatorData rrd = selected[0].GetComponent<RelativeRotatorData>();
+        //    rrd.willRotate = true;
+        //    selected[selection_index].GetComponent<Animator>().SetBool("Selected", true);
+        //}
     }
 
     public static void Scroll()
     {
-        print("currently selecting: " + selection_index);
-        print("selected.count: " + selected.Count);
         if (selected.Count > 0)
         {
             GameObject child;
@@ -86,12 +132,11 @@ public class RelativeRotatorSystem : MonoBehaviour
             rrd = child.gameObject.GetComponent<RelativeRotatorData>();
             rrd.willRotate = false;
             child.GetComponent<Animator>().SetBool("Selected", false);
-
             selection_index = (selection_index + 1) % selected.Count;
-
             child = selected[selection_index];
             rrd = child.GetComponent<RelativeRotatorData>();
             rrd.willRotate = true;
+            child.GetComponent<Rigidbody>().useGravity = rrd.usesGravity;
             child.gameObject.GetComponent<Animator>().SetBool("Selected", true);
         }
     }
@@ -104,33 +149,44 @@ public class RelativeRotatorSystem : MonoBehaviour
         {
             var rrd = child.gameObject.GetComponent<RelativeRotatorData>();
             rrd.willRotate = false;
+            if (child.gameObject.GetComponent<Rigidbody>()) {
+                child.gameObject.GetComponent<Rigidbody>().useGravity = rrd.usesGravity;
+            }
             child.gameObject.GetComponent<Animator>().SetBool("Glow", false);
             child.gameObject.GetComponent<Animator>().SetBool("Selected", false);
         }
+        selected = null;
     }
 
     public static void Unfreeze()
     {
-        GameObject relativeRotators = GameObject.Find("RelativeRotators");
-        Transform transforms = relativeRotators.GetComponent<Transform>();
-        foreach (Transform child in transforms)
-        {
-            if (child.gameObject.GetComponent<Rigidbody>()) {
-                child.gameObject.GetComponent<Rigidbody>().useGravity = true;
-            }
-        }
+        // GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        // Transform transforms = relativeRotators.GetComponent<Transform>();
+        // foreach (Transform child in transforms)
+        // {
+        //     if (child.gameObject.GetComponent<Rigidbody>()) {
+        //         // child.gameObject.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+        //         // child.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None;
+        //         // var rrd = child.gameObject.GetComponent<RelativeRotatorData>();
+        //         // child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        //         // child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+        //     }
+        // }
     }
 
     public static void Freeze()
     {
-        GameObject relativeRotators = GameObject.Find("RelativeRotators");
-        Transform transforms = relativeRotators.GetComponent<Transform>();
-        foreach (Transform child in transforms)
-        {
-            if (child.gameObject.GetComponent<Rigidbody>())
-            {
-                child.gameObject.GetComponent<Rigidbody>().useGravity = false;
-            }
-        }
+        // GameObject relativeRotators = GameObject.Find("RelativeRotators");
+        // Transform transforms = relativeRotators.GetComponent<Transform>();
+        // foreach (Transform child in transforms)
+        // {
+        //     if (child.gameObject.GetComponent<Rigidbody>())
+        //     {
+        //         // child.gameObject.GetComponent<Rigidbody>().useGravity = false;
+        //         // child.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //         // child.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
+        //         child.gameObject.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeAll;
+        //     }
+        // }
     }
 }

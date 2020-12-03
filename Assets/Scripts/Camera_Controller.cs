@@ -3,7 +3,7 @@
 public class Camera_Controller : MonoBehaviour
 {
     public Transform center;
-    public Vector3 orientation;
+    public Vector3Int orientation;
     public Vector3 top_face;
     public Vector3 height;
     private Quaternion isometricOffset;   
@@ -23,11 +23,11 @@ public class Camera_Controller : MonoBehaviour
     void Start()
     {
         top_face = new Vector3(0, 1, 0);
-        scale = 10f;
+        scale = 30f;
         speed = 3f;
         direction = -1f;
-        orientation =  new Vector3(1, 0, 0);
-        height = new Vector3 (0,6,0);
+        orientation =  new Vector3Int(1, 0, 0);
+        height = new Vector3 (0,18,0);
         center = player.GetComponent<Transform>();
         isometricOffset = Quaternion.Euler(0, -45, 0);
         transform.position = height + center.position +  scale * (isometricOffset * orientation);
@@ -44,9 +44,9 @@ public class Camera_Controller : MonoBehaviour
     void rotate(Vector3 direction)
     {
         if (direction == Vector3.left){
-            orientation = Quaternion.Euler(0, 90, 0) * orientation;
+            orientation = Vector3Int.RoundToInt(Quaternion.Euler(0, 90, 0) * orientation);
         } else if (direction == Vector3.right){
-            orientation = Quaternion.Euler(0, -90, 0) * orientation;
+            orientation = Vector3Int.RoundToInt(Quaternion.Euler(0, -90, 0) * orientation);
         }
     }
 
@@ -70,51 +70,67 @@ public class Camera_Controller : MonoBehaviour
         }
 
         //if (Input.GetButtonDown("Fire Out")){
-        //    var transform = player.GetComponent<Transform>();
-        //    Ray ray = new Ray(transform.position, transform.forward);
-        //    RaycastHit hit;
-        //    if (Physics.Raycast(ray, out hit)){
-        //        DrawLine(transform.position, hit.point, Color.red, 0.1f);
-        //        if (hit.transform.gameObject.CompareTag("RelativeRotator"))
-        //        {
-        //            var rrd = hit.transform.gameObject.GetComponent<RelativeRotatorData>();
-        //            rrd.willRotate = !(rrd.willRotate);
-        //            var glow = !hit.transform.gameObject.GetComponent<Animator>().GetBool("Glow");
-        //            hit.transform.gameObject.GetComponent<Animator>().SetBool("Glow", glow);
-        //        } else {
-        //            //center.GetComponent<Animator>().SetBool("Glow", false);
-        //            center = hit.transform.parent;
-        //            //center.GetComponent<Animator>().SetBool("Glow", true);
-        //        }
-        //    }
-        //}
+        //if (Input.GetMouseButtonDown(0)) { 
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+
+        //Vector3 mouse_pos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        //Vector3 direction = mouse_pos - player.transform.position;
+
+
+        Vector3 C = Vector3.zero;
+        Quaternion offset = Quaternion.Euler(0, -45, 0);
+        //print(Input.GetAxis("FireHorizontal") + " " + Input.GetAxis("FireVertical"));
+        float horizontal = Input.GetAxis("FireHorizontal");
+        float vertical = Input.GetAxis("FireVertical");
+        C = Vector3.zero;
+        C += Input.GetAxis("FireHorizontal") * Vector3.Cross(-1 * up, offset * orientation);
+        C += Input.GetAxis("FireVertical") * (offset * orientation);
+        if (C.magnitude >= 0.2)
+        {
+            C = (scale * 0.6f) * C.normalized;
+            var player_transform = player.GetComponent<Transform>();
+            Vector3 B = player_transform.position;
+            RelativeRotatorSystem.SelectAllInDirection(B, C);
+            //DrawLine(B, B + C, Color.red, 0.1f);
+        }
+
         //if (Input.GetButtonDown("Fire Self")){
-        //    //center.GetComponent<Animator>().SetBool("Glow", false);
+            //center.GetComponent<Animator>().SetBool("Glow", false);
         //    center = player.GetComponent<Transform>();
         //    print(center.position);
         //}
 
-        if (Input.GetButtonDown("Fire Self"))
+        if (Input.GetButtonDown("Select In View"))
         {
             // need to tweak ViewRadius parameter later to fit into stuff thats within view
-            RelativeRotatorSystem.SelectAllInView(player.transform.position, scale * 1.4);
+            if (RelativeRotatorSystem.selected != null && RelativeRotatorSystem.selected.Count > 0)
+            {
+                print("releasing all");
+                RelativeRotatorSystem.ReleaseAll();
+            }
+            else
+            {
+                print("selecting in view");
+                RelativeRotatorSystem.SelectAllInView(player.transform.position, scale * 2);
+            }
         }
 
-        if (Input.GetButtonDown("Fire Out"))
-        {
-            RelativeRotatorSystem.Scroll();
-        }
+        //if (Input.GetButtonDown("Fire Out"))
+        //{
+        //    RelativeRotatorSystem.Scroll();
+        //}
 
 
-        if (Input.GetButtonDown("Reset All"))
-        {
-            RelativeRotatorSystem.ReleaseAll();
-        }
+        //if (Input.GetButtonDown("Reset All"))
+        //{
+        //    RelativeRotatorSystem.ReleaseAll();
+        //}
 
         if (Input.GetButtonDown("Rotate Right"))
         {
             if (transform.position == height + center.position + scale * (isometricOffset * orientation) && isRotating == false)
             {
+                print(rotateClip1);
                 audioSource.PlayOneShot(rotateClip1, 0.5f);
                 isRotating = true;
                 transform.position = height + center.position + scale * (isometricOffset * orientation);
@@ -161,7 +177,7 @@ public class Camera_Controller : MonoBehaviour
         myLine.AddComponent<LineRenderer>();
         LineRenderer lr = myLine.GetComponent<LineRenderer>();
         lr.material = new Material(Shader.Find("Specular"));
-        print(Shader.Find("Specular").name);
+        //print(Shader.Find("Specular").name);
         lr.startColor = color;
         lr.endColor = color;
         lr.startWidth = 0.1f;

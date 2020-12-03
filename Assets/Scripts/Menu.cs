@@ -78,7 +78,7 @@ public class Menu : MonoBehaviour
         if (pauseScreen.activeSelf)
         {
             float yAxis = Input.GetAxisRaw("Vertical");
-            if (Input.GetButtonDown("Submit"))
+            if (Input.GetButtonDown("Jump"))
             {
                 functions(index);
             }

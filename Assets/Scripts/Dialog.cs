@@ -14,7 +14,7 @@ public class Dialog : MonoBehaviour
     private Transform[] cubes;
     public GameObject player;
     private int index;
-    private int lineIndex;
+    public int lineIndex;
     public float cubeSize;
     public float typingSpeed;
     public Camera mainCam;
@@ -26,6 +26,11 @@ public class Dialog : MonoBehaviour
     Coroutine wait = null;
     Coroutine freezing = null;
 
+    public AudioClip typing;
+    private AudioSource audioSource;
+    public float volume = 0.2f;
+    public GameObject rock;
+
     private void Start()
     {
         dialog = GameObject.Find("/Dialog/Dialogues");
@@ -33,6 +38,8 @@ public class Dialog : MonoBehaviour
         finishLine = GameObject.Find("/Anchors/finish line");
         cubes = GameObject.Find("/Level Objects/Standing Places").GetComponentsInChildren<Transform>();
         mainCam = GameObject.Find("/Main Camera").GetComponent<Camera>();
+        audioSource = GetComponent<AudioSource>();
+
         for(int a = 0; a < cubes.Length-1; a++)
         {
             cubes[a] = cubes[a + 1];
@@ -48,8 +55,11 @@ public class Dialog : MonoBehaviour
         {
             StopCoroutine(typeCoroutine);
         }
+        audioSource.clip = typing;
+        audioSource.volume = volume;
+        audioSource.loop = true;
         typeCoroutine = StartCoroutine(Type());
-        
+        rock.SetActive(false);
     }
 
     private void Update()
@@ -57,26 +67,33 @@ public class Dialog : MonoBehaviour
         playerPos = player.transform.position;
         if (textDisplay.text == sentences[index])
         {
+            audioSource.Stop();
             continueBtn.SetActive(true);
         }
         if (!dialog.activeSelf && wait == null && finished == false)
         {
+            player.GetComponent<PlayerMover>().enabled = true;
             print(lineIndex);
-            if(lineIndex != 4)
+            if(lineIndex == 4)
             {
-                wait = StartCoroutine(WaitForPosition());
-            } else
+                wait = StartCoroutine(WaitForSelection());
+            } else if (lineIndex == 5)
             {
                 wait = StartCoroutine(WaitForRotation());
+            } else
+            {
+                wait = StartCoroutine(WaitForPosition());
             }
             
             freezing = null;
             Time.timeScale = 1;
         } else if (!dialog.activeSelf && wait == null && finished)
         {
+            player.GetComponent<PlayerMover>().enabled = true;
             Time.timeScale = 1;
         }
-        if (Input.GetButtonDown("Submit") && continueBtn.activeSelf)
+
+        if (Input.GetButtonDown("Jump") && continueBtn.activeSelf && dialog.activeSelf)
         {
             NextSentence();
         }
@@ -85,6 +102,11 @@ public class Dialog : MonoBehaviour
 
     IEnumerator Type()
     {
+        audioSource.Play();
+        if (index != 0)
+        {
+            player.GetComponent<PlayerMover>().enabled = false;
+        }
         if (Time.timeScale > 0)
         {
             Time.timeScale = 0;
@@ -99,6 +121,7 @@ public class Dialog : MonoBehaviour
     public void NextSentence()
     {
         continueBtn.SetActive(false);
+
         if (index < sentences.Length-1)
         {
             index += 1;
@@ -107,6 +130,8 @@ public class Dialog : MonoBehaviour
                 lineIndex += 1;
                 removeAllPlaces();
                 dialog.SetActive(false);
+                textDisplay.text = "";
+                return;
             }
             textDisplay.text = "";
             if (typeCoroutine != null)
@@ -114,6 +139,7 @@ public class Dialog : MonoBehaviour
                 StopCoroutine(typeCoroutine);
             }
             typeCoroutine = StartCoroutine(Type());
+            
         } else
         {
             dialog.SetActive(false);
@@ -123,12 +149,11 @@ public class Dialog : MonoBehaviour
 
     IEnumerator WaitForPosition()
     {
-        print("waiting");
         Transform cube = cubes[lineIndex-1];
         cube.gameObject.SetActive(true);
         Vector3 designatedPos = cube.position;
         yield return new WaitUntil(() => checkPosition(designatedPos, playerPos));
-        if(freezing == null)
+        if (freezing == null)
         {
             freezing = StartCoroutine(freezeAndActive());
         }
@@ -136,7 +161,6 @@ public class Dialog : MonoBehaviour
 
     IEnumerator WaitForRotation()
     {
-        print("waitingRotate");
         yield return new WaitUntil(() => rotate());
         if (freezing == null)
         {
@@ -144,12 +168,26 @@ public class Dialog : MonoBehaviour
         }
     }
 
+    IEnumerator WaitForSelection()
+    {
+        rock.SetActive(true);
+        yield return new WaitUntil(() => selection());
+        if (freezing == null)
+        {
+            freezing = StartCoroutine(freezeAndActive());
+        }
+    }
+
+    public bool selection()
+    {
+        RelativeRotatorData rrd = rock.GetComponent<RelativeRotatorData>();
+        return rrd.willRotate;
+    }
+
     public bool rotate()
     {
-        Vector3 facing = mainCam.transform.forward;
-        float curDirZ = -1 * Mathf.Round(cameraDirection.z * 10.0f) * 0.1f;
-        float facingZ = Mathf.Round(facing.z * 10.0f) * 0.1f;
-        bool result = facingZ == curDirZ;
+        Vector3 facing = mainCam.GetComponent<Camera_Controller>().orientation;
+        bool result = facing == new Vector3(-1,0,0) || facing == new Vector3(0, 0, -1);
         return result;
     }
 
