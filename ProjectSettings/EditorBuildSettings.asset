@@ -27,6 +27,9 @@ EditorBuildSettings:
     path: Assets/Scenes/RampHillLvl.unity
     guid: 966377469ba993d4385d26f222ab654b
   - enabled: 1
+    path: Assets/Scenes/RespawnButtonLevel.unity
+    guid: 18eabbc25730a804399d6ba8040925f6
+  - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: c160c7d5f47be2246ba66c7caae8b569
   m_configObjects: {}
