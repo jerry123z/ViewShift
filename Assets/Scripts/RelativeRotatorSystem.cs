@@ -18,6 +18,7 @@ public class RelativeRotatorSystem : MonoBehaviour
     {
         selected = new List<GameObject>();
         selection_index = 0;
+        AudioClip slideSfx = (AudioClip)Resources.Load("RockSliding", typeof(AudioClip));
     }
 
     // void Update() {
@@ -69,6 +70,11 @@ public class RelativeRotatorSystem : MonoBehaviour
             RaycastHit hit;
             int mask = LayerMask.GetMask("PushableBlock");
             if (Physics.SphereCast(position, 0.5f, direction, out hit, direction.magnitude, mask))
+            {
+                inDirection.Add(hit.transform.gameObject);
+            }
+            Ray ray = new Ray(position, direction);
+            if (Physics.Raycast(ray, out hit, 0.5f, mask))
             {
                 inDirection.Add(hit.transform.gameObject);
             }
@@ -151,6 +157,7 @@ public class RelativeRotatorSystem : MonoBehaviour
             rrd.willRotate = false;
             if (child.gameObject.GetComponent<Rigidbody>()) {
                 child.gameObject.GetComponent<Rigidbody>().useGravity = true;
+                child.gameObject.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
                 // child.gameObject.GetComponent<Rigidbody>().useGravity = rrd.usesGravity;
             }
             child.gameObject.GetComponent<Animator>().SetBool("Glow", false);

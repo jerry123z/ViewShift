@@ -7,11 +7,13 @@ using UnityEngine.EventSystems;
 public class TitleScreenController : MonoBehaviour
 {
     private GameObject keyMap;
+    private GameObject optionScreen;
     private GameObject newGame;
     private GameObject options;
     private GameObject exit;
     private int index;
     public AudioClip moveSfx;
+    public AudioClip selectSfx;
     protected AudioSource audioSource;
 
     bool isMoving;
@@ -19,6 +21,7 @@ public class TitleScreenController : MonoBehaviour
     private void Start()
     {
         keyMap = GameObject.Find("/Title Screen/KeyMapping");
+        optionScreen = GameObject.Find("/Title Screen/Option Screen");
         newGame = GameObject.Find("/Title Screen/New Game/Functionality");
         options = GameObject.Find("/Title Screen/Options/Functionality");
         exit = GameObject.Find("/Title Screen/Exit/Functionality");
@@ -30,6 +33,10 @@ public class TitleScreenController : MonoBehaviour
         {
             keyMap.SetActive(false);
         }
+        if (optionScreen)
+        {
+            optionScreen.SetActive(false);
+        }
         MoveSelector(index);
     }
     public void startGame()
@@ -39,7 +46,7 @@ public class TitleScreenController : MonoBehaviour
 
     public void option()
     {
-        keyMap.SetActive(true);
+        optionScreen.SetActive(true);
     }
 
     public void quitGame()
@@ -52,11 +59,12 @@ public class TitleScreenController : MonoBehaviour
         float xAxis = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Select In View"))
         {
-            keyMap.SetActive(false);
+            optionScreen.SetActive(false);
         }
 
         if (Input.GetButtonDown("Jump"))
         {
+            audioSource.PlayOneShot(selectSfx, 0.2f);
             functions(index);
         }
 
@@ -78,12 +86,12 @@ public class TitleScreenController : MonoBehaviour
             isMoving = true;
             if (direction == "right" && index < 3)
             {
-                audioSource.PlayOneShot(moveSfx, 0.7f);
+                audioSource.PlayOneShot(moveSfx, 0.2f);
                 index += 1;
             }
             else if (direction == "left" && index > 1)
             {
-                audioSource.PlayOneShot(moveSfx, 0.7f);
+                audioSource.PlayOneShot(moveSfx, 0.2f);
                 index -= 1;
             }
             MoveSelector(index);
