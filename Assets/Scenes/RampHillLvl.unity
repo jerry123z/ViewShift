@@ -16563,6 +16563,11 @@ PrefabInstance:
       propertyPath: starting
       value: 
       objectReference: {fileID: 1372638231}
+    - target: {fileID: 8120898267711874263, guid: 4eac3abc3d31cdd43aab35e9cca846ce,
+        type: 3}
+      propertyPath: reset
+      value: 
+      objectReference: {fileID: 8300000, guid: 76c7a51fee7d4f5499ae6a9a550fdbde, type: 3}
     - target: {fileID: 8120898267711874265, guid: 4eac3abc3d31cdd43aab35e9cca846ce,
         type: 3}
       propertyPath: m_LocalPosition.x
