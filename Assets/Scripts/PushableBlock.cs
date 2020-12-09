@@ -7,14 +7,20 @@ public class PushableBlock : MonoBehaviour
     Rigidbody rb;
     BoxCollider coll1;
     CapsuleCollider coll2;
-    GameObject player;
+    public GameObject player;
     bool held;
     Vector3 normalScale;
+    GameObject instruction;
 
     Vector3 starting;
     // Start is called before the first frame update
     void Start()
     {
+        instruction = GameObject.Find("PickupInstruction");
+        if(instruction.activeSelf)
+        {
+            instruction.SetActive(false);
+        }
         rb = GetComponent<Rigidbody>();
         starting = transform.position;
         rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
@@ -28,7 +34,25 @@ public class PushableBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if ((transform.position - starting).sqrMagnitude > 1000)
+        if (Vector3.Distance(player.transform.position, transform.position) < 1.5)
+        {
+            if (!instruction.activeSelf && !held)
+            {
+                instruction.SetActive(true);
+            }
+            if(held && instruction.activeSelf)
+            {
+                instruction.SetActive(false);
+            }
+        }
+        else
+        {
+            if (instruction.activeSelf)
+            {
+                instruction.SetActive(false);
+            }
+        }
+        if ((transform.position.y - starting.y) < - 200)
         {
             transform.position = starting + Vector3.up;
         }
@@ -39,13 +63,12 @@ public class PushableBlock : MonoBehaviour
             coll2.enabled = true;
             rb.useGravity = true;
             held = false;
-            //transform.parent = GameObject.Find("RelativeRotators").transform;
             transform.localScale = normalScale;
-            transform.position = transform.position + player.transform.rotation*(new Vector3(0f, 0.2f, 0.5f));
+            transform.position = transform.position + player.transform.rotation*(new Vector3(0f, 0.1f, 0.2f));
         }
         else if (held)
         {
-            Vector3 offset = new Vector3(0f, 0f, 0.5f);
+            Vector3 offset = new Vector3(0f, 0.5f, 0.7f);
             offset = player.transform.rotation * offset;
             transform.position = player.transform.position + offset;
             transform.rotation = player.transform.rotation;
@@ -55,19 +78,6 @@ public class PushableBlock : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         GameObject other = collision.gameObject;
-        if (other.layer == 10)
-        {
-            double distx = Mathf.Abs(other.transform.position.x - transform.position.x);
-            double distz = Mathf.Abs(other.transform.position.z - transform.position.z);
-
-            //if (distx <= distz)
-            //{
-            //    rb.constraints = RigidbodyConstraints.FreezeAll & ~RigidbodyConstraints.FreezePositionZ;
-            //} else if (distz <= distx)
-            //{
-            //    rb.constraints = RigidbodyConstraints.FreezeAll & ~RigidbodyConstraints.FreezePositionX;
-            //}
-        }
         if (Input.GetAxis("Hold") > 0f && other == GameObject.Find("Player"))
         {
             coll1.enabled = false;
@@ -75,7 +85,7 @@ public class PushableBlock : MonoBehaviour
             rb.useGravity = false;
             held = true;
             //transform.parent = player.transform;
-            transform.localScale = normalScale * 0.75f;
+            //transform.localScale = normalScale * 0.75f;
         }
     }
 
@@ -95,7 +105,7 @@ public class PushableBlock : MonoBehaviour
             rb.useGravity = false;
             held = true;
             //transform.parent = player.transform;
-            transform.localScale = normalScale * 0.75f;
+            //transform.localScale = normalScale * 0.75f;
         }
     }
 
