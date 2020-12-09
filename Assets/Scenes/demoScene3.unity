@@ -2182,6 +2182,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Right_Leg
       objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 84d4231af0cdd2548b58328f51314a5f,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 84d4231af0cdd2548b58328f51314a5f, type: 3}
 --- !u!1 &283171401
@@ -9249,7 +9254,7 @@ PrefabInstance:
     - target: {fileID: -8679921383154817045, guid: 0e503cd1801dea54193d8aea1af0407e,
         type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 0e503cd1801dea54193d8aea1af0407e,
         type: 3}
@@ -9270,6 +9275,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Robot_Yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: 0e503cd1801dea54193d8aea1af0407e,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0e503cd1801dea54193d8aea1af0407e, type: 3}
