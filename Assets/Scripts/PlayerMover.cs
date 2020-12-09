@@ -86,7 +86,7 @@ public class PlayerMover : MonoBehaviour
         //print(Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)));
         if (Physics.Raycast(ray, out hit, (float)(distToGround)))
         {
-            if (hit.transform.parent != null)
+            //if (hit.transform.parent != null)
             if (hit.transform.gameObject.CompareTag("RotatorZone") && hit.transform.gameObject != touching)
             {
                 RemoveOutline();
@@ -111,6 +111,9 @@ public class PlayerMover : MonoBehaviour
             {
                 RemoveOutline();
             }
+        } else
+        {
+            RemoveOutline();
         }
         return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround)) ||
         Physics.Raycast(transform.position + new Vector3(0, 0, 0.5f), -Vector3.up, (float)(distToGround)) ||
