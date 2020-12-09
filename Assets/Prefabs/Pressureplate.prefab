@@ -236,7 +236,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   item: {fileID: 0}
-  push: {fileID: 8300000, guid: 66921c2cb35f078428cb43ac1f426068, type: 3}
+  pressSFX: {fileID: 8300000, guid: 66921c2cb35f078428cb43ac1f426068, type: 3}
 --- !u!95 &3716840451081184522
 Animator:
   serializedVersion: 3

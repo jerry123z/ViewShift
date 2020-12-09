@@ -22,7 +22,9 @@ public class PlayerMover : MonoBehaviour
     public AudioClip jump;
     public AudioClip land;
     public AudioClip fall;
+    public AudioClip reset;
     private AudioSource audioSource;
+    private bool _respawning;
 
     void Start()
     {
@@ -32,14 +34,21 @@ public class PlayerMover : MonoBehaviour
         bc = transform.GetComponent<BoxCollider>();
         distToGround = bc.bounds.extents.y;
         audioSource = GetComponent<AudioSource>();
+        _respawning = false;
     }
 
     void Update()
     {
-        _isGrounded = checkBottom();
+        if (checkBottom() != _isGrounded)
+        {
+            _isGrounded = !_isGrounded;
+            if (_body.velocity.y < -3) { 
+                audioSource.PlayOneShot(land, 0.7f);
+            }
+        }
         Quaternion offset = Quaternion.Euler(0, -45, 0);
         _inputs = Vector3.zero;
-        _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(-1 * cam.GetComponent<Camera_Controller>().up, offset * cam.GetComponent<Camera_Controller>().orientation);
+        _inputs += Input.GetAxis("Horizontal") * Vector3.Cross(-1 * Vector3.up, offset * cam.GetComponent<Camera_Controller>().orientation);
         _inputs += Input.GetAxis("Vertical") * -1 * (offset* cam.GetComponent<Camera_Controller>().orientation);
 
         //print(_inputs);
@@ -49,27 +58,33 @@ public class PlayerMover : MonoBehaviour
         if (Input.GetButtonDown("Jump") && _isGrounded)
         {
             audioSource.PlayOneShot(jump, 0.5f);
-            _body.AddForce(5f * cam.GetComponent<Camera_Controller>().up * Mathf.Sqrt(JumpHeight), ForceMode.VelocityChange);
+            _body.AddForce(5f * Vector3.up * Mathf.Sqrt(JumpHeight), ForceMode.VelocityChange);
         }
 
-        if ((transform.position - starting.transform.position).sqrMagnitude > 1000)
+        if ((transform.position.y - starting.transform.position.y) < -2 && !_respawning)
         {
             audioSource.PlayOneShot(fall, 0.7f);
-            transform.position = starting.transform.position + Vector3.up * 2;
-            cam.GetComponent<Camera_Controller>().up = Vector3.up;
-            Physics.gravity = -1 * Vector3.up * 9.8f;
-            _body.velocity = Vector3.zero;
+            _respawning = true;
         }
 
+        if ((transform.position.y - starting.transform.position.y) < -12)
+        {
+            audioSource.PlayOneShot(reset, 0.7f);
+            transform.position = starting.transform.position + Vector3.up * 2;
+            //cam.GetComponent<Camera_Controller>().up = Vector3.up;
+            Physics.gravity = -1 * Vector3.up * 9.8f;
+            _body.velocity = Vector3.zero;
+            _respawning = false;
+        }
     }
 
     bool checkBottom()
     {
-        Ray ray = new Ray(transform.position, -cam.GetComponent<Camera_Controller>().up);
+        Ray ray = new Ray(transform.position, -Vector3.up);
         RaycastHit hit;
 
         //print(Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)));
-        if (Physics.Raycast(ray, out hit, (float)(distToGround + 0.1)))
+        if (Physics.Raycast(ray, out hit, (float)(distToGround)))
         {
             if (hit.transform.parent != null)
             if (hit.transform.gameObject.CompareTag("RotatorZone") && hit.transform.gameObject != touching)
@@ -97,11 +112,11 @@ public class PlayerMover : MonoBehaviour
                 RemoveOutline();
             }
         }
-        return Physics.Raycast(transform.position, -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
-        Physics.Raycast(transform.position + new Vector3(0, 0, 0.5f), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
-        Physics.Raycast(transform.position + new Vector3(0, 0, -0.5f), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
-        Physics.Raycast(transform.position + new Vector3(0.5f, 0, 0), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1)) ||
-        Physics.Raycast(transform.position + new Vector3(-0.5f, 0, 0), -cam.GetComponent<Camera_Controller>().up, (float)(distToGround + 0.1));
+        return Physics.Raycast(transform.position, -Vector3.up, (float)(distToGround)) ||
+        Physics.Raycast(transform.position + new Vector3(0, 0, 0.5f), -Vector3.up, (float)(distToGround)) ||
+        Physics.Raycast(transform.position + new Vector3(0, 0, -0.5f), -Vector3.up, (float)(distToGround)) ||
+        Physics.Raycast(transform.position + new Vector3(0.5f, 0, 0), -Vector3.up, (float)(distToGround)) ||
+        Physics.Raycast(transform.position + new Vector3(-0.5f, 0, 0), -Vector3.up, (float)(distToGround));
     }
 
     void RemoveOutline()
