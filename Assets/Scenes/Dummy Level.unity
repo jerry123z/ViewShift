@@ -10923,6 +10923,11 @@ PrefabInstance:
       propertyPath: m_margin.z
       value: -124.21512
       objectReference: {fileID: 0}
+    - target: {fileID: 3351643927880782951, guid: 59ced171e650e8447945b07e142e1167,
+        type: 3}
+      propertyPath: m_text
+      value: Press A
+      objectReference: {fileID: 0}
     - target: {fileID: 3351643927880782953, guid: 59ced171e650e8447945b07e142e1167,
         type: 3}
       propertyPath: m_AnchoredPosition.x
