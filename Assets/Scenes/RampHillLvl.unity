@@ -16313,6 +16313,11 @@ PrefabInstance:
       propertyPath: player
       value: 
       objectReference: {fileID: 1690758260}
+    - target: {fileID: 2526030326994873065, guid: ee765e354b20bd445bbb0d722ae9e9aa,
+        type: 3}
+      propertyPath: slidingClip
+      value: 
+      objectReference: {fileID: 8300000, guid: 67b9dedfa5de5534097b2f3d21561a2f, type: 3}
     - target: {fileID: 2526030326994873067, guid: ee765e354b20bd445bbb0d722ae9e9aa,
         type: 3}
       propertyPath: m_Name

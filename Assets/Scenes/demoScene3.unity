@@ -1727,7 +1727,7 @@ MonoBehaviour:
   player: {fileID: 1552592417}
   rotateClip1: {fileID: 8300000, guid: 67b9dedfa5de5534097b2f3d21561a2f, type: 3}
   rotateClip2: {fileID: 8300000, guid: 45e5527441a0fab4296c7cceac20c9c6, type: 3}
-  slidingClip: {fileID: 0}
+  slidingClip: {fileID: 8300000, guid: 67b9dedfa5de5534097b2f3d21561a2f, type: 3}
 --- !u!82 &231727885
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1851,7 +1851,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

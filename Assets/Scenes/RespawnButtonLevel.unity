@@ -26,7 +26,7 @@ RenderSettings:
   m_AmbientIntensity: 1
   m_AmbientMode: 0
   m_SubtractiveShadowColor: {r: 0.42, g: 0.478, b: 0.627, a: 1}
-  m_SkyboxMaterial: {fileID: 2100000, guid: e79deb2e6d4a5b142a0efa22234d22f5, type: 2}
+  m_SkyboxMaterial: {fileID: 2100000, guid: edb0f5d1b07c65c43a15f26a48506007, type: 2}
   m_HaloStrength: 0.5
   m_FlareStrength: 1
   m_FlareFadeSpeed: 3
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 1911871960}
-  m_IndirectSpecularColor: {r: 0.2850272, g: 0.37139374, b: 0.4960116, a: 1}
+  m_IndirectSpecularColor: {r: 0.534237, g: 0.71275187, b: 0.7961424, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -905,7 +905,7 @@ MonoBehaviour:
   player: {fileID: 1552592417}
   rotateClip1: {fileID: 8300000, guid: 67b9dedfa5de5534097b2f3d21561a2f, type: 3}
   rotateClip2: {fileID: 8300000, guid: 45e5527441a0fab4296c7cceac20c9c6, type: 3}
-  slidingClip: {fileID: 0}
+  slidingClip: {fileID: 8300000, guid: 67b9dedfa5de5534097b2f3d21561a2f, type: 3}
 --- !u!82 &231727885
 AudioSource:
   m_ObjectHideFlags: 0
@@ -1029,7 +1029,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 7
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2

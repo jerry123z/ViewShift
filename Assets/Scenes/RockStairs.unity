@@ -3245,7 +3245,7 @@ Light:
   m_Type: 1
   m_Shape: 0
   m_Color: {r: 1, g: 0.95686275, b: 0.8392157, a: 1}
-  m_Intensity: 1
+  m_Intensity: 1.2
   m_Range: 100
   m_SpotAngle: 60
   m_InnerSpotAngle: 21.80208
@@ -4486,7 +4486,7 @@ MonoBehaviour:
   player: {fileID: 1263827063}
   rotateClip1: {fileID: 8300000, guid: 67b9dedfa5de5534097b2f3d21561a2f, type: 3}
   rotateClip2: {fileID: 8300000, guid: 45e5527441a0fab4296c7cceac20c9c6, type: 3}
-  slidingClip: {fileID: 0}
+  slidingClip: {fileID: 8300000, guid: 67b9dedfa5de5534097b2f3d21561a2f, type: 3}
 --- !u!20 &2125436453
 Camera:
   m_ObjectHideFlags: 0
