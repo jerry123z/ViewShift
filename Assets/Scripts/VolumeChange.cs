@@ -17,7 +17,6 @@ public class VolumeChange : MonoBehaviour
     {
         audioSrc = GetComponent<AudioSource>();
         firstPlayInt = PlayerPrefs.GetInt(Firstplay);
-        print(firstPlayInt);
 
         if(firstPlayInt == 0)
         {
@@ -29,7 +28,6 @@ public class VolumeChange : MonoBehaviour
         else
         {
             volume = PlayerPrefs.GetFloat(volumePref);
-            print(volume);
             volumeSlider.value = volume; 
             audioSrc.volume = volumeSlider.value;
         }
