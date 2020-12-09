@@ -10,11 +10,17 @@ public class PushableBlock : MonoBehaviour
     GameObject player;
     bool held;
     Vector3 normalScale;
+    GameObject instruction;
 
     Vector3 starting;
     // Start is called before the first frame update
     void Start()
     {
+        instruction = GameObject.Find("PickupInstruction");
+        if(instruction.activeSelf)
+        {
+            instruction.SetActive(false);
+        }
         rb = GetComponent<Rigidbody>();
         starting = transform.position;
         rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
@@ -31,6 +37,7 @@ public class PushableBlock : MonoBehaviour
         if ((transform.position.y - starting.y) < - 200)
         {
             transform.position = starting + Vector3.up;
+            print("testing");
         }
 
         if (Input.GetAxis("Hold") <= 0f && held)
@@ -53,6 +60,10 @@ public class PushableBlock : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
+        if (!instruction.activeSelf)
+        {
+            instruction.SetActive(true);
+        }
         GameObject other = collision.gameObject;
         if (Input.GetAxis("Hold") > 0f && other == GameObject.Find("Player"))
         {
@@ -68,6 +79,7 @@ public class PushableBlock : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
+        instruction.SetActive(false);
     }
 
     private void OnCollisionStay(Collision collision)
