@@ -28,6 +28,15 @@ public class RobotAnim : MonoBehaviour
             anim.SetBool("IsGrounded", false);
         }
 
+        if (Input.GetButtonDown("Jump"))
+        {
+            anim.SetBool("jumped", true);
+        }
+        else
+        {
+            anim.SetBool("jumped", false);
+        }
+
         // Moving
         playerSpd = playerScr._inputs.magnitude;
         //playerSpd = (new Vector3(player.transform.position.x - playerPos.x, 0, player.transform.position.z - playerPos.z)).magnitude/Time.deltaTime;
