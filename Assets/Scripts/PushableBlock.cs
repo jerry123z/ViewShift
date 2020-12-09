@@ -34,10 +34,27 @@ public class PushableBlock : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (Vector3.Distance(player.transform.position, transform.position) < 1.5)
+        {
+            if (!instruction.activeSelf && !held)
+            {
+                instruction.SetActive(true);
+            }
+            if(held && instruction.activeSelf)
+            {
+                instruction.SetActive(false);
+            }
+        }
+        else
+        {
+            if (instruction.activeSelf)
+            {
+                instruction.SetActive(false);
+            }
+        }
         if ((transform.position.y - starting.y) < - 200)
         {
             transform.position = starting + Vector3.up;
-            print("testing");
         }
 
         if (Input.GetAxis("Hold") <= 0f && held)
@@ -60,10 +77,6 @@ public class PushableBlock : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (!instruction.activeSelf)
-        {
-            instruction.SetActive(true);
-        }
         GameObject other = collision.gameObject;
         if (Input.GetAxis("Hold") > 0f && other == GameObject.Find("Player"))
         {
@@ -79,7 +92,6 @@ public class PushableBlock : MonoBehaviour
     private void OnCollisionExit(Collision collision)
     {
         rb.constraints = RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
-        instruction.SetActive(false);
     }
 
     private void OnCollisionStay(Collision collision)
