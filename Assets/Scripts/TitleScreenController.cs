@@ -12,6 +12,7 @@ public class TitleScreenController : MonoBehaviour
     private GameObject exit;
     private int index;
     public AudioClip moveSfx;
+    public AudioClip selectSfx;
     protected AudioSource audioSource;
 
     bool isMoving;
@@ -57,6 +58,7 @@ public class TitleScreenController : MonoBehaviour
 
         if (Input.GetButtonDown("Jump"))
         {
+            audioSource.PlayOneShot(selectSfx, 0.2f);
             functions(index);
         }
 
@@ -78,12 +80,12 @@ public class TitleScreenController : MonoBehaviour
             isMoving = true;
             if (direction == "right" && index < 3)
             {
-                audioSource.PlayOneShot(moveSfx, 0.7f);
+                audioSource.PlayOneShot(moveSfx, 0.2f);
                 index += 1;
             }
             else if (direction == "left" && index > 1)
             {
-                audioSource.PlayOneShot(moveSfx, 0.7f);
+                audioSource.PlayOneShot(moveSfx, 0.2f);
                 index -= 1;
             }
             MoveSelector(index);

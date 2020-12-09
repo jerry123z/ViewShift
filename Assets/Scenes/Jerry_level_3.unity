@@ -227,7 +227,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8125761}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 46.48469, z: 0}
+  m_LocalPosition: {x: 0, y: 101.00017, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421373034}
@@ -265,7 +265,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3bc6fa55661214749842de9fe3142da8, type: 2}
+  - {fileID: 2100000, guid: f038af7b03f71c04e87bff07fb29b297, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -754,7 +754,7 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 90b0df1fc72264651b1ac89c318264db, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 6fe1be0dafc4eca44a2e2a39b84ca5f9, type: 3}
   m_PlayOnAwake: 1
   m_Volume: 1
   m_Pitch: 1
@@ -874,7 +874,7 @@ Rigidbody:
   m_AngularDrag: 0.05
   m_UseGravity: 1
   m_IsKinematic: 0
-  m_Interpolate: 0
+  m_Interpolate: 1
   m_Constraints: 112
   m_CollisionDetection: 0
 --- !u!114 &74264174
@@ -897,8 +897,8 @@ MonoBehaviour:
   _isGrounded: 1
   touching: {fileID: 0}
   starting: {fileID: 1976128560}
-  jump: {fileID: 8300000, guid: 641505ad0a587c949b95caed7925a44c, type: 3}
-  land: {fileID: 8300000, guid: 8481ff61b8460e6459cdae0bd86bc7ac, type: 3}
+  jump: {fileID: 0}
+  land: {fileID: 0}
   fall: {fileID: 0}
 --- !u!23 &74264175
 MeshRenderer:
@@ -2524,6 +2524,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: 4-Way Gate
       objectReference: {fileID: 0}
+    - target: {fileID: 5206492151824073013, guid: d6729cac1eac8b946a4a6517f487b5a2,
+        type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: f038af7b03f71c04e87bff07fb29b297, type: 2}
     - target: {fileID: 8894072547858550917, guid: d6729cac1eac8b946a4a6517f487b5a2,
         type: 3}
       propertyPath: open
@@ -2708,7 +2713,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421373033}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 1.7282076, y: 1.24, z: 8.00321}
+  m_LocalPosition: {x: 1.7282076, y: 1.63, z: 8.00321}
   m_LocalScale: {x: 0.0150999995, y: 0.0022399998, z: 0.0150999995}
   m_Children:
   - {fileID: 8125762}
@@ -3161,7 +3166,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 474759510}
   m_LocalRotation: {x: 0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0, y: 46.48469, z: 0}
+  m_LocalPosition: {x: -0, y: 101, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 421373034}
@@ -3328,7 +3333,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 3bc6fa55661214749842de9fe3142da8, type: 2}
+  - {fileID: 2100000, guid: f038af7b03f71c04e87bff07fb29b297, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5577,7 +5582,7 @@ PrefabInstance:
     - target: {fileID: 2812556921425323758, guid: 8548a3fe4f9779047bc0775a1c8d7553,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 3.4
+      value: 3.62
       objectReference: {fileID: 0}
     - target: {fileID: 2812556921425323758, guid: 8548a3fe4f9779047bc0775a1c8d7553,
         type: 3}
@@ -5627,7 +5632,7 @@ PrefabInstance:
     - target: {fileID: 2812556921425323758, guid: 8548a3fe4f9779047bc0775a1c8d7553,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 80
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 6956620989245048191, guid: 8548a3fe4f9779047bc0775a1c8d7553,
         type: 3}
@@ -15451,7 +15456,7 @@ PrefabInstance:
     - target: {fileID: 6961747083288621621, guid: 93af26c8411d63b4e90f6a83d37a4400,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.184
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6961747083288621621, guid: 93af26c8411d63b4e90f6a83d37a4400,
         type: 3}

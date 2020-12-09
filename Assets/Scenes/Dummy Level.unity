@@ -2972,7 +2972,7 @@ PrefabInstance:
     - target: {fileID: 6961747083288621621, guid: 93af26c8411d63b4e90f6a83d37a4400,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.184
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6961747083288621621, guid: 93af26c8411d63b4e90f6a83d37a4400,
         type: 3}
@@ -7235,7 +7235,7 @@ MonoBehaviour:
   starting: {fileID: 682448559}
   jump: {fileID: 8300000, guid: 641505ad0a587c949b95caed7925a44c, type: 3}
   land: {fileID: 8300000, guid: 8481ff61b8460e6459cdae0bd86bc7ac, type: 3}
-  fall: {fileID: 0}
+  fall: {fileID: 8300000, guid: 53be6654596f6c748af46ff437cfa013, type: 3}
 --- !u!23 &1690758264
 MeshRenderer:
   m_ObjectHideFlags: 0

@@ -13,7 +13,6 @@ public class RespawnBlock : DoorActions
     // Start is called before the first frame update
     public override void Start()
     {   
-        print("test");
         start_position = transform.position;
     }
 

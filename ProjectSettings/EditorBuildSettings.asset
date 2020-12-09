@@ -27,6 +27,12 @@ EditorBuildSettings:
     path: Assets/Scenes/RampHillLvl.unity
     guid: 966377469ba993d4385d26f222ab654b
   - enabled: 1
+    path: Assets/Scenes/Video Level1.unity
+    guid: bc8ab46ef6e1eaa4faca28629ecfb4dc
+  - enabled: 0
+    path: Assets/Scenes/Video Level3.unity
+    guid: 032d548b34fb8d04aa649efacc51eb61
+  - enabled: 1
     path: Assets/Scenes/LevelSelect.unity
     guid: c160c7d5f47be2246ba66c7caae8b569
   m_configObjects: {}

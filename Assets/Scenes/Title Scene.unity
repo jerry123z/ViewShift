@@ -976,6 +976,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveSfx: {fileID: 8300000, guid: bb6c74487845d6d46a59732e2cf361cb, type: 3}
+  selectSfx: {fileID: 8300000, guid: 472f9a5295cc96c4ea03355b9a159586, type: 3}
 --- !u!4 &1247870352
 Transform:
   m_ObjectHideFlags: 0
