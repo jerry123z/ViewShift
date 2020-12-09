@@ -10764,7 +10764,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 13641edf392f8d54480f57382ce808e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  level: 0
+  level: 6
 --- !u!65 &1455978022
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -12171,6 +12171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5fe6be4d448b3a146b3d2e3552eb2309, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
 --- !u!54 &1644489325
 Rigidbody:
   m_ObjectHideFlags: 0
