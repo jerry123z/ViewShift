@@ -7,7 +7,7 @@ public class PushableBlock : MonoBehaviour
     Rigidbody rb;
     BoxCollider coll1;
     CapsuleCollider coll2;
-    GameObject player;
+    public GameObject player;
     bool held;
     Vector3 normalScale;
     GameObject instruction;

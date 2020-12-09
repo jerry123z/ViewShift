@@ -27,6 +27,7 @@ public class DoorTrigger : MonoBehaviour
             script.Open();
             GetComponent<Animator>().SetBool("Pressed", true);
             audioSource.PlayOneShot(pressSFX, 0.7f);
+            // collision.gameObject.transform.position = transform.position + Vector3.up * 0.5f;
         }
     }
 
