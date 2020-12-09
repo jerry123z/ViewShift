@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class TitleScreenController : MonoBehaviour
 {
     private GameObject keyMap;
+    private GameObject optionScreen;
     private GameObject newGame;
     private GameObject options;
     private GameObject exit;
@@ -20,6 +21,7 @@ public class TitleScreenController : MonoBehaviour
     private void Start()
     {
         keyMap = GameObject.Find("/Title Screen/KeyMapping");
+        optionScreen = GameObject.Find("/Title Screen/Option Screen");
         newGame = GameObject.Find("/Title Screen/New Game/Functionality");
         options = GameObject.Find("/Title Screen/Options/Functionality");
         exit = GameObject.Find("/Title Screen/Exit/Functionality");
@@ -31,6 +33,10 @@ public class TitleScreenController : MonoBehaviour
         {
             keyMap.SetActive(false);
         }
+        if (optionScreen)
+        {
+            optionScreen.SetActive(false);
+        }
         MoveSelector(index);
     }
     public void startGame()
@@ -40,7 +46,7 @@ public class TitleScreenController : MonoBehaviour
 
     public void option()
     {
-        keyMap.SetActive(true);
+        optionScreen.SetActive(true);
     }
 
     public void quitGame()
@@ -53,7 +59,7 @@ public class TitleScreenController : MonoBehaviour
         float xAxis = Input.GetAxisRaw("Horizontal");
         if (Input.GetButtonDown("Select In View"))
         {
-            keyMap.SetActive(false);
+            optionScreen.SetActive(false);
         }
 
         if (Input.GetButtonDown("Jump"))

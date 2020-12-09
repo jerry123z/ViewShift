@@ -1,26 +1,55 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class VolumeChange : MonoBehaviour
 {
+    private static readonly string Firstplay = "Firstplay";
+    private static readonly string volumePref = "volumePref";
+    private int firstPlayInt;
+    public Slider volumeSlider;
+    private float volume;
     private AudioSource audioSrc;
-    private float volume = 1f;
 
     // Start is called before the first frame update
     void Start()
     {
         audioSrc = GetComponent<AudioSource>();
+        firstPlayInt = PlayerPrefs.GetInt(Firstplay);
+        print(firstPlayInt);
+
+        if(firstPlayInt == 0)
+        {
+            volume = .5f;
+            volumeSlider.value = volume;
+            PlayerPrefs.SetFloat(volumePref, volume);
+            PlayerPrefs.SetInt(Firstplay, -1);
+        }
+        else
+        {
+            volume = PlayerPrefs.GetFloat(volumePref);
+            print(volume);
+            volumeSlider.value = volume; 
+            audioSrc.volume = volumeSlider.value;
+        }
     }
 
-    // Update is called once per frame
-    void Update()
+    public void saveSound()
     {
-        audioSrc.volume = volume;
+        PlayerPrefs.SetFloat(volumePref, volumeSlider.value);
     }
 
-    public void setVolume(float vol)
+    private void OnApplicationFocus(bool inFocus)
     {
-        volume = vol;
+        if (!inFocus)
+        {
+            saveSound();
+        }
+    }
+
+    public void UpdateSound()
+    {
+        audioSrc.volume = volumeSlider.value;
     }
 }
