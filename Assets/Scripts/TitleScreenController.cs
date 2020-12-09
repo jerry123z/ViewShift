@@ -27,7 +27,8 @@ public class TitleScreenController : MonoBehaviour
         exit = GameObject.Find("/Title Screen/Exit/Functionality");
         isMoving = false;
         index = 1;
-        audioSource = GetComponent<AudioSource>();
+        GameObject musicplayer = GameObject.Find("MusicPlayer");
+        audioSource = musicplayer.GetComponent<AudioSource>();
 
         if (keyMap)
         {
@@ -41,7 +42,7 @@ public class TitleScreenController : MonoBehaviour
     }
     public void startGame()
     {
-        SceneManager.LoadScene("LevelSelect");
+        SceneManager.LoadScene(1);
     }
 
     public void option()

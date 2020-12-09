@@ -323,6 +323,7 @@ GameObject:
   - component: {fileID: 43948752}
   - component: {fileID: 43948751}
   - component: {fileID: 43948750}
+  - component: {fileID: 43948756}
   m_Layer: 11
   m_Name: ramp
   m_TagString: RelativeRotator
@@ -454,6 +455,25 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 43948748}
   m_Mesh: {fileID: 2508638525246984475, guid: 936a54ff257e2ff4e989a5794719e6fa, type: 3}
+--- !u!114 &43948756
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 43948748}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+  needsUpdate: 1
 --- !u!1001 &50598791
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12124,6 +12144,7 @@ GameObject:
   - component: {fileID: 1644489329}
   - component: {fileID: 1644489326}
   - component: {fileID: 1644489330}
+  - component: {fileID: 1644489331}
   m_Layer: 11
   m_Name: Cube
   m_TagString: RelativeRotator
@@ -12281,6 +12302,25 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &1644489331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1644489321}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5fea29bb7c508c244a1f805a5fd3fc4d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  outlineMode: 1
+  outlineColor: {r: 1, g: 1, b: 1, a: 1}
+  outlineWidth: 6
+  precomputeOutline: 0
+  bakeKeys: []
+  bakeValues: []
+  needsUpdate: 1
 --- !u!4 &1653324471 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2812556921425323758, guid: 8548a3fe4f9779047bc0775a1c8d7553,
