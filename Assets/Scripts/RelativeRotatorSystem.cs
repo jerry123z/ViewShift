@@ -195,7 +195,7 @@ public class RelativeRotatorSystem : MonoBehaviour
                 // child.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 // child.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
                 // child.gameObject.GetComponent<Rigidbody>().velocity = Vector3.zero;
-                // child.gameObject.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.FreezeAll;
+                child.gameObject.GetComponent<Rigidbody>().constraints= RigidbodyConstraints.None | RigidbodyConstraints.FreezeRotation;
             }
         }
     }
